@@ -1,4 +1,3 @@
-import 'package:crackstats/ForgotPassword/SendEmail.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 
@@ -8,26 +7,26 @@ class ForgotPasswordUI extends StatefulWidget {
 }
 
 class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
-
   TextEditingController emailfgtController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body:Center(
-        child: Column(
+        home: Scaffold(
+      body: Center(
+          child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(FORGOTPASSWORDMESSAGE,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+          Text(
+            FORGOTPASSWORDMESSAGE,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
           Container(
-            width: MediaQuery.of(context).size.width / 2,
-            padding: EdgeInsets.only(top: 5, bottom: 5),
-            child: TextField(
+              width: MediaQuery.of(context).size.width / 2,
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              child: TextField(
                 controller: emailfgtController,
                 decoration: InputDecoration(
                   border: new OutlineInputBorder(
@@ -39,9 +38,8 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
             color: PRIMARYCOLOR,
             textColor: WHITE,
             child: Text(SENDCODE),
-            onPressed: () => {
-            SendEmail(emailfgtController.text)
-            },)
+            onPressed: () => {null},
+          )
         ],
       )),
     ));

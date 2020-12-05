@@ -15,13 +15,21 @@ const String TITLE = "Crackstats";
 const String MALE = 'Male';
 const String FEMALE = 'Female';
 const String PASSWORDMATCHNOTICE = 'Passwords Must Match';
-const String PASSWORDREQUIREMENTS = 'PASSWORD MUST BE AT LEAST 6 CHARACTERS LONG';
+const String PASSWORDREQUIREMENTS =
+    'PASSWORD MUST BE AT LEAST 6 CHARACTERS LONG';
 const String INCOMPLETEFIELDSMSG = 'Please fill all fields';
-const String FORGOTPASSWORDMESSAGE = 'If your email is on record, you will' + '\n' 'receive a temporal code.You will be' + '\n' + 'able to log in using that code as a' + '\n' + 'password and change your password' + '\n' +'once you are in.';
+const String FORGOTPASSWORDMESSAGE = 'If your email is on record, you will' +
+    '\n' 'receive a temporal code.You will be' +
+    '\n' +
+    'able to log in using that code as a' +
+    '\n' +
+    'password and change your password' +
+    '\n' +
+    'once you are in.';
 const String SENDCODE = 'Send Code';
+const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
 const PRIMARYCOLOR = Color(0xFF008000);
 const SECUNDARYCOLOR = Colors.white;
 const BLUE = Colors.blue;
 const WHITE = Colors.white;
 const BLACK = Colors.black;
-

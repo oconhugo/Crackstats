@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import './Constants.dart';
 
-class ConnectDB extends StatelessWidget {
-  final TextEditingController email;
-  final TextEditingController password;
-
-  ConnectDB(this.email, this.password);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(email.text),
-    );
+class ConnectDB {
+  Future<List> sendData(name, email) async {
+    final response = await http.post(INSERTDATAURL, body: {
+      "name": name,
+      "email": email,
+    });
   }
 }
