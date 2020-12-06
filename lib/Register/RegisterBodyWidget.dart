@@ -1,6 +1,5 @@
 import 'package:crackstats/Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
-import '../LogIn/LogInUI.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
 
@@ -32,11 +31,22 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
     ),
   ];
 
-  void regButton() {
+  void regButton() async {
+    var result;
     if (areFieldsCorrect()) {
       var insert = new ConnectDB();
-      insert.sendData(registerFields, inputGender);
+      result = await insert.sendData(registerFields, inputGender);
     }
+    if (!isDuplicate(result)) {
+      Navigator.pop(context);
+    }
+  }
+
+  bool isDuplicate(response) {
+    if (response == USERADDED) {
+      return false;
+    }
+    return true;
   }
 
   bool areFieldsCorrect() {
@@ -106,7 +116,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
           child: Text(REGISTER),
           onPressed: () {
             regButton();
-            Navigator.pop(context);
+            //Navigator.pop(context);
           },
         ),
       ],
