@@ -1,6 +1,6 @@
 <?php 
 include "dbconfig.php";
-// REGISTER USER
+// LOG IN
   
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -10,8 +10,8 @@ include "dbconfig.php";
     if($results> 0)
     {
         while($row = $results->fetch_assoc()){
-             echo "email: " . $row["email"];
-             echo "password: " . $row["password"];
+             echo "User exist in database";
+             //echo "password: " . $row['Password'];
         }
     }
     
