@@ -6,7 +6,8 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
           home: Scaffold(
-          body: Center(child: SingleChildScrollView(
+          body: Center(child: 
+          SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
