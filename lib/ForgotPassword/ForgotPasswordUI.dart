@@ -11,8 +11,7 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -42,6 +41,6 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
           )
         ],
       )),
-    ));
+    );
   }
 }

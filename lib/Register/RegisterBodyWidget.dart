@@ -1,5 +1,6 @@
 import 'package:crackstats/Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
+import '../LogIn/LogInUI.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
 
@@ -34,7 +35,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
   void regButton() {
     if (areFieldsCorrect()) {
       var insert = new ConnectDB();
-      insert.sendData(registerFields,inputGender);
+      insert.sendData(registerFields, inputGender);
     }
   }
 
@@ -103,7 +104,10 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
           color: PRIMARYCOLOR,
           textColor: WHITE,
           child: Text(REGISTER),
-          onPressed: regButton,
+          onPressed: () {
+            regButton();
+            Navigator.pop(context);
+          },
         ),
       ],
     ));
