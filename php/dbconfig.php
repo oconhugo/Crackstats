@@ -6,7 +6,6 @@
 
   try {
     $conn = mysqli_connect($server,$username,$password,$database);
-    echo "Connected to the DB <br>";
   } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
   }
