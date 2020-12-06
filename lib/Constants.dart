@@ -28,7 +28,9 @@ const String FORGOTPASSWORDMESSAGE = 'If your email is on record, you will' +
     'once you are in.';
 const String SENDCODE = 'Send Code';
 const String USERADDED = "user added successfully";
+const String USEREXIST = "User exist in database";
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
+const String LOGINUSERCRED = "http://hugoocon.com/login_verify_user.php";
 const PRIMARYCOLOR = Color(0xFF008000);
 const SECUNDARYCOLOR = Colors.white;
 const BLUE = Colors.blue;

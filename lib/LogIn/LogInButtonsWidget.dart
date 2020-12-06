@@ -1,8 +1,9 @@
 import 'package:crackstats/ForgotPassword/ForgotPasswordUI.dart';
-
+import '../ConnectDB.dart';
 import '../Constants.dart';
 import 'package:flutter/material.dart';
 import '../Register/RegisterUI.dart';
+import '../Profile/ProfileUI.dart';
 
 class LogInButtonsWidget extends StatelessWidget {
   final TextEditingController emlController;
@@ -30,15 +31,19 @@ class LogInButtonsWidget extends StatelessWidget {
             color: PRIMARYCOLOR,
             textColor: WHITE,
             child: Text(SIGNIN),
-            onPressed: () {
+            onPressed: () async {
               if (emlController.text.isEmpty || pwdController.text.isEmpty) {
                 Scaffold.of(context).showSnackBar(SnackBar(
                   duration: Duration(seconds: 1),
                   content: Text(INCOMPLETEFIELDSMSG),
                 ));
               } else {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => null));
+                var conn = new ConnectDB();
+                var result = await conn.logInDb(emlController, pwdController);
+                if (result == USEREXIST) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfileUI()));
+                }
               }
             },
           ),

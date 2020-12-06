@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import './Constants.dart';
 
 class ConnectDB {
+  //register a new user
   Future<String> sendData(registerFields, genderinput) async {
     final response = await http.post(
       INSERTDATAURL,
@@ -17,6 +18,17 @@ class ConnectDB {
       },
     );
     return Future.delayed(Duration(seconds: 2), () => response.body);
-    //if (!isDuplicate(response.body)) return response;
+  }
+
+  //Verify if the user exist in the db
+  Future<String> logInDb(email, pswd) async {
+    final response = await http.post(
+      LOGINUSERCRED,
+      body: {
+        "email": email.text,
+        "password": pswd.text,
+      },
+    );
+    return Future.delayed(Duration(seconds: 2), () => response.body);
   }
 }
