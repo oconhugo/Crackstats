@@ -34,7 +34,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
   void regButton() {
     if (areFieldsCorrect()) {
       var insert = new ConnectDB();
-      insert.sendData(registerFields[FIRSTNAME], registerFields[EMAIL]);
+      insert.sendData(registerFields);
     }
   }
 
