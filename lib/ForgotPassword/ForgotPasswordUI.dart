@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
+import 'SendEmail.dart';
 
 class ForgotPasswordUI extends StatefulWidget {
   @override
@@ -37,7 +38,22 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
             color: PRIMARYCOLOR,
             textColor: WHITE,
             child: Text(SENDCODE),
-            onPressed: () => {null},
+            onPressed: ()  async {
+              var mailInstance = new SendEmail(emailfgtController.text);
+              var isSend = await mailInstance.sendmail();
+              print(isSend);
+              if (isSend=='true'){
+                //Scaffold.of(context).showSnackBar(SnackBar(
+                //content: Text(EMAILSENT),
+                //));
+              }
+              else
+              {
+                //Scaffold.of(context).showSnackBar(SnackBar(
+                //content: Text(EMAILNOTSENT),
+                //));
+              }
+            },
           )
         ],
       )),
