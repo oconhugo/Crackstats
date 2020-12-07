@@ -3,6 +3,7 @@ import '../Constants.dart';
 import 'SendEmail.dart';
 import 'ForgotPasswordPopUp.dart';
 import '../ConnectDB.dart';
+import 'package:random_string/random_string.dart';
 
 class ForgotPasswordUI extends StatefulWidget {
   @override
@@ -10,7 +11,9 @@ class ForgotPasswordUI extends StatefulWidget {
 }
 
 class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
+
   TextEditingController emailfgtController = new TextEditingController();
+  String pswCode = randomAlphaNumeric(20);
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +44,11 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
             textColor: WHITE,
             child: Text(SENDCODE),
             onPressed: ()  async {
-              var mailInstance = new SendEmail(emailfgtController.text);
+              var mailInstance = new SendEmail(emailfgtController.text,pswCode);
               var isSend = await mailInstance.sendmail();
               if (isSend=='true'){
                 var chngOnDB = new ConnectDB();
-                chngOnDB.tempPswUpdate(emailfgtController.text);
+                chngOnDB.tempPswUpdate(emailfgtController.text,pswCode);
                 var pswpop = new ForgotPasswordPopUp();
                 pswpop.showMyDialog(context,true);
               }

@@ -1,19 +1,19 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../Constants.dart';
-import 'package:random_string/random_string.dart';
 
 
 class SendEmail{
 
   String usrEmail;
-  SendEmail(this.usrEmail);
+  String pswCode;
+
+  SendEmail(this.usrEmail,this.pswCode);
 
   Future<String> sendmail() async {
 
   String username = CRACKSTATSEMAIL;//Your Email;
   String password = CRACKSTATSEMAILPASSWORD;//Your Email's password;
-  String pswCode = randomAlphaNumeric(20);
   final smtpServer = gmail(username, password); // Creating the Gmail server
   
   // Create our email message.

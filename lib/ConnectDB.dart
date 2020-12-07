@@ -29,4 +29,16 @@ class ConnectDB {
     );
     return Future.delayed(Duration(seconds: 2), () => response.body);
   }
+
+  //Add temporal password to db
+  Future<String> tempPswUpdate(email,pwd) async {
+    final response = await http.post(
+      TEMPORALPASSWORDUPDATEURL,
+      body: {
+        "email": email.text,
+        "password": pwd,
+      },
+    );
+    return Future.delayed(Duration(seconds: 2), () => response.body);
+  }
 }
