@@ -1,6 +1,8 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../Constants.dart';
+import 'package:random_string/random_string.dart';
+
 
 class SendEmail{
 
@@ -11,6 +13,7 @@ class SendEmail{
 
   String username = CRACKSTATSEMAIL;//Your Email;
   String password = CRACKSTATSEMAILPASSWORD;//Your Email's password;
+  String pswCode = randomAlphaNumeric(20);
   final smtpServer = gmail(username, password); // Creating the Gmail server
   
   // Create our email message.
@@ -19,15 +22,15 @@ class SendEmail{
     ..recipients.add(usrEmail) //recipent email
     //..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com']) //cc Recipents emails
     //..bccRecipients.add(Address('bccAddress@example.com')) //bcc Recipents emails
-    ..subject = 'CrackStats Password Recover' //subject of the email
-    ..text = 'ARRIBA LAS AGUILACTICAS'; //body of the email
+    ..subject = EMAILSUBJECT //subject of the email
+    ..text = EMAILBODY + pswCode; //body of the email
   try {
     final sendReport = await send(message, smtpServer);
-    return Future<String>.value('true');
-    //print('Message sent: ' + sendReport.toString()); //print if the email is sent
+    return Future<String>.value(TRUE);
+    print('Message sent: ' + sendReport.toString()); //print if the email is sent
   } on MailerException catch (e) {
-    return Future<String>.value('false');
-    //print('Message not sent. \n'+ e.toString()); //print if the email is not sent
+    return Future<String>.value(FALSE);
+    print('Message not sent. \n'+ e.toString()); //print if the email is not sent
     // e.toString() will show why the email is not sending
   }
 } 

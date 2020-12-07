@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import 'SendEmail.dart';
+import 'ForgotPasswordPopUp.dart';
+import '../ConnectDB.dart';
 
 class ForgotPasswordUI extends StatefulWidget {
   @override
@@ -41,17 +43,16 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
             onPressed: ()  async {
               var mailInstance = new SendEmail(emailfgtController.text);
               var isSend = await mailInstance.sendmail();
-              print(isSend);
               if (isSend=='true'){
-                //Scaffold.of(context).showSnackBar(SnackBar(
-                //content: Text(EMAILSENT),
-                //));
+                var chngOnDB = new ConnectDB();
+                chngOnDB.tempPswUpdate(emailfgtController.text);
+                var pswpop = new ForgotPasswordPopUp();
+                pswpop.showMyDialog(context,true);
               }
               else
               {
-                //Scaffold.of(context).showSnackBar(SnackBar(
-                //content: Text(EMAILNOTSENT),
-                //));
+                var pswpop = new ForgotPasswordPopUp();
+                pswpop.showMyDialog(context,false);
               }
             },
           )
