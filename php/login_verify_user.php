@@ -10,9 +10,7 @@ include "dbconfig.php";
     if($results> 0)
     {
         while($row = $results->fetch_assoc()){
-             if( ($email==$row['Email']) && ($password==$row['Password']) ){
-               echo "User exist in database";
-             }
+             echo "User exist in database";
              //echo "password: " . $row['Password'];
         }
     }
