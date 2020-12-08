@@ -1,4 +1,4 @@
-import 'package:crackstats/Register/RegisterInTxtWidget.dart';
+import '../Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';

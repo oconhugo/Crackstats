@@ -11,7 +11,6 @@ class ForgotPasswordUI extends StatefulWidget {
 }
 
 class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
-
   TextEditingController emailfgtController = new TextEditingController();
   String pswCode = randomAlphaNumeric(20);
 
@@ -43,19 +42,21 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
             color: PRIMARYCOLOR,
             textColor: WHITE,
             child: Text(SENDCODE),
-            onPressed: ()  async {
-              var mailInstance = new SendEmail(emailfgtController.text,pswCode);
+            onPressed: () async {
+              var mailInstance =
+                  new SendEmail(emailfgtController.text, pswCode);
+              var test;
               var isSend = await mailInstance.sendmail();
-              if (isSend=='true'){
+              if (isSend == 'true') {
                 var chngOnDB = new ConnectDB();
-                chngOnDB.tempPswUpdate(emailfgtController.text,pswCode);
+                test =
+                    await chngOnDB.tempPswUpdate(emailfgtController, pswCode);
+                print(test);
                 var pswpop = new ForgotPasswordPopUp();
-                pswpop.showMyDialog(context,true);
-              }
-              else
-              {
+                pswpop.showMyDialog(context, true);
+              } else {
                 var pswpop = new ForgotPasswordPopUp();
-                pswpop.showMyDialog(context,false);
+                pswpop.showMyDialog(context, false);
               }
             },
           )

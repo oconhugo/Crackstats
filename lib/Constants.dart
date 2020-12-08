@@ -31,13 +31,16 @@ const String USERADDED = "user added successfully";
 const String USEREXIST = "User exist in database";
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
 const String LOGINUSERCRED = "http://hugoocon.com/login_verify_user.php";
-const String TEMPORALPASSWORDUPDATEURL = "http://hugoocon.com/update_temp_password.php";
+const String TEMPORALPASSWORDUPDATEURL =
+    "http://hugoocon.com/update_temp_password.php";
 const String CRACKSTATSEMAIL = 'crackstats01@gmail.com';
 const String CRACKSTATSEMAILPASSWORD = 'MessiCrack.10';
 const String EMAILSENT = 'Email Sent';
-const String EMAILSENTMSG = 'Email Sent. Please check spam if not found in inbox.';
+const String EMAILSENTMSG =
+    'Email Sent. Please check spam if not found in inbox.';
 const String EMAILNOTSENT = 'Email Not Sent';
-const String EMAILNOTSENTMSG = 'Email not sent. Please check internet connectiond and that the email inserted is correct';
+const String EMAILNOTSENTMSG =
+    'Email not sent. Please check internet connectiond and that the email inserted is correct';
 const String EMAILBODY = 'Hello,' + '\n\n' + 'Your temporary password is: ';
 const String EMAILSUBJECT = 'CrackStats Password Recover';
 const String TRUE = 'true';
