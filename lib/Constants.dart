@@ -40,7 +40,7 @@ const String EMAILSENTMSG =
     'Email Sent. Please check spam if not found in inbox.';
 const String EMAILNOTSENT = 'Email Not Sent';
 const String EMAILNOTSENTMSG =
-    'Email not sent. Please check internet connectiond and that the email inserted is correct';
+    'Email not sent. Please check internet connection and the email is correct';
 const String EMAILBODY = 'Hello,' + '\n\n' + 'Your temporary password is: ';
 const String EMAILSUBJECT = 'CrackStats Password Recover';
 const String TRUE = 'true';
@@ -48,8 +48,10 @@ const String FALSE = 'false';
 const String OK = 'OK';
 const String NOTREGISTERED = 'ERROR: UNABLE TO REGISTER';
 const String REGISTERED = 'USER REGISTERED';
+const String ALREADYREGISTERED = "user already registered";
 const String REGISTEREDMSG = 'User registered succesfully';
-const String NOTREGISTEREDMSG = 'User unable to register. Email is already in use or internet connection unavailable';
+const String NOTREGISTEREDMSG =
+    'User unable to register. Email is already in use or internet connection unavailable';
 const PRIMARYCOLOR = Color(0xFF008000);
 const SECUNDARYCOLOR = Colors.white;
 const BLUE = Colors.blue;

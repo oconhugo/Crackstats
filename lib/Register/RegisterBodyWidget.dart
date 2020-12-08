@@ -35,23 +35,20 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
 
   void regButton() async {
     var result;
-    var regPop = RegisterPopUp();
+    var regPop = new RegisterPopUp();
     var insert = new ConnectDB();
     if (areFieldsCorrect()) {
       result = await insert.sendData(registerFields, inputGender);
     }
-    if (!isDuplicate(result)) { //change is duplicate to check for query error and duplicate?
+    if (!isDuplicate(result)) {
       regPop.showMyDialog(context, true);
-    }
-    else{
+    } else {
       regPop.showMyDialog(context, false);
     }
   }
 
   bool isDuplicate(response) {
-    if (response == USERADDED) {
-      return false;
-    }
+    if (response == USERADDED) return false;
     return true;
   }
 

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../LogIn/LogInUI.dart';
 
 class ForgotPasswordPopUp {
+  String message;
+
+  ForgotPasswordPopUp(this.message);
+
   Future<void> showMyDialog(context, emailSuccess) async {
     return showDialog<void>(
       context: context,
@@ -13,7 +17,7 @@ class ForgotPasswordPopUp {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                (emailSuccess) ? Text(EMAILSENTMSG) : Text(EMAILNOTSENTMSG),
+                Text(message),
               ],
             ),
           ),

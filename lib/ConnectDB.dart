@@ -4,7 +4,7 @@ import './Constants.dart';
 class ConnectDB {
   //register a new user
   Future<String> sendData(registerFields, genderinput) async {
-    print(registerFields[DATEOFBIRTH]);
+    //print(registerFields[DATEOFBIRTH]);
     final response = await http.post(
       INSERTDATAURL,
       body: {
