@@ -43,15 +43,11 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
             textColor: WHITE,
             child: Text(SENDCODE),
             onPressed: () async {
-              var mailInstance =
-                  new SendEmail(emailfgtController.text, pswCode);
-              var test;
+              var mailInstance = new SendEmail(emailfgtController.text, pswCode);
+              var chngOnDB = new ConnectDB();
+              var isPswdChanged = await chngOnDB.tempPswUpdate(emailfgtController, pswCode);
               var isSend = await mailInstance.sendmail();
-              if (isSend == 'true') {
-                var chngOnDB = new ConnectDB();
-                test =
-                    await chngOnDB.tempPswUpdate(emailfgtController, pswCode);
-                print(test);
+              if (isSend == 'true' && isPswdChanged == 'Password Changed') {
                 var pswpop = new ForgotPasswordPopUp();
                 pswpop.showMyDialog(context, true);
               } else {

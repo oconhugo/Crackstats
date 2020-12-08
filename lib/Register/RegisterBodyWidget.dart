@@ -1,3 +1,5 @@
+import 'package:crackstats/Register/RegisterPopUp.dart';
+
 import '../Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
@@ -33,12 +35,16 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
 
   void regButton() async {
     var result;
+    var regPop = RegisterPopUp();
+    var insert = new ConnectDB();
     if (areFieldsCorrect()) {
-      var insert = new ConnectDB();
       result = await insert.sendData(registerFields, inputGender);
     }
-    if (!isDuplicate(result)) {
-      Navigator.pop(context);
+    if (!isDuplicate(result)) { //change is duplicate to check for query error and duplicate?
+      regPop.showMyDialog(context, true);
+    }
+    else{
+      regPop.showMyDialog(context, false);
     }
   }
 
