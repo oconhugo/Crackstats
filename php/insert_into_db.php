@@ -12,7 +12,7 @@ include "dbconfig.php";
     $query_check_existance = "SELECT EXISTS(SELECT * from t_register_users WHERE Email='$email')";
 
     $query = "INSERT INTO t_register_users (First_Name, Last_Name, dob, Gender, Salt, Email, Password)
-  			  VALUES('$name', '$last_name', '$DOB', '$gender', '', '$email', '$password')";
+  			  VALUES('$name', '$last_name', '$dob', '$gender', '', '$email', '$password')";
     
     $results_existance = mysqli_query($conn, $query_check_existance);
 	$user_exist = mysqli_fetch_row($results_existance);
