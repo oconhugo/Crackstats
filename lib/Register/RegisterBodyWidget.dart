@@ -1,5 +1,4 @@
 import 'package:crackstats/Register/RegisterPopUp.dart';
-
 import '../Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
