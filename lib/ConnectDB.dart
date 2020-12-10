@@ -1,9 +1,11 @@
 import 'package:http/http.dart' as http;
 import './Constants.dart';
+import 'dart:convert';
 
 class ConnectDB {
   //register a new user
   Future<String> sendData(registerFields, genderinput) async {
+    //print(registerFields[DATEOFBIRTH]);
     final response = await http.post(
       INSERTDATAURL,
       body: {
@@ -19,7 +21,7 @@ class ConnectDB {
   }
 
   //Verify if the user exist in the db
-  Future<String> logInDb(email, pswd) async {
+  Future<Map> logInDb(email, pswd) async {
     final response = await http.post(
       LOGINUSERCRED,
       body: {
@@ -27,7 +29,9 @@ class ConnectDB {
         "password": pswd.text,
       },
     );
-    return Future.delayed(Duration(seconds: 2), () => response.body);
+    Map<String, dynamic> user = jsonDecode(response.body); 
+
+    return Future.delayed(Duration(seconds: 2), () => user);
   }
 
   //Add temporal password to db
