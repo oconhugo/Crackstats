@@ -1,4 +1,5 @@
 import 'package:crackstats/Register/RegisterPopUp.dart';
+
 import '../Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
@@ -75,8 +76,6 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
         content: Text(INCOMPLETEFIELDSMSG),
       ));
       return false;
-      //els if Show message if email already has account
-      //else ifRegister user in database if not
     } else {
       return true;
     }

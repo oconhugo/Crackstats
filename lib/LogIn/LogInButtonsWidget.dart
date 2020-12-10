@@ -40,10 +40,10 @@ class LogInButtonsWidget extends StatelessWidget {
               } else {
                 var conn = new ConnectDB();
                 var result = await conn.logInDb(emlController, pwdController);
-                // if (result == USEREXIST) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileUI()));
-                //}
+                if (result != null) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfileUI(result)));
+                }
               }
             },
           ),

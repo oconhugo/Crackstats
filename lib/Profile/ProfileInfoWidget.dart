@@ -5,17 +5,38 @@ import '../Constants.dart';
 import 'ProfileInTxtWidget.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
+
+  final Map inputMap;
+
+  ProfileInfoWidget(this.inputMap);
+
   @override
-  _ProfileInfoWidgetState createState() => _ProfileInfoWidgetState();
+  _ProfileInfoWidgetState createState() => _ProfileInfoWidgetState(inputMap);
 }
 
 class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
-  var json = {'name': 'Hugo', 'lastname': 'Ocon', 'dob': '1/1/2020'};
+
+  Map userMap;
+  var profileInfo;
+
+  _ProfileInfoWidgetState(userMap){
+    profileInfo = {
+      FIRSTNAME: userMap['First_Name'],
+      LASTNAME: userMap['Last_Name'],
+      EMAIL: userMap['Email'],
+      DATEOFBIRTH: userMap['DOB'],
+      PASSWORD: userMap['Password']
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ...(json.keys).map((valkey) {
-        return ProfileInTxtWidget(json, valkey);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+      ...(profileInfo.keys).map((valkey) {
+        return ProfileInTxtWidget(profileInfo, valkey);
       }).toList(),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,

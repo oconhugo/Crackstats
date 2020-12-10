@@ -5,16 +5,22 @@ import 'ProfileInfoWidget.dart';
 //import 'package:path_provider/path_provider.dart'; //add path provider dart plugin on pubspec.yaml file
 
 class ProfileUI extends StatelessWidget {
+
+  final Map infoMap;
+
+  ProfileUI(this.infoMap);
+
   //ProfileUI(this.userInfo);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            body: Table(
+            body: Center(child: 
+      Table(
       children: [
         TableRow(children: [PhotoWidget()]),
-        TableRow(children: [ProfileInfoWidget()]),
+        TableRow(children: [ProfileInfoWidget(infoMap)]),
       ],
-    )));
+    ))));
   }
 }

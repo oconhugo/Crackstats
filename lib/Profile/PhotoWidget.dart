@@ -9,11 +9,11 @@ class _PhotoWidgetState extends State<PhotoWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Image.asset(
+     /* Image.asset(
         'assets/images/MU.png',
         height: 150,
         width: 150,
-      ),
+      ),*/
     ]);
   }
 }

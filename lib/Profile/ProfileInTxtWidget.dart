@@ -21,27 +21,38 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      Expanded(
-        child: TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.black)),
-            hintText: valuesmap[keyvalue],
-          ),
-        ),
+      Container(
+        child: Text(keyvalue),
+        width: MediaQuery.of(context).size.width / 4,
       ),
-      RaisedButton(
+      Expanded(
+        child: Container(
+          width: MediaQuery.of(context).size.width / 2,
+          child: TextField(
+          obscureText: (keyvalue==PASSWORD)?true:false,
+          decoration: InputDecoration(
+                enabled: false,
+                labelText: valuesmap[keyvalue],
+          ),
+        )),
+      ),
+      FlatButton(
+        onPressed: () => print("edit"),
+        child: Icon(Icons.create_rounded,
+        color: Colors.orange[700],
+        size: 25.0,),
+      ),
+    /* RaisedButton.icon(
+        icon: Icon(
+      Icons.create_rounded,
+      //color: Colors.blue,
+      size: 36.0,
+      ),
+        label: "",
         color: YELLOW,
         textColor: BLACK,
-        child: Text(EDIT),
         onPressed: () => print("edit"),
-      ),
-      RaisedButton(
-        color: RED,
-        textColor: BLACK,
-        child: Text(DELETE),
-        onPressed: () => print("delete"),
-      )
+      ),*/
     ]);
   }
 }
