@@ -17,22 +17,21 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
       ...(json.keys).map((valkey) {
         return ProfileInTxtWidget(json, valkey);
       }).toList(),
-      Table(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TableRow(children: <Widget>[
-            RaisedButton(
-              color: PRIMARYCOLOR,
-              textColor: WHITE,
-              child: Text(SAVE),
-              onPressed: () => {print(SAVE)},
-            ),
-            RaisedButton(
-              color: RED,
-              textColor: WHITE,
-              child: Text(CANCEL),
-              onPressed: () => {print(CANCEL)},
-            ),
-          ]),
+          RaisedButton(
+            color: PRIMARYCOLOR,
+            textColor: WHITE,
+            child: Text(SAVE),
+            onPressed: () => {print(SAVE)},
+          ),
+          RaisedButton(
+            color: RED,
+            textColor: WHITE,
+            child: Text(CANCEL),
+            onPressed: () => {print(CANCEL)},
+          ),
         ],
       )
     ]);

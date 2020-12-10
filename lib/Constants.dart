@@ -54,9 +54,12 @@ const String NOTREGISTEREDMSG =
     'User unable to register. Email is already in use or internet connection unavailable';
 const String SAVE = "Save";
 const String CANCEL = "Cancel";
+const String EDIT = "Edit";
+const String DELETE = "Delete";
 const PRIMARYCOLOR = Color(0xFF008000);
 const SECUNDARYCOLOR = Colors.white;
 const BLUE = Colors.blue;
 const WHITE = Colors.white;
 const BLACK = Colors.black;
 const RED = Colors.red;
+const YELLOW = Colors.yellow;

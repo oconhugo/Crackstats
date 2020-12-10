@@ -8,15 +8,12 @@ class PhotoWidget extends StatefulWidget {
 class _PhotoWidgetState extends State<PhotoWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            '/assets/images/MU.png',
-            height: 150,
-            width: 150,
-          ),
-        ]);
+    return Column(children: <Widget>[
+      Image.asset(
+        'assets/images/MU.png',
+        height: 150,
+        width: 150,
+      ),
+    ]);
   }
 }

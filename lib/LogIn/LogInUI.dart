@@ -16,11 +16,6 @@ class MyApp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 LogInBodyWidget(),
-                Image.asset(
-                  'assets/images/mainpagegraphic.png',
-                  height: 150,
-                  width: 150,
-                ),
               ])),
     );
   }
