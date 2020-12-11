@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
                   height: 150,
                   width: 150,
                 ),*/
-              ])),
+              ]),
+),
     );
   }
 }
