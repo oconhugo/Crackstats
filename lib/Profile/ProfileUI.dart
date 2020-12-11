@@ -1,7 +1,7 @@
 import 'package:crackstats/Profile/Notifications.dart';
+import '../SideMenu/SideBarMenu.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
-import 'ProfileMenuIcon.dart';
 import 'PhotoWidget.dart';
 import 'ProfileInfoWidget.dart';
 
@@ -19,11 +19,9 @@ class ProfileUI extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
+                title: Text(PROFILETITLE),
                 backgroundColor: PRIMARYCOLOR,
                 actions: [Notifications()],
-                /*leading: Builder(builder: (BuildContext context) {
-                  return ProfileMenuIcon();
-                })*/
                 ),
             body: Center(
                 child: Table(
@@ -32,41 +30,6 @@ class ProfileUI extends StatelessWidget {
                 TableRow(children: [ProfileInfoWidget(infoMap)]),
               ],
             )),
-            drawer: Drawer(
-            child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Container( 
-              height: 100,
-              child:DrawerHeader(
-              child: Text('Menu',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-              decoration: BoxDecoration(
-              color: PRIMARYCOLOR,
-              ))),
-              ListTile(
-              title: Text('Profile',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-              onTap: () {
-                null;
-              },
-              ),ListTile(
-              title: Text('Leagues',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-              onTap: () {
-                null;
-              },
-              ),ListTile(
-              title: Text('Teams',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-              onTap: () {
-                null;
-              },
-              ),
-              ListTile(
-              title: Text('Log Out',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold, color: Colors.red[900]),textAlign: TextAlign.center,),
-              onTap: () {
-                null;
-              },
-              ),
-          ],
-        ),
-      ),));
+            drawer: SideBarMenu()));
   }
 }

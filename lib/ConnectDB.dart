@@ -17,7 +17,7 @@ class ConnectDB {
         "password": registerFields[PASSWORD],
       },
     );
-    return Future.delayed(Duration(seconds: 2), () => response.body);
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
   }
 
   //Verify if the user exist in the db
@@ -25,13 +25,20 @@ class ConnectDB {
     final response = await http.post(
       LOGINUSERCRED,
       body: {
-        "email": email.text,
-        "password": pswd.text,
+        "email": email,
+        "password": pswd,
       },
     );
-    Map<String, dynamic> user = jsonDecode(response.body);
 
-    return Future.delayed(Duration(seconds: 2), () => user);
+    try{ 
+    Map<String, dynamic> user = jsonDecode(response.body);
+    userEmailGlobal = user['Email'];
+    userPasswordGlobal = user['Password'];
+    return Future.delayed(Duration(milliseconds: 1), () => user);
+    }
+    catch(e){
+      return null;
+    }
   }
 
   //Add temporal password to db
@@ -43,6 +50,6 @@ class ConnectDB {
         "password": pwd,
       },
     );
-    return Future.delayed(Duration(seconds: 2), () => response.body);
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
   }
 }
