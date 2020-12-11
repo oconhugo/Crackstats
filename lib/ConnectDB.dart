@@ -29,7 +29,7 @@ class ConnectDB {
         "password": pswd.text,
       },
     );
-    Map<String, dynamic> user = jsonDecode(response.body); 
+    Map<String, dynamic> user = jsonDecode(response.body);
 
     return Future.delayed(Duration(seconds: 2), () => user);
   }

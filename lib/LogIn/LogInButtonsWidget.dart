@@ -41,8 +41,10 @@ class LogInButtonsWidget extends StatelessWidget {
                 var conn = new ConnectDB();
                 var result = await conn.logInDb(emlController, pwdController);
                 if (result != null) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfileUI(result)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileUI(result)));
                 }
               }
             },

@@ -5,7 +5,6 @@ import '../Constants.dart';
 import 'ProfileInTxtWidget.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
-
   final Map inputMap;
 
   ProfileInfoWidget(this.inputMap);
@@ -15,11 +14,10 @@ class ProfileInfoWidget extends StatefulWidget {
 }
 
 class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
-
   Map userMap;
   var profileInfo;
 
-  _ProfileInfoWidgetState(userMap){
+  _ProfileInfoWidgetState(userMap) {
     profileInfo = {
       FIRSTNAME: userMap['First_Name'],
       LASTNAME: userMap['Last_Name'],
@@ -32,29 +30,29 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-      ...(profileInfo.keys).map((valkey) {
-        return ProfileInTxtWidget(profileInfo, valkey);
-      }).toList(),
-      Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          RaisedButton(
-            color: PRIMARYCOLOR,
-            textColor: WHITE,
-            child: Text(SAVE),
-            onPressed: () => {print(SAVE)},
-          ),
-          RaisedButton(
-            color: RED,
-            textColor: WHITE,
-            child: Text(CANCEL),
-            onPressed: () => {print(CANCEL)},
-          ),
-        ],
-      )
-    ]);
+          ...(profileInfo.keys).map((valkey) {
+            return ProfileInTxtWidget(profileInfo, valkey);
+          }).toList(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(
+                color: PRIMARYCOLOR,
+                textColor: WHITE,
+                child: Text(SAVE),
+                onPressed: () => {print(SAVE)},
+              ),
+              RaisedButton(
+                color: RED,
+                textColor: WHITE,
+                child: Text(CANCEL),
+                onPressed: () => {print(CANCEL)},
+              ),
+            ],
+          )
+        ]);
   }
 }
