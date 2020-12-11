@@ -56,12 +56,13 @@ const String SAVE = "Save";
 const String CANCEL = "Cancel";
 const String EDIT = "Edit";
 const String DELETE = "Delete";
-const String MENU = "Menu";
+const String MENUTITLE = "Menu";
 const String NOTIFICATIONS = "Notifications";
 const String WELCOME = "Welcome ";
 const String LEAGUESTITLE = 'Leagues';
 const String TEAMSTITLE = 'Teams';
 const String PROFILETITLE = 'Profile';
+const String LOGOUTTITLE = 'Log out';
 const String USERDOESNTEXISTMESSAGE = 'Incorrect User or Password';
 const double TITLESIZE = 35;
 const PRIMARYCOLOR = Color(0xFF008000);
@@ -74,5 +75,5 @@ const RED = Colors.red;
 const YELLOW = Colors.yellow;
 
 //global variables
-var userEmailGlobal= '';
-var userPasswordGlobal= '';
+var userEmailGlobal = '';
+var userPasswordGlobal = '';

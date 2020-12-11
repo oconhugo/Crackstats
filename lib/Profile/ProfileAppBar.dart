@@ -8,9 +8,9 @@ class ProfileAppBar extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.menu),
       iconSize: kToolbarHeight - 15,
-      tooltip: MENU,
+      tooltip: MENUTITLE,
       onPressed: () {
-        print(MENU);
+        print(MENUTITLE);
       },
     );
   }
