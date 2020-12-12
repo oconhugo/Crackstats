@@ -30,13 +30,12 @@ class ConnectDB {
       },
     );
 
-    try{ 
-    Map<String, dynamic> user = jsonDecode(response.body);
-    userEmailGlobal = user['Email'];
-    userPasswordGlobal = user['Password'];
-    return Future.delayed(Duration(milliseconds: 1), () => user);
-    }
-    catch(e){
+    try {
+      Map<String, dynamic> user = jsonDecode(response.body);
+      userEmailGlobal = user['Email'];
+      userPasswordGlobal = user['Password'];
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
       return null;
     }
   }
@@ -51,5 +50,27 @@ class ConnectDB {
       },
     );
     return Future.delayed(Duration(milliseconds: 1), () => response.body);
+  }
+
+  //Update the user credentials
+  Future<Map> updateCred(newUserInfo) async {
+    final response = await http.post(
+      MODIFYCREDURL,
+      body: {
+        "name": newUserInfo[FIRSTNAME],
+        "email": newUserInfo[EMAIL],
+        "last_name": newUserInfo[LASTNAME],
+        "dob": newUserInfo[DATEOFBIRTH],
+        "password": newUserInfo[PASSWORD],
+      },
+    );
+
+    try {
+      Map<String, dynamic> user = jsonDecode(response.body);
+      userPasswordGlobal = user['Password'];
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
   }
 }

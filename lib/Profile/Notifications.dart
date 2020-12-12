@@ -7,7 +7,7 @@ class Notifications extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: IconButton(
-        icon: const Icon(Icons.add_alert),
+        icon: const Icon(Icons.notifications_none),
         iconSize: kToolbarHeight - 15,
         tooltip: NOTIFICATIONS,
         onPressed: () {

@@ -1,8 +1,8 @@
-import 'package:crackstats/Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
-
 import '../Constants.dart';
 import 'ProfileInTxtWidget.dart';
+import '../ConnectDB.dart';
+import 'ProfileUI.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
   final Map inputMap;
@@ -17,7 +17,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Map userMap;
   var profileInfo;
 
-  _ProfileInfoWidgetState(userMap) {
+  _ProfileInfoWidgetState(this.userMap) {
     profileInfo = {
       FIRSTNAME: userMap['First_Name'],
       LASTNAME: userMap['Last_Name'],
@@ -43,13 +43,25 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 color: PRIMARYCOLOR,
                 textColor: WHITE,
                 child: Text(SAVE),
-                onPressed: () => {print(SAVE)},
+                onPressed: () async {
+                  var conn = new ConnectDB();
+                  var result = await conn.updateCred(profileInfo);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileUI(result)));
+                },
               ),
               RaisedButton(
                 color: RED,
                 textColor: WHITE,
                 child: Text(CANCEL),
-                onPressed: () => {print(CANCEL)},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileUI(userMap)));
+                },
               ),
             ],
           )

@@ -33,9 +33,11 @@ const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
 const String LOGINUSERCRED = "http://hugoocon.com/login_verify_user.php";
 const String TEMPORALPASSWORDUPDATEURL =
     "http://hugoocon.com/update_temp_password.php";
+const String MODIFYCREDURL = "http://hugoocon.com/modify_user_info.php";
 const String CRACKSTATSEMAIL = 'crackstats01@gmail.com';
 const String CRACKSTATSEMAILPASSWORD = 'MessiCrack.10';
 const String EMAILSENT = 'Email Sent';
+const String EMPTYSTR = "";
 const String EMAILSENTMSG =
     'Email Sent. Please check spam if not found in inbox.';
 const String EMAILNOTSENT = 'Email Not Sent';

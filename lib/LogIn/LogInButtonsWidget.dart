@@ -39,15 +39,14 @@ class LogInButtonsWidget extends StatelessWidget {
                 ));
               } else {
                 var conn = new ConnectDB();
-                var result = await conn.logInDb(emlController.text, pwdController.text);
-                print(result);
-                if(result==null){
+                var result =
+                    await conn.logInDb(emlController.text, pwdController.text);
+                if (result == null) {
                   Scaffold.of(context).showSnackBar(SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Text(USERDOESNTEXISTMESSAGE),
+                    duration: Duration(seconds: 1),
+                    content: Text(USERDOESNTEXISTMESSAGE),
                   ));
-                }
-                else{
+                } else {
                   Navigator.push(
                       context,
                       MaterialPageRoute(

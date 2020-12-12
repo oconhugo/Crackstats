@@ -5,9 +5,6 @@ import '../Constants.dart';
 import 'PhotoWidget.dart';
 import 'ProfileInfoWidget.dart';
 
-//import 'dart:convert'; //to convert json to maps and vice versa
-//import 'package:path_provider/path_provider.dart'; //add path provider dart plugin on pubspec.yaml file
-
 class ProfileUI extends StatelessWidget {
   final Map infoMap;
 
@@ -19,10 +16,10 @@ class ProfileUI extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
-                title: Text(PROFILETITLE),
-                backgroundColor: PRIMARYCOLOR,
-                actions: [Notifications()],
-                ),
+              title: Text(PROFILETITLE),
+              backgroundColor: PRIMARYCOLOR,
+              actions: [Notifications()],
+            ),
             body: Center(
                 child: Table(
               children: [

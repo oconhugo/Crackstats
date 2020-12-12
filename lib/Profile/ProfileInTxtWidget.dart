@@ -16,6 +16,8 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
   Map<String, Object> valuesmap;
   String keyvalue;
   bool isEnable = false;
+  bool snackOn = false;
+
   void enableField() {
     setState(() {
       if (isEnable)
@@ -44,20 +46,35 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
             width: MediaQuery.of(context).size.width / 2,
             child: TextField(
               obscureText: (keyvalue == PASSWORD) ? true : false,
+              onChanged: (String value) {
+                valuesmap[keyvalue] = value;
+                if (keyvalue == PASSWORD && (value.length < 6) && !snackOn) {
+                  snackOn = true;
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    duration: Duration(days: 1),
+                    content: Text(PASSWORDREQUIREMENTS),
+                  ));
+                } else if (keyvalue == PASSWORD && (value.length >= 6)) {
+                  Scaffold.of(context).removeCurrentSnackBar();
+                  snackOn = false;
+                }
+              },
               decoration: InputDecoration(
                 enabled: isEnable,
                 hintText: valuesmap[keyvalue],
               ),
             )),
       ),
-      FlatButton(
-        onPressed: enableField,
-        child: Icon(
-          Icons.create_rounded,
-          color: PENCILCOLOR,
-          size: 25.0,
-        ),
-      ),
+      (keyvalue != EMAIL)
+          ? FlatButton(
+              onPressed: enableField,
+              child: Icon(
+                Icons.create_rounded,
+                color: PENCILCOLOR,
+                size: 25.0,
+              ),
+            )
+          : Text(EMPTYSTR),
     ]);
   }
 }
