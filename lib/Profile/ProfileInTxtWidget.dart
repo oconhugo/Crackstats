@@ -33,7 +33,7 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
   Widget build(BuildContext context) {
     return Row(children: [
       Container(
-        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
         child: Text(
           keyvalue,
           overflow: TextOverflow.ellipsis,
@@ -41,8 +41,7 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
         ),
         width: MediaQuery.of(context).size.width / 4,
       ),
-      Expanded(
-        child: Container(
+      Container(
             width: MediaQuery.of(context).size.width / 2,
             child: TextField(
               obscureText: (keyvalue == PASSWORD) ? true : false,
@@ -61,10 +60,10 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
               },
               decoration: InputDecoration(
                 enabled: isEnable,
-                hintText: valuesmap[keyvalue],
+                hintText: (keyvalue == PASSWORD) ? PASSWORDHIDER : valuesmap[keyvalue],
               ),
             )),
-      ),
+     
       (keyvalue != EMAIL)
           ? FlatButton(
               onPressed: enableField,

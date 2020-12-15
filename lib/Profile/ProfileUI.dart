@@ -21,12 +21,13 @@ class ProfileUI extends StatelessWidget {
               actions: [Notifications()],
             ),
             body: Center(
+                child:SingleChildScrollView(
                 child: Table(
-              children: [
+                children: [
                 TableRow(children: [PhotoWidget(infoMap['First_Name'])]),
                 TableRow(children: [ProfileInfoWidget(infoMap)]),
               ],
-            )),
+            ))),
             drawer: SideBarMenu()));
   }
 }

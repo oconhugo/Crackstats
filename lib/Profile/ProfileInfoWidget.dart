@@ -16,6 +16,13 @@ class ProfileInfoWidget extends StatefulWidget {
 class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Map userMap;
   var profileInfo;
+  var leagueSelected;
+  var leaguesDropdown = [
+    DropdownMenuItem(
+      child: Text('League 1'),
+      value: MALE,
+    ),
+  ];
 
   _ProfileInfoWidgetState(this.userMap) {
     profileInfo = {
@@ -36,7 +43,62 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
           ...(profileInfo.keys).map((valkey) {
             return ProfileInTxtWidget(profileInfo, valkey);
           }).toList(),
-          Row(
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              width: MediaQuery.of(context).size.width / 2,
+              child: DropdownButton<String>(
+                  isExpanded: true,
+                  hint: Text(LEAGUES),
+                  value: leagueSelected,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 24,
+                  style: TextStyle(color: PRIMARYCOLOR),
+                  underline: Container(
+                    height: 2,
+                    color: PRIMARYCOLOR,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      leagueSelected = newValue;
+                    });
+                  },
+                  items: leaguesDropdown)),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+            //width: MediaQuery.of(context).size.width / 2,
+            child:Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(child: Text(
+                GOALS,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              )),
+              Expanded(child: Text(
+                APPS,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              ),
+              Expanded(child: 
+              Text(
+              YELLOWREDS,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              textAlign: TextAlign.left,
+              ),)
+            ],
+          )),
+          /*Container(
+          padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+          width: MediaQuery.of(context).size.width / 2,
+          child:
+          Text(
+            YELLOWREDS,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            textAlign: TextAlign.left,
+          )),*/
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+            child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RaisedButton(
@@ -64,7 +126,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 },
               ),
             ],
-          )
+          ))
         ]);
   }
 }
