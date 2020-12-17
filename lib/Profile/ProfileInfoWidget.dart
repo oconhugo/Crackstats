@@ -24,6 +24,16 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
     ),
   ];
 
+  initState() {
+    retrieveLeagues();
+  }
+
+  void retrieveLeagues() async {
+    var retrieveLeagues = new ConnectDB();
+    var x = await retrieveLeagues.retrieveUserLeagues(userMap['Email']);
+    print(x);
+  }
+
   _ProfileInfoWidgetState(this.userMap) {
     profileInfo = {
       FIRSTNAME: userMap['First_Name'],
@@ -44,7 +54,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
             return ProfileInTxtWidget(profileInfo, valkey);
           }).toList(),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
               width: MediaQuery.of(context).size.width / 2,
               child: DropdownButton<String>(
                   isExpanded: true,
@@ -65,68 +75,64 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                   },
                   items: leaguesDropdown)),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
-            //width: MediaQuery.of(context).size.width / 2,
-            child:Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(child: Text(
-                GOALS,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              //width: MediaQuery.of(context).size.width / 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: Text(
+                    GOALS,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  )),
+                  Expanded(
+                    child: Text(
+                      APPS,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      YELLOWREDS,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      textAlign: TextAlign.left,
+                    ),
+                  )
+                ],
               )),
-              Expanded(child: Text(
-                APPS,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              ),
-              Expanded(child: 
-              Text(
-              YELLOWREDS,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              textAlign: TextAlign.left,
-              ),)
-            ],
-          )),
-          /*Container(
-          padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
-          width: MediaQuery.of(context).size.width / 2,
-          child:
-          Text(
-            YELLOWREDS,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            textAlign: TextAlign.left,
-          )),*/
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
-            child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RaisedButton(
-                color: PRIMARYCOLOR,
-                textColor: WHITE,
-                child: Text(SAVE),
-                onPressed: () async {
-                  var conn = new ConnectDB();
-                  var result = await conn.updateCred(profileInfo);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileUI(result)));
-                },
-              ),
-              RaisedButton(
-                color: RED,
-                textColor: WHITE,
-                child: Text(CANCEL),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileUI(userMap)));
-                },
-              ),
-            ],
-          ))
+              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RaisedButton(
+                    color: PRIMARYCOLOR,
+                    textColor: WHITE,
+                    child: Text(SAVE),
+                    onPressed: () async {
+                      var conn = new ConnectDB();
+                      var result = await conn.updateCred(profileInfo);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(result)));
+                    },
+                  ),
+                  RaisedButton(
+                    color: RED,
+                    textColor: WHITE,
+                    child: Text(CANCEL),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(userMap)));
+                    },
+                  ),
+                ],
+              ))
         ]);
   }
 }
