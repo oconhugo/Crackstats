@@ -17,12 +17,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Map userMap;
   var profileInfo;
   var leagueSelected;
-  var leaguesDropdown = [
-    DropdownMenuItem(
-      child: Text('League 1'),
-      value: MALE,
-    ),
-  ];
+  List leaguesDropdownList = [];
 
   initState() {
     retrieveLeagues();
@@ -30,8 +25,22 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
 
   void retrieveLeagues() async {
     var retrieveLeagues = new ConnectDB();
-    var x = await retrieveLeagues.retrieveUserLeagues(userMap['Email']);
-    print(x);
+    var tempResults =
+        await retrieveLeagues.retrieveUserLeagues(userMap['Email']);
+    fillDropdown(convertToArray(tempResults));
+  }
+
+  List<String> convertToArray(temp) {
+    var leagues = [];
+    temp = temp.replaceAll(new RegExp(r'[^0-9a-zA-Z,\s]'), '');
+    leagues = temp.split(",");
+    return leagues;
+  }
+
+  void fillDropdown(leagues) {
+    leagues.forEach((var i) {
+      leaguesDropdownList.add(i);
+    });
   }
 
   _ProfileInfoWidgetState(this.userMap) {
@@ -73,7 +82,14 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                       leagueSelected = newValue;
                     });
                   },
-                  items: leaguesDropdown)),
+                  items: [
+                    ...(leaguesDropdownList).map((valkey) {
+                      return DropdownMenuItem(
+                        child: Text(valkey),
+                        value: valkey,
+                      );
+                    }).toList()
+                  ])),
           Container(
               padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
               //width: MediaQuery.of(context).size.width / 2,

@@ -75,13 +75,13 @@ class ConnectDB {
   }
 
   //Retrieve user leagues
-  Future<Map> retrieveUserLeagues(email) async {
+  Future<String> retrieveUserLeagues(email) async {
     final response = await http.post(
       RETRIEVEUSERLEAGUES,
       body: {"email": email},
     );
     try {
-      Map<String, dynamic> user = jsonDecode(response.body);
+      String user = response.body;
       return Future.delayed(Duration(milliseconds: 1), () => user);
     } catch (e) {
       return null;

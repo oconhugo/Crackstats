@@ -24,13 +24,8 @@ class SendEmail {
     try {
       final sendReport = await send(message, smtpServer);
       return Future<String>.value(TRUE);
-      print('Message sent: ' +
-          sendReport.toString()); //print if the email is sent
     } on MailerException catch (e) {
       return Future<String>.value(FALSE);
-      print('Message not sent. \n' +
-          e.toString()); //print if the email is not sent
-      // e.toString() will show why the email is not sending
     }
   }
 }
