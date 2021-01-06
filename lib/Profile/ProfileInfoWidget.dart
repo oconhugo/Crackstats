@@ -19,7 +19,6 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Map userMap;
   var profileInfo;
   var leagueSelected;
-  var dropresults;
   List leaguesDropdownList = List();
 
   @override

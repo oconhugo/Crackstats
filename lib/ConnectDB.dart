@@ -74,19 +74,4 @@ class ConnectDB {
     }
   }
 
-  //Retrieve user leagues
-  Future retrieveUserLeagues(email) async {
-    List data = List();
-    final response = await http.post(
-      RETRIEVEUSERLEAGUES,
-      body: {"email": email},
-    );
-    try {
-      var user = json.decode(response.body);
-      data = user;
-      return Future.delayed(Duration(milliseconds: 1), () => data);
-    } catch (e) {
-      return null;
-    }
-  }
 }
