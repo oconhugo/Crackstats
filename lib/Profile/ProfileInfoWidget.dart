@@ -3,6 +3,8 @@ import '../Constants.dart';
 import 'ProfileInTxtWidget.dart';
 import '../ConnectDB.dart';
 import 'ProfileUI.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ProfileInfoWidget extends StatefulWidget {
   final Map inputMap;
@@ -17,30 +19,28 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Map userMap;
   var profileInfo;
   var leagueSelected;
-  List leaguesDropdownList = [];
+  var dropresults;
+  List leaguesDropdownList = List();
 
-  initState() {
+  @override
+  void initState(){
+    super.initState();
     retrieveLeagues();
   }
 
-  void retrieveLeagues() async {
-    var retrieveLeagues = new ConnectDB();
-    var tempResults =
-        await retrieveLeagues.retrieveUserLeagues(userMap['Email']);
-    fillDropdown(convertToArray(tempResults));
-  }
-
-  List<String> convertToArray(temp) {
-    var leagues = [];
-    temp = temp.replaceAll(new RegExp(r'[^0-9a-zA-Z,\s]'), '');
-    leagues = temp.split(",");
-    return leagues;
-  }
-
-  void fillDropdown(leagues) {
-    leagues.forEach((var i) {
-      leaguesDropdownList.add(i);
-    });
+  Future retrieveLeagues() async {
+    final response = await http.post(
+      RETRIEVEUSERLEAGUES,
+      body: {"email": userEmailGlobal},
+    );
+    try {
+      var user = json.decode(response.body);
+      setState(() {
+        leaguesDropdownList = user;
+      });
+    } catch (e) {
+      return null;
+    }
   }
 
   _ProfileInfoWidgetState(this.userMap) {
@@ -82,17 +82,15 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                       leagueSelected = newValue;
                     });
                   },
-                  items: [
-                    ...(leaguesDropdownList).map((valkey) {
-                      return DropdownMenuItem(
-                        child: Text(valkey),
-                        value: valkey,
-                      );
-                    }).toList()
-                  ])),
+                  items: leaguesDropdownList.map((list) {
+                          return DropdownMenuItem<String>(
+                          value: list,
+                          child: Text(list),
+                          );
+                  }).toList(),
+                  )),
           Container(
               padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
-              //width: MediaQuery.of(context).size.width / 2,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

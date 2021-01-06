@@ -75,14 +75,16 @@ class ConnectDB {
   }
 
   //Retrieve user leagues
-  Future<String> retrieveUserLeagues(email) async {
+  Future retrieveUserLeagues(email) async {
+    List data = List();
     final response = await http.post(
       RETRIEVEUSERLEAGUES,
       body: {"email": email},
     );
     try {
-      String user = response.body;
-      return Future.delayed(Duration(milliseconds: 1), () => user);
+      var user = json.decode(response.body);
+      data = user;
+      return Future.delayed(Duration(milliseconds: 1), () => data);
     } catch (e) {
       return null;
     }
