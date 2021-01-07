@@ -72,6 +72,10 @@ const String ANNOUNCEMENTS = 'Announcements';
 const String STANDING = 'Standing';
 const String GOALSCORERS = 'Goal Scorers';
 const String DISCIPLINE = 'Discipline';
+const String CREATETEAM = 'Create Team';
+const String TEAMNAME = 'Team Name';
+const String SENDREQUEST = 'Send Request';
+const String MESSAGETOADMIN = "Comment for league admin\n\n\n\n";
 const double TITLESIZE = 35;
 
 //URLS
@@ -83,6 +87,7 @@ const String MODIFYCREDURL = "http://hugoocon.com/modify_user_info.php";
 const String RETRIEVEUSERLEAGUES =
     "http://hugoocon.com/retrieve_user_leagues.php";
 const String RETRIEVEUSERSTATS = "http://hugoocon.com/retrieve_user_stats.php";
+const String RETRIEVELEAGUETEAMS = "http://hugoocon.com/retrieve_league_teams.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

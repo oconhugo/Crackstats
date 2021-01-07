@@ -1,6 +1,8 @@
+import 'package:crackstats/Teams/AddTeamUI.dart';
 import 'package:flutter/material.dart';
 import '../SideMenu/SideBarMenu.dart';
 import '../Constants.dart';
+import './TeamsWidget.dart';
 
 class TeamsUI extends StatelessWidget {
   @override
@@ -12,7 +14,16 @@ class TeamsUI extends StatelessWidget {
           backgroundColor: PRIMARYCOLOR,
           ),
         drawer: SideBarMenu(),
-        body: Text("Que tranza perro, este es el teams ui"),
+        body: TeamsWidget(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: (){
+            Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddTeamUI()));
+          },         
+          icon: Icon(Icons.add),
+          label: Text(CREATETEAM),
+          backgroundColor: PRIMARYCOLOR,
+        ),
       ),
     );
   }

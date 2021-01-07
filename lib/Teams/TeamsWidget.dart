@@ -1,0 +1,93 @@
+import 'package:crackstats/Constants.dart';
+import 'package:flutter/material.dart';
+import '../ConnectDB.dart';
+
+class TeamsWidget extends StatefulWidget {
+  @override
+  _TeamsWidgetState createState() => _TeamsWidgetState();
+}
+
+class _TeamsWidgetState extends State<TeamsWidget> {
+
+  String leagueSelected;
+  List leaguesDropdownList = List();
+  List teamsDropdownList = List();
+
+    @override
+  void initState() {
+    super.initState();
+    getUserLeagues();
+  }
+
+  void getUserLeagues() async {
+    var connect = new ConnectDB();
+    var x = await connect.retrieveLeagues();
+    setState(() {
+      leaguesDropdownList = x;
+    });
+  }
+
+  void getLeagueTeams() async{
+    var connection = new ConnectDB();
+    var retrieveteamsconnection = await connection.retrieveLeagueTeams(leagueSelected);
+    setState(() {
+      teamsDropdownList = retrieveteamsconnection;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+      children: [
+        Container(
+        child:Text(
+          TEAMSTITLE,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+          textAlign: TextAlign.center,
+        ),
+        padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
+        ),
+        Container(
+              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              width: MediaQuery.of(context).size.width / 1.5,
+              child: DropdownButton<String>(
+                isExpanded: true,
+                hint: Text(LEAGUES),
+                value: leagueSelected,
+                icon: Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 24,
+                style: TextStyle(color: PRIMARYCOLOR),
+                underline: Container(
+                  height: 2,
+                  color: PRIMARYCOLOR,
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    leagueSelected = newValue;
+                    getLeagueTeams();
+                  });
+                },
+                items: leaguesDropdownList.map((list) {
+                  return DropdownMenuItem<String>(
+                    value: list,
+                    child: Text(list),
+                  );
+                }).toList(),
+              ),
+        ),
+        Container(
+          child: Column(children: [
+            ...(teamsDropdownList).map((valkey) {
+            return FlatButton(
+              onPressed: null,
+              child: Text(valkey),
+            );
+          }).toList(),
+          ],),
+        )
+      ],
+    ));
+  }
+}

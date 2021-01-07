@@ -99,4 +99,18 @@ class ConnectDB {
       return null;
     }
   }
+
+  Future retrieveLeagueTeams(league) async {
+    final response = await http.post(
+      RETRIEVELEAGUETEAMS,
+      body: {"league": league},
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
+
 }
