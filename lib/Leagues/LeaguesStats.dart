@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Constants.dart';
 import 'LeagueStatsButtons.dart';
 
 class LeaguesStats extends StatelessWidget {

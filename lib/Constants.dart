@@ -64,7 +64,7 @@ const String USERDOESNTEXISTMESSAGE = 'Incorrect User or Password';
 const String LEAGUES = 'Leagues';
 const String GOALS = 'Goals:';
 const String APPS = 'Apps:';
-const String YELLOWREDS = 'Yellows(Reds):';
+const String YELLOWREDS = 'YL/RED:';
 const String PASSWORDHIDER = '********';
 const String SCHEDULE = 'Schedule';
 const String STATS = 'Stats';
@@ -82,6 +82,7 @@ const String TEMPORALPASSWORDUPDATEURL =
 const String MODIFYCREDURL = "http://hugoocon.com/modify_user_info.php";
 const String RETRIEVEUSERLEAGUES =
     "http://hugoocon.com/retrieve_user_leagues.php";
+const String RETRIEVEUSERSTATS = "http://hugoocon.com/retrieve_user_stats.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

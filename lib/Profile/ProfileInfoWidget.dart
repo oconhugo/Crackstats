@@ -3,8 +3,6 @@ import '../Constants.dart';
 import 'ProfileInTxtWidget.dart';
 import '../ConnectDB.dart';
 import 'ProfileUI.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ProfileInfoWidget extends StatefulWidget {
   final Map inputMap;
@@ -19,27 +17,22 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Map userMap;
   var profileInfo;
   var leagueSelected;
+  String goals = "", apps = "", cards = "";
+  List userStats;
   List leaguesDropdownList = List();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    retrieveLeagues();
+    getUserLeagues();
   }
 
-  Future retrieveLeagues() async {
-    final response = await http.post(
-      RETRIEVEUSERLEAGUES,
-      body: {"email": userEmailGlobal},
-    );
-    try {
-      var user = json.decode(response.body);
-      setState(() {
-        leaguesDropdownList = user;
-      });
-    } catch (e) {
-      return null;
-    }
+  void getUserLeagues() async {
+    var connect = new ConnectDB();
+    var x = await connect.retrieveLeagues();
+    setState(() {
+      leaguesDropdownList = x;
+    });
   }
 
   _ProfileInfoWidgetState(this.userMap) {
@@ -50,6 +43,16 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
       DATEOFBIRTH: userMap['DOB'],
       PASSWORD: userMap['Password']
     };
+  }
+
+  void getUserStats() async {
+    var conn = new ConnectDB();
+    userStats = await conn.retrieveUserStats(leagueSelected);
+    setState(() {
+      goals = userStats[0].toString();
+      apps = userStats[1].toString();
+      cards = userStats[2].toString() + "/" + userStats[3].toString();
+    });
   }
 
   @override
@@ -65,29 +68,30 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
               padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
               width: MediaQuery.of(context).size.width / 2,
               child: DropdownButton<String>(
-                  isExpanded: true,
-                  hint: Text(LEAGUES),
-                  value: leagueSelected,
-                  icon: Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 24,
-                  style: TextStyle(color: PRIMARYCOLOR),
-                  underline: Container(
-                    height: 2,
-                    color: PRIMARYCOLOR,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      leagueSelected = newValue;
-                    });
-                  },
-                  items: leaguesDropdownList.map((list) {
-                          return DropdownMenuItem<String>(
-                          value: list,
-                          child: Text(list),
-                          );
-                  }).toList(),
-                  )),
+                isExpanded: true,
+                hint: Text(LEAGUES),
+                value: leagueSelected,
+                icon: Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 24,
+                style: TextStyle(color: PRIMARYCOLOR),
+                underline: Container(
+                  height: 2,
+                  color: PRIMARYCOLOR,
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    leagueSelected = newValue;
+                    getUserStats();
+                  });
+                },
+                items: leaguesDropdownList.map((list) {
+                  return DropdownMenuItem<String>(
+                    value: list,
+                    child: Text(list),
+                  );
+                }).toList(),
+              )),
           Container(
               padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
               child: Row(
@@ -95,19 +99,19 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 children: [
                   Expanded(
                       child: Text(
-                    GOALS,
+                    GOALS + goals,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   )),
                   Expanded(
                     child: Text(
-                      APPS,
+                      APPS + apps,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                   Expanded(
                     child: Text(
-                      YELLOWREDS,
+                      YELLOWREDS + cards,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       textAlign: TextAlign.left,

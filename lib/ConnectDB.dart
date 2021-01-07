@@ -74,4 +74,29 @@ class ConnectDB {
     }
   }
 
+  Future retrieveLeagues() async {
+    final response = await http.post(
+      RETRIEVEUSERLEAGUES,
+      body: {"email": userEmailGlobal},
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future retrieveUserStats(league) async {
+    final response = await http.post(
+      RETRIEVEUSERSTATS,
+      body: {"email": userEmailGlobal, "league": league},
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
 }
