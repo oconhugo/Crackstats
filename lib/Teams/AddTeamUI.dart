@@ -14,6 +14,8 @@ class _AddTeamUIState extends State<AddTeamUI> {
 
   String leagueSelected;
   List leaguesDropdownList = List();
+  String teamName;
+  String message;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +36,13 @@ class _AddTeamUIState extends State<AddTeamUI> {
                 textAlign: TextAlign.center,
               ),
               width: MediaQuery.of(context).size.width / 1.5,
-              padding: EdgeInsets.fromLTRB(0, 10, 7, 0),),
+              padding: EdgeInsets.fromLTRB(0, 10, 7, 0),
+              ),
               Container(
                 width: MediaQuery.of(context).size.width / 1.5,
                 child:TextField(               
                 onChanged: (String value) {
-                  null;
+                  teamName = value;
                 },
                 decoration: InputDecoration(
                 hintText: TEAMNAME,
@@ -82,7 +85,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
               keyboardType: TextInputType.multiline,
               maxLines: null,
               onChanged: (String value) {
-                  null;
+                  message=value;
                 },
                 decoration: InputDecoration(
                 hintText: MESSAGETOADMIN,
