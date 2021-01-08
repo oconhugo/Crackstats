@@ -87,6 +87,18 @@ class ConnectDB {
     }
   }
 
+  Future retrieveAllLeagues() async {
+    final response = await http.post(
+      RETRIEVEALLLEAGUES,
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future retrieveUserStats(league) async {
     final response = await http.post(
       RETRIEVEUSERSTATS,

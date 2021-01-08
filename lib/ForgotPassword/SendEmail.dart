@@ -22,9 +22,9 @@ class SendEmail {
       ..subject = EMAILSUBJECT //subject of the email
       ..text = EMAILBODY + pswCode; //body of the email
     try {
-      final sendReport = await send(message, smtpServer);
+      await send(message, smtpServer);
       return Future<String>.value(TRUE);
-    } on MailerException catch (e) {
+    } on MailerException {
       return Future<String>.value(FALSE);
     }
   }

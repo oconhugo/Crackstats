@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../ConnectDB.dart';
 
 class TeamsWidget extends StatefulWidget {
+
   @override
   _TeamsWidgetState createState() => _TeamsWidgetState();
 }
@@ -10,22 +11,7 @@ class TeamsWidget extends StatefulWidget {
 class _TeamsWidgetState extends State<TeamsWidget> {
 
   String leagueSelected;
-  List leaguesDropdownList = List();
   List teamsDropdownList = List();
-
-    @override
-  void initState() {
-    super.initState();
-    getUserLeagues();
-  }
-
-  void getUserLeagues() async {
-    var connect = new ConnectDB();
-    var x = await connect.retrieveLeagues();
-    setState(() {
-      leaguesDropdownList = x;
-    });
-  }
 
   void getLeagueTeams() async{
     var connection = new ConnectDB();
@@ -69,7 +55,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                     getLeagueTeams();
                   });
                 },
-                items: leaguesDropdownList.map((list) {
+                items: globalLeagueList.map((list) {
                   return DropdownMenuItem<String>(
                     value: list,
                     child: Text(list),
@@ -78,10 +64,15 @@ class _TeamsWidgetState extends State<TeamsWidget> {
               ),
         ),
         Container(
+          width: MediaQuery.of(context).size.width / 1.5,
           child: Column(children: [
             ...(teamsDropdownList).map((valkey) {
             return FlatButton(
-              onPressed: null,
+              shape: RoundedRectangleBorder(side: BorderSide(color:PRIMARYCOLOR)),
+              minWidth: MediaQuery.of(context).size.width / 1.5,
+              onPressed: (){
+                print('x');
+              },
               child: Text(valkey),
             );
           }).toList(),

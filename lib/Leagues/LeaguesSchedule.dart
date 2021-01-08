@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Constants.dart';
 
 class LeaguesSchedule extends StatelessWidget {
   @override

@@ -4,8 +4,6 @@ import '../SideMenu/SideBarMenu.dart';
 
 class AddTeamUI extends StatefulWidget {
 
-
-
   @override
   _AddTeamUIState createState() => _AddTeamUIState();
 }
@@ -13,7 +11,6 @@ class AddTeamUI extends StatefulWidget {
 class _AddTeamUIState extends State<AddTeamUI> {
 
   String leagueSelected;
-  List leaguesDropdownList = List();
   String teamName;
   String message;
 
@@ -69,7 +66,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
                       leagueSelected = newValue;
                       });
                     },
-                    items: leaguesDropdownList.map((list) {
+                    items: globalLeagueList.map((list) {
                     return DropdownMenuItem<String>(
                       value: list,
                       child: Text(list),
@@ -104,7 +101,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
                     textColor: WHITE,
                     child: Text(SENDREQUEST),
                     onPressed: () {
-                      null;
+                      
                     },
                   ),             
           ],)),

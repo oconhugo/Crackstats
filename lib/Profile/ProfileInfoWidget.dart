@@ -19,19 +19,27 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   var leagueSelected;
   String goals = "", apps = "", cards = "";
   List userStats;
-  List leaguesDropdownList = List();
 
   @override
   void initState() {
     super.initState();
     getUserLeagues();
+    getAllLeagues();
   }
 
   void getUserLeagues() async {
     var connect = new ConnectDB();
     var x = await connect.retrieveLeagues();
     setState(() {
-      leaguesDropdownList = x;
+      globalUserLeagueList = x;
+    });
+  }
+
+  void getAllLeagues() async {
+    var connect = new ConnectDB();
+    var tempAllLeagues = await connect.retrieveAllLeagues();
+    setState(() {
+      globalLeagueList = tempAllLeagues;
     });
   }
 
@@ -85,7 +93,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     getUserStats();
                   });
                 },
-                items: leaguesDropdownList.map((list) {
+                items: globalUserLeagueList.map((list) {
                   return DropdownMenuItem<String>(
                     value: list,
                     child: Text(list),

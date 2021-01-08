@@ -88,6 +88,7 @@ const String RETRIEVEUSERLEAGUES =
     "http://hugoocon.com/retrieve_user_leagues.php";
 const String RETRIEVEUSERSTATS = "http://hugoocon.com/retrieve_user_stats.php";
 const String RETRIEVELEAGUETEAMS = "http://hugoocon.com/retrieve_league_teams.php";
+const String RETRIEVEALLLEAGUES = "http://hugoocon.com/retrieve_leagues.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
@@ -102,3 +103,5 @@ const YELLOW = Colors.yellow;
 //global variables
 var userEmailGlobal = '';
 var userPasswordGlobal = '';
+var globalUserLeagueList = List();
+var globalLeagueList = List();

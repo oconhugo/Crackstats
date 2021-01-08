@@ -4,7 +4,13 @@ import '../SideMenu/SideBarMenu.dart';
 import '../Constants.dart';
 import './TeamsWidget.dart';
 
-class TeamsUI extends StatelessWidget {
+class TeamsUI extends StatefulWidget {
+  @override
+  _TeamsUIState createState() => _TeamsUIState();
+}
+
+class _TeamsUIState extends State<TeamsUI> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
