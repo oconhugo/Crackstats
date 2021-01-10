@@ -1,6 +1,7 @@
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 import '../ConnectDB.dart';
+import 'TeamPlayersUI.dart';
 
 class TeamsWidget extends StatefulWidget {
 
@@ -66,14 +67,15 @@ class _TeamsWidgetState extends State<TeamsWidget> {
         Container(
           width: MediaQuery.of(context).size.width / 1.5,
           child: Column(children: [
-            ...(teamsDropdownList).map((valkey) {
+            ...(teamsDropdownList).map((value) {
             return FlatButton(
               shape: RoundedRectangleBorder(side: BorderSide(color:PRIMARYCOLOR)),
               minWidth: MediaQuery.of(context).size.width / 1.5,
               onPressed: (){
-                print('x');
+                Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TeamPlayersUI(value)));
               },
-              child: Text(valkey),
+              child: Text(value),
             );
           }).toList(),
           ],),

@@ -41,6 +41,7 @@ class LogInButtonsWidget extends StatelessWidget {
                 var conn = new ConnectDB();
                 var result =
                     await conn.logInDb(emlController.text, pwdController.text);
+                globalUserType = result['usertype'];
                 if (result == null) {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     duration: Duration(seconds: 1),
