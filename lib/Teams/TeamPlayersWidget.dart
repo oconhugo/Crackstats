@@ -4,36 +4,20 @@ import '../ConnectDB.dart';
 
 class TeamPlayersWidget extends StatefulWidget {
   final String teamNameTemp;
+  final List playerName;
 
-  TeamPlayersWidget(this.teamNameTemp);
+  TeamPlayersWidget(this.teamNameTemp, this.playerName);
 
   @override
-  _TeamPlayerWidgetState createState() => _TeamPlayerWidgetState(teamNameTemp);
+  _TeamPlayerWidgetState createState() =>
+      _TeamPlayerWidgetState(teamNameTemp, playerName);
 }
 
 class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
   String teamName;
-  var playerName = ["f g", "d f"];
-  var playerNameTemp;
+  var playerName;
 
-  _TeamPlayerWidgetState(this.teamName) {
-    getPlayers();
-  }
-
-  void getPlayers() async {
-    var y = new ConnectDB();
-    var temp = await y.retrieveTeamPlayers(teamName);
-    setPlayerName(temp);
-  }
-
-  void setPlayerName(temp) {
-    List playerNameTemp = List();
-    for (int i = 0; i < temp.length; i++) {
-      String tempName = temp[i][0] + " " + temp[i][1];
-      playerNameTemp.add(tempName);
-    }
-    print(playerNameTemp);
-  }
+  _TeamPlayerWidgetState(this.teamName, this.playerName);
 
   @override
   Widget build(BuildContext context) {

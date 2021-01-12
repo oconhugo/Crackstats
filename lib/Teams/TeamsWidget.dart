@@ -21,6 +21,15 @@ class _TeamsWidgetState extends State<TeamsWidget> {
     });
   }
 
+  Widget setPlayerName(temp, teamName) {
+    List playerNameTemp = List();
+    for (int i = 0; i < temp.length; i++) {
+      String tempName = temp[i][0] + " " + temp[i][1];
+      playerNameTemp.add(tempName);
+    }
+    return TeamPlayersUI(teamName, playerNameTemp);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -70,11 +79,12 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                 shape: RoundedRectangleBorder(
                     side: BorderSide(color: PRIMARYCOLOR)),
                 minWidth: MediaQuery.of(context).size.width / 1.2,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TeamPlayersUI(value)));
+                onPressed: () async {
+                  var y = new ConnectDB();
+                  var temp = await y.retrieveTeamPlayers(value);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return setPlayerName(temp, value);
+                  }));
                 },
                 child: Text(value),
               );
