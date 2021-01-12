@@ -89,8 +89,11 @@ const String MODIFYCREDURL = "http://hugoocon.com/modify_user_info.php";
 const String RETRIEVEUSERLEAGUES =
     "http://hugoocon.com/retrieve_user_leagues.php";
 const String RETRIEVEUSERSTATS = "http://hugoocon.com/retrieve_user_stats.php";
-const String RETRIEVELEAGUETEAMS = "http://hugoocon.com/retrieve_league_teams.php";
+const String RETRIEVELEAGUETEAMS =
+    "http://hugoocon.com/retrieve_league_teams.php";
 const String RETRIEVEALLLEAGUES = "http://hugoocon.com/retrieve_leagues.php";
+const String RETRIEVETEAMPLAYERS =
+    "http://hugoocon.com/retrieve_team_players.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

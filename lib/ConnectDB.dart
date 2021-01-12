@@ -125,4 +125,16 @@ class ConnectDB {
     }
   }
 
+  Future retrieveTeamPlayers(team) async {
+    final response = await http.post(
+      RETRIEVETEAMPLAYERS,
+      body: {"team": team},
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
 }
