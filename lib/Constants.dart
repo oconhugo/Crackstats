@@ -78,6 +78,7 @@ const String CREATETEAM = 'Create Team';
 const String TEAMNAME = 'Team Name';
 const String SENDREQUEST = 'Send Request';
 const String MESSAGETOADMIN = "Comment for league admin\n\n\n\n";
+const String MYLEAGUES = "My Leagues";
 const double TITLESIZE = 35;
 
 //URLS

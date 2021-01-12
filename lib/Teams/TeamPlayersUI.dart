@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
-import '../SideMenu/SideBarMenu.dart';
 import 'TeamPlayersWidget.dart';
 
 class TeamPlayersUI extends StatelessWidget {

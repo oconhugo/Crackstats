@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'TeamPlayerName.dart';
-import '../ConnectDB.dart';
 
 class TeamPlayersWidget extends StatefulWidget {
   final String teamNameTemp;

@@ -1,3 +1,4 @@
+import 'package:crackstats/Teams/PlayerStatsUI.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 
@@ -26,7 +27,11 @@ class _TeamPlayerNameState extends State<TeamPlayerName> {
                 RoundedRectangleBorder(side: BorderSide(color: PRIMARYCOLOR)),
             minWidth: MediaQuery.of(context).size.width / 1.13,
             onPressed: () {
-              print(name);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PlayerStatsUI(name),
+                  ));
             },
             child: Text(name),
           ),
