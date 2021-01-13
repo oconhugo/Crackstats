@@ -5,8 +5,9 @@ import 'TeamPlayersWidget.dart';
 class TeamPlayersUI extends StatelessWidget {
   final String teamName;
   final List playerName;
+  final String tempLeague;
 
-  TeamPlayersUI(this.teamName, this.playerName);
+  TeamPlayersUI(this.teamName, this.playerName, this.tempLeague);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class TeamPlayersUI extends StatelessWidget {
         title: Text(PLAYERS),
         backgroundColor: PRIMARYCOLOR,
       ),
-      body: TeamPlayersWidget(teamName, playerName),
+      body: TeamPlayersWidget(teamName, playerName,tempLeague),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           //Navigator.push(context,

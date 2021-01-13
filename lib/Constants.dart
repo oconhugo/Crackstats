@@ -79,6 +79,7 @@ const String TEAMNAME = 'Team Name';
 const String SENDREQUEST = 'Send Request';
 const String MESSAGETOADMIN = "Comment for league admin\n\n\n\n";
 const String MYLEAGUES = "My Leagues";
+const String PLAYERSTATSTITLE = 'Player Stats';
 const double TITLESIZE = 35;
 
 //URLS
@@ -95,6 +96,7 @@ const String RETRIEVELEAGUETEAMS =
 const String RETRIEVEALLLEAGUES = "http://hugoocon.com/retrieve_leagues.php";
 const String RETRIEVETEAMPLAYERS =
     "http://hugoocon.com/retrieve_team_players.php";
+const String RETRIEVEPLAYERSTATS = "http://hugoocon.com/retrieve_player_stats.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

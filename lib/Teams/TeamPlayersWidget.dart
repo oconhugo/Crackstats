@@ -4,19 +4,21 @@ import 'TeamPlayerName.dart';
 class TeamPlayersWidget extends StatefulWidget {
   final String teamNameTemp;
   final List playerName;
+  final String tempLeague;
 
-  TeamPlayersWidget(this.teamNameTemp, this.playerName);
+  TeamPlayersWidget(this.teamNameTemp, this.playerName,this.tempLeague);
 
   @override
   _TeamPlayerWidgetState createState() =>
-      _TeamPlayerWidgetState(teamNameTemp, playerName);
+      _TeamPlayerWidgetState(teamNameTemp, playerName,tempLeague);
 }
 
 class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
   String teamName;
   var playerName;
+  String leagueSel;
 
-  _TeamPlayerWidgetState(this.teamName, this.playerName);
+  _TeamPlayerWidgetState(this.teamName, this.playerName,this.leagueSel);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
         Column(
           children: [
             ...(playerName).map((name) {
-              return TeamPlayerName(name);
+              return TeamPlayerName(name,teamName,leagueSel);
             }).toList()
           ],
         ),

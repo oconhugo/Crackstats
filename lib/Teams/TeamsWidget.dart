@@ -27,7 +27,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
       String tempName = temp[i][0] + " " + temp[i][1];
       playerNameTemp.add(tempName);
     }
-    return TeamPlayersUI(teamName, playerNameTemp);
+    return TeamPlayersUI(teamName, playerNameTemp,leagueSelected);
   }
 
   @override
@@ -41,10 +41,10 @@ class _TeamsWidgetState extends State<TeamsWidget> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             textAlign: TextAlign.center,
           ),
-          padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+          padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           width: MediaQuery.of(context).size.width / 1.5,
           child: DropdownButton<String>(
             isExpanded: true,
