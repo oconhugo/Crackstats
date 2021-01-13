@@ -5,8 +5,9 @@ import '../Constants.dart';
 class PlayerStatsUI extends StatelessWidget {
   final String name;
   final String teamTempName;
+  final List playerStats;
 
-  PlayerStatsUI(this.name,this.teamTempName);
+  PlayerStatsUI(this.name,this.teamTempName,this.playerStats);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class PlayerStatsUI extends StatelessWidget {
         backgroundColor: PRIMARYCOLOR,
       ),
       body: Center(
-        child: PlayerStatsWidget(name,teamTempName),
+        child: PlayerStatsWidget(name,teamTempName,playerStats),
     ));
   }
 }

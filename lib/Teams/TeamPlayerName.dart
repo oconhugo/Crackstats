@@ -4,26 +4,30 @@ import 'package:flutter/material.dart';
 import '../Constants.dart';
 
 class TeamPlayerName extends StatefulWidget {
-  final String name;
   final String tempTeamName;
   final String temporalLeague;
+  final List<dynamic> tempPlayerName;
+  
 
-  TeamPlayerName(this.name,this.tempTeamName,this.temporalLeague);
+  TeamPlayerName(this.tempTeamName,this.temporalLeague,this.tempPlayerName);
 
   @override
-  _TeamPlayerNameState createState() => _TeamPlayerNameState(name,tempTeamName,temporalLeague);
+  _TeamPlayerNameState createState() => _TeamPlayerNameState(tempTeamName,temporalLeague,tempPlayerName);
 }
 
 class _TeamPlayerNameState extends State<TeamPlayerName> {
-  String name;
   String teamName;
   String leagueName;
   String firstName;
   String lastName;
+  var goals;
+  var apps;
+  var yellowCards;
+  var redCards;
 
-  _TeamPlayerNameState(this.name,this.teamName,this.leagueName){
-    firstName="";
-    lastName="";
+  _TeamPlayerNameState(this.teamName,this.leagueName,playerName){
+    firstName=playerName[0];
+    lastName=playerName[1];
   }
 
   @override
@@ -36,16 +40,16 @@ class _TeamPlayerNameState extends State<TeamPlayerName> {
             shape:
                 RoundedRectangleBorder(side: BorderSide(color: PRIMARYCOLOR)),
             minWidth: MediaQuery.of(context).size.width / 1.13,
-            onPressed: () {
+            onPressed: () async {
               var dbStatsConnect = new ConnectDB();
-              var dbPlayerStats = dbStatsConnect.retrievePlayerStats(firstName, lastName, leagueName, teamName);
+              var dbPlayerStats = await dbStatsConnect.retrievePlayerStats(firstName, lastName, leagueName, teamName);
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PlayerStatsUI(name,teamName),
+                    builder: (context) => PlayerStatsUI(firstName+" "+lastName,teamName,dbPlayerStats),
                   ));
             },
-            child: Text(name),
+            child: Text(firstName+" "+lastName),
           ),
         )
       ],

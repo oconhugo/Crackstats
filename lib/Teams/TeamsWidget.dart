@@ -11,6 +11,7 @@ class TeamsWidget extends StatefulWidget {
 class _TeamsWidgetState extends State<TeamsWidget> {
   String leagueSelected;
   List teamsDropdownList = List();
+  List<String> playerCompleteName = List();
 
   void getLeagueTeams() async {
     var connection = new ConnectDB();
@@ -21,13 +22,13 @@ class _TeamsWidgetState extends State<TeamsWidget> {
     });
   }
 
-  Widget setPlayerName(temp, teamName) {
-    List playerNameTemp = List();
-    for (int i = 0; i < temp.length; i++) {
-      String tempName = temp[i][0] + " " + temp[i][1];
-      playerNameTemp.add(tempName);
-    }
-    return TeamPlayersUI(teamName, playerNameTemp,leagueSelected);
+  Widget setPlayerName(tempPlayerNames, teamName) {
+    //List playerNameTemp = List();
+    //for (int i = 0; i < temp.length; i++) {
+     // String tempName = temp[i][0] + " " + temp[i][1];
+     // playerNameTemp.add(tempName);
+   // }
+    return TeamPlayersUI(teamName, tempPlayerNames,leagueSelected);
   }
 
   @override
@@ -80,10 +81,10 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                     side: BorderSide(color: PRIMARYCOLOR)),
                 minWidth: MediaQuery.of(context).size.width / 1.2,
                 onPressed: () async {
-                  var y = new ConnectDB();
-                  var temp = await y.retrieveTeamPlayers(value);
+                  var dbConnection = new ConnectDB();
+                  var tempNameList = await dbConnection.retrieveTeamPlayers(value); 
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return setPlayerName(temp, value);
+                    return setPlayerName(tempNameList, value);
                   }));
                 },
                 child: Text(value),

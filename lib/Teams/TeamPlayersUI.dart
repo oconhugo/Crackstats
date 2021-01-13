@@ -4,7 +4,7 @@ import 'TeamPlayersWidget.dart';
 
 class TeamPlayersUI extends StatelessWidget {
   final String teamName;
-  final List playerName;
+  final List<dynamic> playerName;
   final String tempLeague;
 
   TeamPlayersUI(this.teamName, this.playerName, this.tempLeague);

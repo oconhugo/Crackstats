@@ -138,10 +138,15 @@ class ConnectDB {
     }
   }
 
-Future retrievePlayerStats(firstName,lastName,league,team) async {
+  Future retrievePlayerStats(firstName, lastName, league, team) async {
     final response = await http.post(
       RETRIEVEPLAYERSTATS,
-      body: {"first_name": firstName, "last_name": lastName,"league":league,"team":team},
+      body: {
+        "first_name": firstName,
+        "last_name": lastName,
+        "league": league,
+        "team": team
+      },
     );
     try {
       var user = json.decode(response.body);
@@ -150,6 +155,4 @@ Future retrievePlayerStats(firstName,lastName,league,team) async {
       return null;
     }
   }
-
-
 }

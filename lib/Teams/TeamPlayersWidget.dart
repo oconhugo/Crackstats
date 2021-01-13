@@ -3,22 +3,22 @@ import 'TeamPlayerName.dart';
 
 class TeamPlayersWidget extends StatefulWidget {
   final String teamNameTemp;
-  final List playerName;
   final String tempLeague;
+  final List<dynamic> tempPlayerNames;
 
-  TeamPlayersWidget(this.teamNameTemp, this.playerName,this.tempLeague);
+  TeamPlayersWidget(this.teamNameTemp, this.tempPlayerNames,this.tempLeague);
 
   @override
   _TeamPlayerWidgetState createState() =>
-      _TeamPlayerWidgetState(teamNameTemp, playerName,tempLeague);
+      _TeamPlayerWidgetState(teamNameTemp, tempPlayerNames,tempLeague);
 }
 
 class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
   String teamName;
-  var playerName;
   String leagueSel;
+  var playerNames;
 
-  _TeamPlayerWidgetState(this.teamName, this.playerName,this.leagueSel);
+  _TeamPlayerWidgetState(this.teamName, this.playerNames,this.leagueSel);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
         )),
         Column(
           children: [
-            ...(playerName).map((name) {
-              return TeamPlayerName(name,teamName,leagueSel);
+            ...(playerNames).map((name) {
+              return TeamPlayerName(teamName,leagueSel,name);
             }).toList()
           ],
         ),

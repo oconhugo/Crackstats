@@ -4,19 +4,29 @@ class PlayerStatsWidget extends StatefulWidget {
 
   final String tempName;
   final String tempTeamName;
+  final List tempStats;
 
-  PlayerStatsWidget(this.tempName,this.tempTeamName);
+  PlayerStatsWidget(this.tempName,this.tempTeamName,this.tempStats);
 
   @override
-  _PlayerStatsWidgetState createState() => _PlayerStatsWidgetState(tempName,tempTeamName);
+  _PlayerStatsWidgetState createState() => _PlayerStatsWidgetState(tempName,tempTeamName,tempStats);
 }
 
 class _PlayerStatsWidgetState extends State<PlayerStatsWidget> {
 
   String playerName;
   String teamName;
+  var goals;
+  var apps;
+  var yellowCards;
+  var redCards;
 
-  _PlayerStatsWidgetState(this.playerName,this.teamName);
+  _PlayerStatsWidgetState(this.playerName,this.teamName,playerStats){
+    goals=playerStats[0];
+    apps=playerStats[1];
+    yellowCards=playerStats[2];
+    redCards=playerStats[3];
+  }
 
   @override
   Widget build(BuildContext context) {
