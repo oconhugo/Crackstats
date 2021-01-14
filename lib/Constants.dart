@@ -98,7 +98,9 @@ const String RETRIEVELEAGUETEAMS =
 const String RETRIEVEALLLEAGUES = "http://hugoocon.com/retrieve_leagues.php";
 const String RETRIEVETEAMPLAYERS =
     "http://hugoocon.com/retrieve_team_players.php";
-const String RETRIEVEPLAYERSTATS = "http://hugoocon.com/retrieve_player_stats.php";
+const String RETRIEVEPLAYERSTATS =
+    "http://hugoocon.com/retrieve_player_stats.php";
+const SENDADDTEAMREQUEST = "http://hugoocon.com/send_team_request.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

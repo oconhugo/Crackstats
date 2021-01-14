@@ -155,4 +155,21 @@ class ConnectDB {
       return null;
     }
   }
+
+  Future sendAddTeamRequest(team, league, comment) async {
+    final response = await http.post(
+      SENDADDTEAMREQUEST,
+      body: {
+        "sender": userEmailGlobal,
+        "team": team,
+        "league": league,
+        "comment": comment
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
 }

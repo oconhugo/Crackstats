@@ -1,6 +1,6 @@
+import 'package:crackstats/ConnectDB.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
-import '../SideMenu/SideBarMenu.dart';
 
 class AddTeamUI extends StatefulWidget {
   @override
@@ -96,7 +96,12 @@ class _AddTeamUIState extends State<AddTeamUI> {
             color: PRIMARYCOLOR,
             textColor: WHITE,
             child: Text(SENDREQUEST),
-            onPressed: () {},
+            onPressed: () async {
+              var conn = ConnectDB();
+              var response = await conn.sendAddTeamRequest(
+                  teamName, leagueSelected, message);
+              print(response);
+            },
           ),
         ],
       )),
