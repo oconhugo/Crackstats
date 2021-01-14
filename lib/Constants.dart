@@ -80,6 +80,8 @@ const String SENDREQUEST = 'Send Request';
 const String MESSAGETOADMIN = "Comment for league admin\n\n\n\n";
 const String MYLEAGUES = "My Leagues";
 const String PLAYERSTATSTITLE = 'Player Stats';
+const String REDCARDS = 'Red Cards';
+const String YELLOWCARDS = 'Yellow Cards';
 const double TITLESIZE = 35;
 
 //URLS

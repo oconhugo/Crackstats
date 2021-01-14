@@ -22,15 +22,6 @@ class _TeamsWidgetState extends State<TeamsWidget> {
     });
   }
 
-  Widget setPlayerName(tempPlayerNames, teamName) {
-    //List playerNameTemp = List();
-    //for (int i = 0; i < temp.length; i++) {
-     // String tempName = temp[i][0] + " " + temp[i][1];
-     // playerNameTemp.add(tempName);
-   // }
-    return TeamPlayersUI(teamName, tempPlayerNames,leagueSelected);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -83,8 +74,8 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                 onPressed: () async {
                   var dbConnection = new ConnectDB();
                   var tempNameList = await dbConnection.retrieveTeamPlayers(value); 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return setPlayerName(tempNameList, value);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {                    
+                    return TeamPlayersUI(value, tempNameList,leagueSelected);
                   }));
                 },
                 child: Text(value),

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'GoalsIcon.dart';
+import 'AppsIcon.dart';
+import 'YellowCardsIcon.dart';
+import 'RedCardsIcon.dart';
 
 class PlayerStatsWidget extends StatefulWidget {
 
@@ -49,11 +53,17 @@ class _PlayerStatsWidgetState extends State<PlayerStatsWidget> {
           width: MediaQuery.of(context).size.width / 1.2,
           child: Text(
             teamName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22,decoration:TextDecoration.underline,),
+            style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, fontSize: 26,decoration:TextDecoration.underline,),
             textAlign: TextAlign.left,
           ),
           padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
         ),
+        Table(         
+                children: [
+                TableRow(children: [GoalsIcon(goals),AppsIcon(apps)]),
+                TableRow(children: [YellowCardsIcon(yellowCards),RedCardsIcon(redCards)]),
+              ],            
+        )
       ],
     );
   }

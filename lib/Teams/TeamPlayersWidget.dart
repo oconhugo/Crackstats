@@ -22,10 +22,13 @@ class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+      child:
+      Column(
       children: [
-        Center(
-            child: Text(
+        Center( 
+          child: Text(
           teamName,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
           textAlign: TextAlign.center,
@@ -38,6 +41,6 @@ class _TeamPlayerWidgetState extends State<TeamPlayersWidget> {
           ],
         ),
       ],
-    );
+    ));
   }
 }

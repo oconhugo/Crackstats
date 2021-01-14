@@ -19,7 +19,6 @@ class _AddTeamUIState extends State<AddTeamUI> {
         title: Text(TEAMSTITLE),
         backgroundColor: PRIMARYCOLOR,
       ),
-      drawer: SideBarMenu(),
       body: Center(
           child: Column(
         children: [
