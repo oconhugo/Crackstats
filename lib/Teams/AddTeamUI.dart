@@ -12,11 +12,38 @@ class _AddTeamUIState extends State<AddTeamUI> {
   String teamName;
   String message;
 
+  Future<void> requestSentDialog() async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(REQUESTSENT),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(CONFIRMTEAMREQUESTMSG),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(OK),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(TEAMSTITLE),
+        title: Text(ADDTEAMSTITLE),
         backgroundColor: PRIMARYCOLOR,
       ),
       body: Center(
@@ -29,7 +56,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
               textAlign: TextAlign.center,
             ),
             width: MediaQuery.of(context).size.width / 1.5,
-            padding: EdgeInsets.fromLTRB(0, 10, 7, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
           ),
           Container(
             width: MediaQuery.of(context).size.width / 1.5,
@@ -41,10 +68,10 @@ class _AddTeamUIState extends State<AddTeamUI> {
                 hintText: TEAMNAME,
               ),
             ),
-            padding: EdgeInsets.fromLTRB(0, 5, 7, 0),
+            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 7, 0),
+            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
             width: MediaQuery.of(context).size.width / 1.5,
             child: DropdownButton<String>(
               isExpanded: true,
@@ -72,7 +99,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 14, 0),
+            padding: EdgeInsets.fromLTRB(0, 5, 0, 14),
             width: MediaQuery.of(context).size.width / 1.5,
             child: TextField(
               keyboardType: TextInputType.multiline,
@@ -91,7 +118,6 @@ class _AddTeamUIState extends State<AddTeamUI> {
               ),
             ),
           ),
-          //Insertar mensaje para el admin aqui
           RaisedButton(
             color: PRIMARYCOLOR,
             textColor: WHITE,
@@ -100,7 +126,9 @@ class _AddTeamUIState extends State<AddTeamUI> {
               var conn = ConnectDB();
               var response = await conn.sendAddTeamRequest(
                   teamName, leagueSelected, message);
-              print(response);
+                  if(response!=null || response.isEmpty()){
+                    requestSentDialog();
+                  }
             },
           ),
         ],

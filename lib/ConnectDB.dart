@@ -172,4 +172,21 @@ class ConnectDB {
       return null;
     }
   }
+
+    Future sendAddPlayerRequest(team, league, comment) async {
+    final response = await http.post(
+      SENDADDPLAYERREQUEST,
+      body: {
+        "sender": userEmailGlobal,
+        "team": team,
+        "league": league,
+        "comment": comment
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import 'TeamPlayersWidget.dart';
+import 'AddPlayerUI.dart';
 
 class TeamPlayersUI extends StatelessWidget {
   final String teamName;
@@ -19,8 +20,8 @@ class TeamPlayersUI extends StatelessWidget {
       body: TeamPlayersWidget(teamName, playerName,tempLeague),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          //Navigator.push(context,
-          //    MaterialPageRoute(builder: (context) => AddPlayer()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddPlayerUI(tempLeague,teamName)));
         },
         icon: Icon(Icons.add),
         label: Text(ADDPLAYER),
