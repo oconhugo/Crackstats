@@ -1,4 +1,4 @@
-import 'package:crackstats/Profile/Notifications.dart';
+import 'package:crackstats/Profile/NotificationsUI.dart';
 import '../SideMenu/SideBarMenu.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
@@ -14,20 +14,31 @@ class ProfileUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text(PROFILETITLE),
-              backgroundColor: PRIMARYCOLOR,
-              actions: [Notifications()],
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(PROFILETITLE),
+          backgroundColor: PRIMARYCOLOR,
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                  icon: const Icon(Icons.notifications_none),
+                  iconSize: kToolbarHeight - 15,
+                  tooltip: NOTIFICATIONS,
+                  onPressed: () => Scaffold.of(context).openEndDrawer()),
             ),
-            body: Center(
-                child:SingleChildScrollView(
+          ],
+        ),
+        body: Center(
+            child: SingleChildScrollView(
                 child: Table(
-                children: [
-                TableRow(children: [PhotoWidget(infoMap['First_Name'])]),
-                TableRow(children: [ProfileInfoWidget(infoMap)]),
-              ],
-            ))),
-            drawer: SideBarMenu()));
+          children: [
+            TableRow(children: [PhotoWidget(infoMap['First_Name'])]),
+            TableRow(children: [ProfileInfoWidget(infoMap)]),
+          ],
+        ))),
+        drawer: SideBarMenu(),
+        endDrawer: NotificationsUI(),
+      ),
+    );
   }
 }

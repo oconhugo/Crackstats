@@ -82,12 +82,17 @@ const String TEAMNAME = 'Team Name';
 const String SENDREQUEST = 'Send Request';
 const String MESSAGETOADMIN = "Comment for league admin\n\n\n\n";
 const String MYLEAGUES = "My Leagues";
-const String CONFIRMTEAMREQUESTMSG = 'Your request has been sent to the league admin.';
+const String CONFIRMTEAMREQUESTMSG =
+    'Your request has been sent to the league admin.';
+const String CONFIRMPLAYERREQUESTMSG =
+    'Your request has been sent to the team owner.';
 const String REQUESTSENT = 'Request Send';
 const String PLAYERSTATSTITLE = 'Player Stats';
 const String REDCARDS = 'Red Cards';
 const String YELLOWCARDS = 'Yellow Cards';
 const double TITLESIZE = 35;
+const String ADDPLAYERTEXT = "Press submit to request being added to team ";
+const String ADDPLAYERTEXT2 = " from league ";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -106,7 +111,8 @@ const String RETRIEVETEAMPLAYERS =
 const String RETRIEVEPLAYERSTATS =
     "http://hugoocon.com/retrieve_player_stats.php";
 const SENDADDTEAMREQUEST = "http://hugoocon.com/send_team_request.php";
-const String SENDADDPLAYERREQUEST = "http://hugoocon.com/send_add_player_request.php";
+const String SENDADDPLAYERREQUEST =
+    "http://hugoocon.com/send_player_request.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

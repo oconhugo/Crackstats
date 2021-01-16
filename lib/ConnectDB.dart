@@ -173,7 +173,7 @@ class ConnectDB {
     }
   }
 
-    Future sendAddPlayerRequest(team, league, comment) async {
+  Future sendAddPlayerRequest(team, league, comment) async {
     final response = await http.post(
       SENDADDPLAYERREQUEST,
       body: {
