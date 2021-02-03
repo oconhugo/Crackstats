@@ -4,13 +4,41 @@ import 'package:flutter/material.dart';
 import '../Constants.dart';
 import 'PhotoWidget.dart';
 import 'ProfileInfoWidget.dart';
+import '../ConnectDB.dart';
 
-class ProfileUI extends StatelessWidget {
+
+class ProfileUI extends StatefulWidget {
   final Map infoMap;
 
-  ProfileUI(this.infoMap);
+  ProfileUI(this.infoMap){
+  }
 
-  //ProfileUI(this.userInfo);
+  @override
+  _ProfileUIState createState() => _ProfileUIState();
+}
+
+class _ProfileUIState extends State<ProfileUI> {
+  List<dynamic> userNotifications;
+
+  _ProfileUIState(){
+    getNotifications();
+  }
+
+  bool isNotifications = false;
+
+  void getNotifications() async {
+    var connector = new ConnectDB();
+    userNotifications = await connector.getUserNotifications();
+    setState(() {
+      if(userNotifications!=null || userNotifications.isNotEmpty){
+      isNotifications=true;
+      }
+      else{
+        isNotifications=false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +49,7 @@ class ProfileUI extends StatelessWidget {
           actions: [
             Builder(
               builder: (context) => IconButton(
-                  icon: const Icon(Icons.notifications_none),
+                  icon: (isNotifications)?const Icon(Icons.notifications,color: YELLOW,):const Icon(Icons.notifications_none),
                   iconSize: kToolbarHeight - 15,
                   tooltip: NOTIFICATIONS,
                   onPressed: () => Scaffold.of(context).openEndDrawer()),
@@ -32,12 +60,12 @@ class ProfileUI extends StatelessWidget {
             child: SingleChildScrollView(
                 child: Table(
           children: [
-            TableRow(children: [PhotoWidget(infoMap['First_Name'])]),
-            TableRow(children: [ProfileInfoWidget(infoMap)]),
+            TableRow(children: [PhotoWidget(widget.infoMap['First_Name'])]),
+            TableRow(children: [ProfileInfoWidget(widget.infoMap)]),
           ],
         ))),
         drawer: SideBarMenu(),
-        endDrawer: NotificationsUI(),
+        endDrawer: NotificationsUI(userNotifications),
       ),
     );
   }

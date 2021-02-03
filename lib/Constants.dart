@@ -93,6 +93,10 @@ const String YELLOWCARDS = 'Yellow Cards';
 const double TITLESIZE = 35;
 const String ADDPLAYERTEXT = "Press submit to request being added to team ";
 const String ADDPLAYERTEXT2 = " from league ";
+const String ANNOUNCEMENT = "Announcement";
+const String TEAMNOTIFICATION = "Team Notification";
+const String PLAYERNOTIFICATION = "Player Notification";
+
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -113,6 +117,7 @@ const String RETRIEVEPLAYERSTATS =
 const SENDADDTEAMREQUEST = "http://hugoocon.com/send_team_request.php";
 const String SENDADDPLAYERREQUEST =
     "http://hugoocon.com/send_player_request.php";
+const String GETUSERNOTIFICATIONSURL = "http://hugoocon.com/get_user_notifications.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

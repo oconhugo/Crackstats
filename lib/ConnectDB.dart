@@ -189,4 +189,18 @@ class ConnectDB {
       return null;
     }
   }
+
+  Future getUserNotifications() async {
+    final response = await http.post(
+      GETUSERNOTIFICATIONSURL,
+      body: {
+        "user": userEmailGlobal,
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
 }

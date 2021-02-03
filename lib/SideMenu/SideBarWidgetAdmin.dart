@@ -19,7 +19,7 @@ class SideBarWidgetAdmin extends StatelessWidget {
                     child: Text(
                       MENUTITLE,
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color:WHITE),
                       textAlign: TextAlign.center,
                     ),
                     decoration: BoxDecoration(
