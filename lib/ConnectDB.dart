@@ -74,6 +74,7 @@ class ConnectDB {
     }
   }
 
+  //get the user leagues
   Future retrieveLeagues() async {
     final response = await http.post(
       RETRIEVEUSERLEAGUES,
@@ -87,6 +88,7 @@ class ConnectDB {
     }
   }
 
+  //get all the registered leagues
   Future retrieveAllLeagues() async {
     final response = await http.post(
       RETRIEVEALLLEAGUES,
@@ -99,6 +101,7 @@ class ConnectDB {
     }
   }
 
+  //retrieve the user stats
   Future retrieveUserStats(league) async {
     final response = await http.post(
       RETRIEVEUSERSTATS,
@@ -112,6 +115,7 @@ class ConnectDB {
     }
   }
 
+  //retrieve all the teams from a league
   Future retrieveLeagueTeams(league) async {
     final response = await http.post(
       RETRIEVELEAGUETEAMS,
@@ -125,6 +129,7 @@ class ConnectDB {
     }
   }
 
+  //retrieve the teams where the player is registered
   Future retrieveTeamPlayers(team) async {
     final response = await http.post(
       RETRIEVETEAMPLAYERS,
@@ -138,6 +143,7 @@ class ConnectDB {
     }
   }
 
+  //retrieve the user stats
   Future retrievePlayerStats(firstName, lastName, league, team) async {
     final response = await http.post(
       RETRIEVEPLAYERSTATS,
@@ -156,6 +162,7 @@ class ConnectDB {
     }
   }
 
+  //send a request to add a team
   Future sendAddTeamRequest(team, league, comment) async {
     final response = await http.post(
       SENDADDTEAMREQUEST,
@@ -173,6 +180,7 @@ class ConnectDB {
     }
   }
 
+  //send the request to add a player
   Future sendAddPlayerRequest(team, league, comment) async {
     final response = await http.post(
       SENDADDPLAYERREQUEST,
@@ -190,6 +198,7 @@ class ConnectDB {
     }
   }
 
+  //get all user notifications
   Future getUserNotifications() async {
     final response = await http.post(
       GETUSERNOTIFICATIONSURL,
@@ -198,7 +207,22 @@ class ConnectDB {
       },
     );
     try {
-      return Future.delayed(Duration(milliseconds: 1), () => json.decode(response.body));
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future removeNotification(ID) async {
+    final response = await http.post(
+      REMOVENOTIFICATION,
+      body: {
+        "id": ID,
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
     } catch (e) {
       return null;
     }

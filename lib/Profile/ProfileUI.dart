@@ -6,12 +6,10 @@ import 'PhotoWidget.dart';
 import 'ProfileInfoWidget.dart';
 import '../ConnectDB.dart';
 
-
 class ProfileUI extends StatefulWidget {
   final Map infoMap;
 
-  ProfileUI(this.infoMap){
-  }
+  ProfileUI(this.infoMap) {}
 
   @override
   _ProfileUIState createState() => _ProfileUIState();
@@ -20,7 +18,7 @@ class ProfileUI extends StatefulWidget {
 class _ProfileUIState extends State<ProfileUI> {
   List<dynamic> userNotifications;
 
-  _ProfileUIState(){
+  _ProfileUIState() {
     getNotifications();
   }
 
@@ -30,11 +28,10 @@ class _ProfileUIState extends State<ProfileUI> {
     var connector = new ConnectDB();
     userNotifications = await connector.getUserNotifications();
     setState(() {
-      if(userNotifications!=null || userNotifications.isNotEmpty){
-      isNotifications=true;
-      }
-      else{
-        isNotifications=false;
+      if (userNotifications != null && userNotifications.isNotEmpty) {
+        isNotifications = true;
+      } else {
+        isNotifications = false;
       }
     });
   }
@@ -49,7 +46,12 @@ class _ProfileUIState extends State<ProfileUI> {
           actions: [
             Builder(
               builder: (context) => IconButton(
-                  icon: (isNotifications)?const Icon(Icons.notifications,color: YELLOW,):const Icon(Icons.notifications_none),
+                  icon: (isNotifications)
+                      ? const Icon(
+                          Icons.notifications,
+                          color: YELLOW,
+                        )
+                      : const Icon(Icons.notifications_none),
                   iconSize: kToolbarHeight - 15,
                   tooltip: NOTIFICATIONS,
                   onPressed: () => Scaffold.of(context).openEndDrawer()),

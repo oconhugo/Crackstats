@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../Constants.dart';
+import 'NotificationPopUp.dart';
 
 class NotificationsUI extends StatefulWidget {
   final List<dynamic> usrNotifications;
@@ -17,16 +17,13 @@ class _NotificationsUIState extends State<NotificationsUI> {
 
   _NotificationsUIState(this.userNotifications);
 
-  Widget getNotificationType(String val){
+  Widget getNotificationType(String val) {
     int x = int.parse(val);
-
-    if(x==0){
+    if (x == 0) {
       return Text(ANNOUNCEMENT, style: TextStyle(fontSize: 28));
-    }
-    else if(x==1){
+    } else if (x == 1) {
       return Text(PLAYERNOTIFICATION, style: TextStyle(fontSize: 28));
-    }
-    else{
+    } else {
       return Text(TEAMNOTIFICATION, style: TextStyle(fontSize: 28));
     }
   }
@@ -49,10 +46,13 @@ class _NotificationsUIState extends State<NotificationsUI> {
               ))),
       ...(userNotifications).map((valkey) {
         return Card(
-          child: ListTile(
+            child: ListTile(
           title: getNotificationType(valkey[4]),
           subtitle: Text(valkey[2], style: TextStyle(fontSize: 24)),
-          onTap: () {},
+          onTap: () {
+            var notificationPop = new NotificationPopUp();
+            notificationPop.showMyDialog(context, valkey);
+          },
         ));
       }).toList(),
     ]));
