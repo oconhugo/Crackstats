@@ -4,29 +4,32 @@ import 'NotificationPopUp.dart';
 
 class NotificationsUI extends StatefulWidget {
   final List<dynamic> usrNotifications;
+  final Map information;
 
-  NotificationsUI(this.usrNotifications);
+  NotificationsUI(this.usrNotifications,this.information);
 
   @override
   _NotificationsUIState createState() =>
-      _NotificationsUIState(usrNotifications);
+      _NotificationsUIState(usrNotifications,information);
 }
 
 class _NotificationsUIState extends State<NotificationsUI> {
   List<dynamic> userNotifications;
+  Map infoMap;
 
-  _NotificationsUIState(this.userNotifications);
+  _NotificationsUIState(this.userNotifications,this.infoMap);
 
   Widget getNotificationType(String val) {
     int x = int.parse(val);
     if (x == 0) {
       return Text(ANNOUNCEMENT, style: TextStyle(fontSize: 28));
-    } else if (x == 1) {
+    } else if (x == 2) {
       return Text(PLAYERNOTIFICATION, style: TextStyle(fontSize: 28));
     } else {
       return Text(TEAMNOTIFICATION, style: TextStyle(fontSize: 28));
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,7 @@ class _NotificationsUIState extends State<NotificationsUI> {
           title: getNotificationType(valkey[4]),
           subtitle: Text(valkey[2], style: TextStyle(fontSize: 24)),
           onTap: () {
-            var notificationPop = new NotificationPopUp();
+            var notificationPop = new NotificationPopUp(infoMap);
             notificationPop.showMyDialog(context, valkey);
           },
         ));

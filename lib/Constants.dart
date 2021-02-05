@@ -101,6 +101,9 @@ const String ADDPLAYERMESSAGE = " wants to join your team";
 const String LEAGUETITLE = "League: ";
 const String TEAMTITLE = "Team: ";
 const String MESSAGETITLE = "Message: ";
+const String NOTIFICATIONREMOVED = "Notification Removed";
+const String ACCEPT = "Accept";
+const String DECLINE = "Decline";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -125,6 +128,14 @@ const String GETUSERNOTIFICATIONSURL =
     "http://hugoocon.com/get_user_notifications.php";
 const String REMOVENOTIFICATION =
     "http://hugoocon.com/remove_notifications.php";
+const String DECLINEPLAYERREQUEST =
+    "http://hugoocon.com/decline_player_request.php";
+const String ACCEPTPLAYERREQUEST =
+    "http://hugoocon.com/accept_player_request.php";
+const String DECLINETEAMREQUESTURL =
+    "http://hugoocon.com/decline_team_request.php";
+const String ACCEPTTEAMREQUESTURL =
+    "http://hugoocon.com/accept_team_request.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

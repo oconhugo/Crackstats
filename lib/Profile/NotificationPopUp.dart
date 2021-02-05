@@ -1,12 +1,18 @@
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 import '../ConnectDB.dart';
+import 'ProfileUI.dart';
 
 class NotificationPopUp {
+
+  Map infoMap;
+
+  NotificationPopUp(this.infoMap);
+
   notificationType(notification, context) {
     if (notification[4] == "0") {
       return getAnnounNoti(notification, context);
-    } else if (notification[4] == "1") {
+    } else if (notification[4] == "2") {
       return getAddPlayerNoti(notification, context);
     } else {
       return getAddTeamNoti(notification, context);
@@ -15,46 +21,73 @@ class NotificationPopUp {
 
   getAnnounNoti(notification, context) {
     return AlertDialog(
-      title: Text(ANNOUNCEMENT),
+      title: Text(ANNOUNCEMENT, style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold)),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(LEAGUETITLE + notification[6]),
-            Text(notification[2]),
+            Text(LEAGUETITLE + notification[6],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(notification[2],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           ],
         ),
       ),
       actions: <Widget>[
         TextButton(
-            child: Text(OK),
+            child: Text(DELETE,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
             onPressed: () async {
               var conn = new ConnectDB();
               var response = await conn.removeNotification(notification[0]);
-              print(response);
-              Navigator.of(context).pop();
+              //Navigator.of(context).pop();
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(infoMap)));
             }),
+        TextButton(
+          child: Text(OK,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        )
       ],
     );
   }
 
   getAddPlayerNoti(notification, context) {
     return AlertDialog(
-      title: Text(ADDPLAYERTITLE),
+      title: Text(ADDPLAYERTITLE, style: TextStyle(fontSize: 32,
+        fontWeight: FontWeight.bold)),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(notification[2] + ADDPLAYERMESSAGE),
-            Text(TEAMTITLE + notification[5]),
-            Text(LEAGUETITLE + notification[6]),
-            Text(MESSAGETITLE + notification[1]),
+            Text(notification[2] + ADDPLAYERMESSAGE,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(TEAMTITLE + notification[5],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(LEAGUETITLE + notification[6],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(MESSAGETITLE + notification[1],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           ],
         ),
       ),
       actions: <Widget>[
         TextButton(
-            child: Text(OK),
-            onPressed: () {
-              Navigator.of(context).pop();
+            child: Text(ACCEPT,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            onPressed: () async {
+              var dbconn = new ConnectDB();
+              var acceptplayerresult = await dbconn.acceptplayernotification(notification);
+              print(acceptplayerresult);
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(infoMap)));
+            }),
+            TextButton(
+            child: Text(DECLINE,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            onPressed: () async {
+              var dbconn = new ConnectDB();
+              var declineplayerresult = await dbconn.declineplayernotification(notification);
+              print(declineplayerresult);
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(infoMap)));
             }),
       ],
     );
@@ -62,22 +95,40 @@ class NotificationPopUp {
 
   getAddTeamNoti(notification, context) {
     return AlertDialog(
-      title: Text(ADDTEAMSTITLE),
+      title: Text(ADDTEAMSTITLE, style: TextStyle(fontSize: 32,
+        fontWeight: FontWeight.bold)),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(notification[2] + ADDTEAMMESSAGE),
-            Text(TEAMTITLE + notification[5]),
-            Text(LEAGUETITLE + notification[6]),
-            Text(MESSAGETITLE + notification[1]),
+            Text(notification[2] + ADDTEAMMESSAGE,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(TEAMTITLE + notification[5],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(LEAGUETITLE + notification[6],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(MESSAGETITLE + notification[1],style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           ],
         ),
       ),
       actions: <Widget>[
         TextButton(
-            child: Text(OK),
-            onPressed: () {
-              Navigator.of(context).pop();
+            child: Text(ACCEPT,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            onPressed: () async {
+              var dbconn = new ConnectDB();
+              var acceptteamresult = await dbconn.acceptteamrequest(notification);
+              print(acceptteamresult);
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(infoMap)));
+            }),
+            TextButton(
+            child: Text(DECLINE,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            onPressed: () async {
+              var dbconn = new ConnectDB();
+              var declineteamresult = await dbconn.declineteamrequest(notification);
+              print(declineteamresult);
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileUI(infoMap)));
             }),
       ],
     );

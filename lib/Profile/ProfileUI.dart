@@ -12,13 +12,14 @@ class ProfileUI extends StatefulWidget {
   ProfileUI(this.infoMap) {}
 
   @override
-  _ProfileUIState createState() => _ProfileUIState();
+  _ProfileUIState createState() => _ProfileUIState(infoMap);
 }
 
 class _ProfileUIState extends State<ProfileUI> {
   List<dynamic> userNotifications;
+  Map informationMap;
 
-  _ProfileUIState() {
+  _ProfileUIState(this.informationMap) {
     getNotifications();
   }
 
@@ -67,7 +68,7 @@ class _ProfileUIState extends State<ProfileUI> {
           ],
         ))),
         drawer: SideBarMenu(),
-        endDrawer: NotificationsUI(userNotifications),
+        endDrawer: NotificationsUI(userNotifications,informationMap),
       ),
     );
   }

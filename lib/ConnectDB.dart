@@ -214,11 +214,11 @@ class ConnectDB {
     }
   }
 
-  Future removeNotification(ID) async {
+  Future removeNotification(id) async {
     final response = await http.post(
       REMOVENOTIFICATION,
       body: {
-        "id": ID,
+        "id": id,
       },
     );
     try {
@@ -227,4 +227,82 @@ class ConnectDB {
       return null;
     }
   }
+
+  Future declineplayernotification(List notification) async {
+    final response = await http.post(
+      DECLINEPLAYERREQUEST,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league":notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    
+}
+}
+
+
+ Future acceptplayernotification(List notification) async {
+    final response = await http.post(
+      ACCEPTPLAYERREQUEST,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league":notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    
+}
+}
+
+Future declineteamrequest(List notification) async {
+    final response = await http.post(
+      DECLINETEAMREQUESTURL,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league":notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    
+}
+}
+
+Future acceptteamrequest(List notification) async {
+    final response = await http.post(
+      ACCEPTTEAMREQUESTURL,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league":notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    
+}
+}
+
 }
