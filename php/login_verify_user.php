@@ -18,10 +18,6 @@ include "dbconfig.php";
 			$returned_user = $results_get_info->fetch_assoc();
 			echo json_encode($returned_user);
 		}
-        //while($row = $results->fetch_assoc()){
-        //    echo "User exist in database";
-        //    //echo "password: " . $row['Password'];
-        //}
     }
     
 ?>
