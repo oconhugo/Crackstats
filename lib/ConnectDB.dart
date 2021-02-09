@@ -236,19 +236,17 @@ class ConnectDB {
         "player_email": notification[2],
         "team": notification[5],
         "user_email": userEmailGlobal,
-        "league":notification[6],
+        "league": notification[6],
       },
     );
     try {
       return Future.delayed(Duration(milliseconds: 1), () => response.body);
     } catch (e) {
       return null;
-    
-}
-}
+    }
+  }
 
-
- Future acceptplayernotification(List notification) async {
+  Future acceptplayernotification(List notification) async {
     final response = await http.post(
       ACCEPTPLAYERREQUEST,
       body: {
@@ -256,18 +254,17 @@ class ConnectDB {
         "player_email": notification[2],
         "team": notification[5],
         "user_email": userEmailGlobal,
-        "league":notification[6],
+        "league": notification[6],
       },
     );
     try {
       return Future.delayed(Duration(milliseconds: 1), () => response.body);
     } catch (e) {
       return null;
-    
-}
-}
+    }
+  }
 
-Future declineteamrequest(List notification) async {
+  Future declineteamrequest(List notification) async {
     final response = await http.post(
       DECLINETEAMREQUESTURL,
       body: {
@@ -275,18 +272,17 @@ Future declineteamrequest(List notification) async {
         "player_email": notification[2],
         "team": notification[5],
         "user_email": userEmailGlobal,
-        "league":notification[6],
+        "league": notification[6],
       },
     );
     try {
       return Future.delayed(Duration(milliseconds: 1), () => response.body);
     } catch (e) {
       return null;
-    
-}
-}
+    }
+  }
 
-Future acceptteamrequest(List notification) async {
+  Future acceptteamrequest(List notification) async {
     final response = await http.post(
       ACCEPTTEAMREQUESTURL,
       body: {
@@ -294,15 +290,26 @@ Future acceptteamrequest(List notification) async {
         "player_email": notification[2],
         "team": notification[5],
         "user_email": userEmailGlobal,
-        "league":notification[6],
+        "league": notification[6],
       },
     );
     try {
       return Future.delayed(Duration(milliseconds: 1), () => response.body);
     } catch (e) {
       return null;
-    
-}
-}
+    }
+  }
 
+  Future getLeagueNotifications(league) async {
+    final response = await http.post(
+      MYLEAGUEANNOUNCEMENT,
+      body: {"league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
 }

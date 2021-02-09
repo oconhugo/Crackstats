@@ -6,18 +6,18 @@ class NotificationsUI extends StatefulWidget {
   final List<dynamic> usrNotifications;
   final Map information;
 
-  NotificationsUI(this.usrNotifications,this.information);
+  NotificationsUI(this.usrNotifications, this.information);
 
   @override
   _NotificationsUIState createState() =>
-      _NotificationsUIState(usrNotifications,information);
+      _NotificationsUIState(usrNotifications, information);
 }
 
 class _NotificationsUIState extends State<NotificationsUI> {
   List<dynamic> userNotifications;
   Map infoMap;
 
-  _NotificationsUIState(this.userNotifications,this.infoMap);
+  _NotificationsUIState(this.userNotifications, this.infoMap);
 
   Widget getNotificationType(String val) {
     int x = int.parse(val);
@@ -29,7 +29,6 @@ class _NotificationsUIState extends State<NotificationsUI> {
       return Text(TEAMNOTIFICATION, style: TextStyle(fontSize: 28));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -136,6 +136,8 @@ const String DECLINETEAMREQUESTURL =
     "http://hugoocon.com/decline_team_request.php";
 const String ACCEPTTEAMREQUESTURL =
     "http://hugoocon.com/accept_team_request.php";
+const String MYLEAGUEANNOUNCEMENT =
+    "http://hugoocon.com/get_user_leagues_notifications.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

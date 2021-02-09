@@ -17,11 +17,14 @@ class TeamPlayersUI extends StatelessWidget {
         title: Text(PLAYERS),
         backgroundColor: PRIMARYCOLOR,
       ),
-      body: TeamPlayersWidget(teamName, playerName,tempLeague),
+      body: SingleChildScrollView(
+          child: TeamPlayersWidget(teamName, playerName, tempLeague)),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddPlayerUI(tempLeague,teamName)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddPlayerUI(tempLeague, teamName)));
         },
         icon: Icon(Icons.add),
         label: Text(ADDPLAYER),

@@ -64,24 +64,32 @@ class _TeamsWidgetState extends State<TeamsWidget> {
             }).toList(),
           ),
         ),
-        Column(
-          children: [
-            ...(teamsDropdownList).map((value) {
-              return FlatButton(
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(color: PRIMARYCOLOR)),
-                minWidth: MediaQuery.of(context).size.width / 1.2,
-                onPressed: () async {
-                  var dbConnection = new ConnectDB();
-                  var tempNameList = await dbConnection.retrieveTeamPlayers(value); 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {                    
-                    return TeamPlayersUI(value, tempNameList,leagueSelected);
-                  }));
-                },
-                child: Text(value),
-              );
-            }).toList(),
-          ],
+        Expanded(
+          flex: 1,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ...(teamsDropdownList).map((value) {
+                  return FlatButton(
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: PRIMARYCOLOR)),
+                    minWidth: MediaQuery.of(context).size.width / 1.2,
+                    onPressed: () async {
+                      var dbConnection = new ConnectDB();
+                      var tempNameList =
+                          await dbConnection.retrieveTeamPlayers(value);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return TeamPlayersUI(
+                            value, tempNameList, leagueSelected);
+                      }));
+                    },
+                    child: Text(value),
+                  );
+                }).toList(),
+              ],
+            ),
+          ),
         ),
       ],
     ));

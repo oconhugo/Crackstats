@@ -68,7 +68,7 @@ class _ProfileUIState extends State<ProfileUI> {
           ],
         ))),
         drawer: SideBarMenu(),
-        endDrawer: NotificationsUI(userNotifications,informationMap),
+        endDrawer: NotificationsUI(userNotifications, informationMap),
       ),
     );
   }
