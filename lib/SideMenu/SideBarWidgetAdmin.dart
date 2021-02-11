@@ -5,8 +5,12 @@ import '../LogIn/LogInUI.dart';
 import '../Constants.dart';
 import 'package:flutter/material.dart';
 import '../ConnectDB.dart';
+import '../MyLeagues/MyLeaguesUI.dart';
 
 class SideBarWidgetAdmin extends StatelessWidget {
+
+  List userAdminLeagues;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -87,7 +91,15 @@ class SideBarWidgetAdmin extends StatelessWidget {
                 Icons.sports_soccer,
                 size: 40,
               ),
-              onTap: () {},
+              onTap: () async {
+                var callDB = new ConnectDB();
+                userAdminLeagues = await callDB.getUserAdminLeaguesList(userEmailGlobal);
+                print(userAdminLeagues);
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyLeaguesUI(userAdminLeagues)));
+              },
             ),
             ListTile(
               title: Text(

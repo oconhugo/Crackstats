@@ -312,4 +312,18 @@ class ConnectDB {
       return null;
     }
   }
+
+   Future getUserAdminLeaguesList(usrEmail) async {
+    final response = await http.post(
+      GETMYADMINLEAGUES,
+      body: {"user": usrEmail},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
 }

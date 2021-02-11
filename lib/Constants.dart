@@ -104,6 +104,10 @@ const String MESSAGETITLE = "Message: ";
 const String NOTIFICATIONREMOVED = "Notification Removed";
 const String ACCEPT = "Accept";
 const String DECLINE = "Decline";
+const String DATE = "Date: ";
+const String MYLEAGUESTITLE = "My Leagues";
+const String ADDANNOUNCEMENT = "Add Announcement";
+const String SELECTLEAGUE = "Please Select a League";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -138,6 +142,8 @@ const String ACCEPTTEAMREQUESTURL =
     "http://hugoocon.com/accept_team_request.php";
 const String MYLEAGUEANNOUNCEMENT =
     "http://hugoocon.com/get_user_leagues_notifications.php";
+const String GETMYADMINLEAGUES =
+    "http://hugoocon.com/get_admin_leagues.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

@@ -64,11 +64,16 @@ class _LeaguesAnnouncementsState extends State<LeaguesAnnouncements> {
               children: [
                 ...(leagueNotifications).map((valkey) {
                   return Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
                     margin: const EdgeInsets.all(5.0),
                     padding: const EdgeInsets.all(3.0),
                     decoration:
                         BoxDecoration(border: Border.all(color: PRIMARYCOLOR)),
-                    child: Text(valkey[1], style: TextStyle(fontSize: 24)),
+                        child: Column(children: [
+                        Text(valkey[2], style: TextStyle(fontSize: 24)),
+                        Text(DATE + valkey[3], style: TextStyle(fontSize: 18))
+                        ]
+                        ),
                   );
                 })
               ],
