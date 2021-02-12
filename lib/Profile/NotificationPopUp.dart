@@ -44,7 +44,7 @@ class NotificationPopUp {
             ),
             onPressed: () async {
               var conn = new ConnectDB();
-              var response = await conn.removeNotification(notification[0]);
+              await conn.removeNotification(notification[0]);
               //Navigator.of(context).pop();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfileUI(infoMap)));

@@ -108,6 +108,10 @@ const String DATE = "Date: ";
 const String MYLEAGUESTITLE = "My Leagues";
 const String ADDANNOUNCEMENT = "Add Announcement";
 const String SELECTLEAGUE = "Please Select a League";
+const String ENTERTEXT = "Enter any text";
+const String ENTERANNOUNCEMENT = "Enter the announcement";
+const String ADDTEXT = "Add";
+const String ADDNEWANNOUNCEMENT = "Add an announcement";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -142,8 +146,8 @@ const String ACCEPTTEAMREQUESTURL =
     "http://hugoocon.com/accept_team_request.php";
 const String MYLEAGUEANNOUNCEMENT =
     "http://hugoocon.com/get_user_leagues_notifications.php";
-const String GETMYADMINLEAGUES =
-    "http://hugoocon.com/get_admin_leagues.php";
+const String GETMYADMINLEAGUES = "http://hugoocon.com/get_admin_leagues.php";
+const String INSERTANNOUNCEMENT = "http://hugoocon.com/insert_announcement.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

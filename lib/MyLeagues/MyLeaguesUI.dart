@@ -5,7 +5,6 @@ import 'MyLeaguesSchedule.dart';
 import 'MyLeaguesAnnouncements.dart';
 
 class MyLeaguesUI extends StatelessWidget {
-
   final List tempAdminLeagueList;
 
   MyLeaguesUI(this.tempAdminLeagueList);
@@ -13,23 +12,26 @@ class MyLeaguesUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          drawer: SideBarMenu(),
-          appBar: AppBar(
-            backgroundColor: PRIMARYCOLOR,
-            title: Text(MYLEAGUESTITLE),
-            bottom: TabBar(tabs: [
-              Tab(text: SCHEDULE),
-              Tab(text: ANNOUNCEMENTS,),              
-            ],
-            indicatorColor: Colors.orange),),
-            body:TabBarView(children: [
+        home: DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        drawer: SideBarMenu(),
+        appBar: AppBar(
+          backgroundColor: PRIMARYCOLOR,
+          title: Text(MYLEAGUESTITLE),
+          bottom: TabBar(tabs: [
+            Tab(text: SCHEDULE),
+            Tab(
+              text: ANNOUNCEMENTS,
+            ),
+          ], indicatorColor: Colors.orange),
+        ),
+        body: TabBarView(
+          children: [
             MyLeaguesSchedule(),
             MyLeaguesAnnouncements(tempAdminLeagueList),
           ],
-          ),
+        ),
       ),
     ));
   }

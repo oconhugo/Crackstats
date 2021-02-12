@@ -9,7 +9,7 @@ import '../ConnectDB.dart';
 class ProfileUI extends StatefulWidget {
   final Map infoMap;
 
-  ProfileUI(this.infoMap) {}
+  ProfileUI(this.infoMap);
 
   @override
   _ProfileUIState createState() => _ProfileUIState(infoMap);

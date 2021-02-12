@@ -313,7 +313,7 @@ class ConnectDB {
     }
   }
 
-   Future getUserAdminLeaguesList(usrEmail) async {
+  Future getUserAdminLeaguesList(usrEmail) async {
     final response = await http.post(
       GETMYADMINLEAGUES,
       body: {"user": usrEmail},
@@ -326,4 +326,12 @@ class ConnectDB {
     }
   }
 
+  Future<String> insertNewAnnouncement(message, league) async {
+    //print(registerFields[DATEOFBIRTH]);
+    final response = await http.post(
+      INSERTANNOUNCEMENT,
+      body: {"message": message, "league": league},
+    );
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
+  }
 }
