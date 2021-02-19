@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import 'AddAnnouncementPopUp.dart';
+import '../ConnectDB.dart';
 
 class MyLeaguesAnnouncements extends StatefulWidget {
   final List tempList;
@@ -16,10 +17,21 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
   String leagueSelected;
   List userAdminLeagues;
   bool isEnable = false;
+  List leagueAnnouncements;
+  var leagueAnn = [];
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _textEditing = '';
+  bool isMessageEmpty = false;
 
   _MyLeaguesAnnouncementsState(this.userAdminLeagues);
 
-  getLeagueAnnouncements() {}
+  getLeagueAnnouncements() async {
+    var announcementsDB = new ConnectDB();
+    leagueAnn = await announcementsDB.getLeagueAnnouncements(leagueSelected);
+    setState(() {
+      
+    });
+  }
 
   showSnackLeague() {
     Scaffold.of(context).showSnackBar(SnackBar(
@@ -64,6 +76,14 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
             ),
           ),
         ),
+        Expanded(
+          flex:1,
+          child: SingleChildScrollView( 
+          child: Column(children: [
+          ...(leagueAnn).map((valkey) {
+              return Text(valkey[2]);
+      }).toList(),
+        ],))),
         RaisedButton(
             child: Text(
               ADDANNOUNCEMENT,
@@ -71,11 +91,65 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
             textColor: WHITE,
             color: PRIMARYCOLOR,
             disabledColor: Colors.grey,
-            onPressed: () async {
-              isEnable
-                  ? new AddAnnouncementPopUp()
-                      .newAnnouncement(context, leagueSelected)
-                  : showSnackLeague();
+            onPressed: () {
+              if(isEnable)
+                  {
+                    showDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(builder: (context, setState) {
+                        return AlertDialog(
+                          content: Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: null,
+                                    onChanged: (String value) {
+                                      _textEditing = value;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: ENTERANNOUNCEMENT,
+                                      errorText: (isMessageEmpty) ? ENTERTEXT : null,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: RED, width: 1.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: PRIMARYCOLOR, width: 1.0),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          title: Text(ADDNEWANNOUNCEMENT),
+                          actions: <Widget>[
+                            InkWell(
+                              child: Text(ADDTEXT),
+                              onTap: () async {
+                                if (_textEditing.isNotEmpty) {
+                                  await new ConnectDB()
+                                      .insertNewAnnouncement(_textEditing, leagueSelected);
+                                  Navigator.of(context).pop();
+                                  getLeagueAnnouncements();
+                                } else {
+                                  setState(() {
+                                    isMessageEmpty = true;
+                                  });
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                    });
+                  }
+                  else
+                  {
+                    showSnackLeague();
+                  }
             })
       ],
     );

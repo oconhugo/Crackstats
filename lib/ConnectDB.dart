@@ -334,4 +334,18 @@ class ConnectDB {
     );
     return Future.delayed(Duration(milliseconds: 1), () => response.body);
   }
+
+  Future getLeagueAnnouncements(league) async {
+    final response = await http.post(
+      GETLEAGUEANNOUNCEMENTSURL,
+      body: {"league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
 }

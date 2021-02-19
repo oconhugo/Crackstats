@@ -148,6 +148,7 @@ const String MYLEAGUEANNOUNCEMENT =
     "http://hugoocon.com/get_user_leagues_notifications.php";
 const String GETMYADMINLEAGUES = "http://hugoocon.com/get_admin_leagues.php";
 const String INSERTANNOUNCEMENT = "http://hugoocon.com/insert_announcement.php";
+const String GETLEAGUEANNOUNCEMENTSURL = "http://hugoocon.com/get_league_announcements.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

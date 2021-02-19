@@ -94,7 +94,7 @@ class SideBarWidgetAdmin extends StatelessWidget {
               var callDB = new ConnectDB();
               userAdminLeagues =
                   await callDB.getUserAdminLeaguesList(userEmailGlobal);
-              print(userAdminLeagues);
+              //print(userAdminLeagues);
               Navigator.push(
                   context,
                   MaterialPageRoute(
