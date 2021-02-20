@@ -114,6 +114,11 @@ const String ADDTEXT = "Add";
 const String ADDNEWANNOUNCEMENT = "Add an announcement";
 const String ANNOUNCEMENTDISMISSED = "Announcement removed";
 const String ANNOUNCEMENTNOTDISMISSED = "Announcement not removed";
+const String ADDGAME = "Add New Game";
+const String TIMEWITHFORMAT = "Time: HH:MM";
+const String DATEWITHFORMAT = "Date: MM/DD/YY";
+const String LOCALTEAM = "Local Team";
+const String VISITORTEAM = "Visitor Team";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -154,6 +159,7 @@ const String GETLEAGUEANNOUNCEMENTSURL =
     "http://hugoocon.com/get_league_announcements.php";
 const String DISMISSANNOUNCEMENT =
     "http://hugoocon.com/dismiss_announcement.php";
+const String GETLEAGUETEAMSURL =  "http://hugoocon.com/get_league_teams.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

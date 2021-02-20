@@ -28,7 +28,7 @@ class MyLeaguesUI extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            MyLeaguesSchedule(),
+            MyLeaguesSchedule(tempAdminLeagueList),
             MyLeaguesAnnouncements(tempAdminLeagueList),
           ],
         ),
