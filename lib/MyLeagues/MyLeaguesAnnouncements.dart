@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
-import 'AddAnnouncementPopUp.dart';
 import '../ConnectDB.dart';
 
 class MyLeaguesAnnouncements extends StatefulWidget {
@@ -28,9 +27,7 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
   getLeagueAnnouncements() async {
     var announcementsDB = new ConnectDB();
     leagueAnn = await announcementsDB.getLeagueAnnouncements(leagueSelected);
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   showSnackLeague() {
@@ -76,14 +73,36 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
             ),
           ),
         ),
-        Expanded(
-          flex:1,
-          child: SingleChildScrollView( 
-          child: Column(children: [
-          ...(leagueAnn).map((valkey) {
-              return Text(valkey[2]);
-      }).toList(),
-        ],))),
+        Container(
+            height: MediaQuery.of(context).size.height / 1.6,
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: leagueAnn.length,
+              itemBuilder: (context, index) {
+                final item = leagueAnn[index];
+                return Dismissible(
+                    background: Container(color: RED),
+                    key: Key(item[2]),
+                    onDismissed: (direction) async {
+                      var result =
+                          await new ConnectDB().dismissAnnouncement(item[0]);
+                      setState(() {
+                        leagueAnn.removeAt(index);
+                      });
+                      if (result == ANNOUNCEMENTDISMISSED) {
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text(ANNOUNCEMENTDISMISSED)));
+                      } else {
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text(ANNOUNCEMENTNOTDISMISSED)));
+                      }
+                    },
+                    child: Card(
+                        child: ListTile(
+                            title: Center(child: Text(item[2])),
+                            subtitle: Center(child: Text(item[3])))));
+              },
+            )),
         RaisedButton(
             child: Text(
               ADDANNOUNCEMENT,
@@ -92,9 +111,8 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
             color: PRIMARYCOLOR,
             disabledColor: Colors.grey,
             onPressed: () {
-              if(isEnable)
-                  {
-                    showDialog(
+              if (isEnable) {
+                showDialog(
                     context: context,
                     builder: (context) {
                       return StatefulBuilder(builder: (context, setState) {
@@ -112,13 +130,15 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                                     },
                                     decoration: InputDecoration(
                                       hintText: ENTERANNOUNCEMENT,
-                                      errorText: (isMessageEmpty) ? ENTERTEXT : null,
+                                      errorText:
+                                          (isMessageEmpty) ? ENTERTEXT : null,
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: RED, width: 1.0),
+                                        borderSide:
+                                            BorderSide(color: RED, width: 1.0),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: PRIMARYCOLOR, width: 1.0),
+                                        borderSide: BorderSide(
+                                            color: PRIMARYCOLOR, width: 1.0),
                                       ),
                                     ),
                                   ),
@@ -130,8 +150,8 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                               child: Text(ADDTEXT),
                               onTap: () async {
                                 if (_textEditing.isNotEmpty) {
-                                  await new ConnectDB()
-                                      .insertNewAnnouncement(_textEditing, leagueSelected);
+                                  await new ConnectDB().insertNewAnnouncement(
+                                      _textEditing, leagueSelected);
                                   Navigator.of(context).pop();
                                   getLeagueAnnouncements();
                                 } else {
@@ -145,11 +165,9 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                         );
                       });
                     });
-                  }
-                  else
-                  {
-                    showSnackLeague();
-                  }
+              } else {
+                showSnackLeague();
+              }
             })
       ],
     );

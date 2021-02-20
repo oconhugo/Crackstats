@@ -112,6 +112,8 @@ const String ENTERTEXT = "Enter any text";
 const String ENTERANNOUNCEMENT = "Enter the announcement";
 const String ADDTEXT = "Add";
 const String ADDNEWANNOUNCEMENT = "Add an announcement";
+const String ANNOUNCEMENTDISMISSED = "Announcement removed";
+const String ANNOUNCEMENTNOTDISMISSED = "Announcement not removed";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -148,7 +150,10 @@ const String MYLEAGUEANNOUNCEMENT =
     "http://hugoocon.com/get_user_leagues_notifications.php";
 const String GETMYADMINLEAGUES = "http://hugoocon.com/get_admin_leagues.php";
 const String INSERTANNOUNCEMENT = "http://hugoocon.com/insert_announcement.php";
-const String GETLEAGUEANNOUNCEMENTSURL = "http://hugoocon.com/get_league_announcements.php";
+const String GETLEAGUEANNOUNCEMENTSURL =
+    "http://hugoocon.com/get_league_announcements.php";
+const String DISMISSANNOUNCEMENT =
+    "http://hugoocon.com/dismiss_announcement.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

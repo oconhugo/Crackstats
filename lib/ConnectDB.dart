@@ -348,4 +348,11 @@ class ConnectDB {
     }
   }
 
+  Future<String> dismissAnnouncement(id) async {
+    final response = await http.post(
+      DISMISSANNOUNCEMENT,
+      body: {"id": id},
+    );
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
+  }
 }
