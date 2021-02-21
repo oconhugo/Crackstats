@@ -130,10 +130,10 @@ class ConnectDB {
   }
 
   //retrieve the teams where the player is registered
-  Future retrieveTeamPlayers(team) async {
+  Future retrieveTeamPlayers(team, league) async {
     final response = await http.post(
       RETRIEVETEAMPLAYERS,
-      body: {"team": team},
+      body: {"team": team, "league": league},
     );
     try {
       var user = json.decode(response.body);
@@ -356,7 +356,7 @@ class ConnectDB {
     return Future.delayed(Duration(milliseconds: 1), () => response.body);
   }
 
-   Future getLeagueTeams(league) async {
+  Future getLeagueTeams(league) async {
     final response = await http.post(
       GETLEAGUETEAMSURL,
       body: {"league": league},
@@ -369,4 +369,16 @@ class ConnectDB {
     }
   }
 
+  Future getTeamPlayers(team, league) async {
+    final response = await http.post(
+      RETRIEVETEAMPLAYERS,
+      body: {"team": team, "league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
 }

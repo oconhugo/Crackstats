@@ -119,6 +119,8 @@ const String TIMEWITHFORMAT = "Time: HH:MM";
 const String DATEWITHFORMAT = "Date: MM/DD/YY";
 const String LOCALTEAM = "Local Team";
 const String VISITORTEAM = "Visitor Team";
+const String SCORETEXT = "Score";
+const String SCORERTEXT = "Scorer";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -159,7 +161,7 @@ const String GETLEAGUEANNOUNCEMENTSURL =
     "http://hugoocon.com/get_league_announcements.php";
 const String DISMISSANNOUNCEMENT =
     "http://hugoocon.com/dismiss_announcement.php";
-const String GETLEAGUETEAMSURL =  "http://hugoocon.com/get_league_teams.php";
+const String GETLEAGUETEAMSURL = "http://hugoocon.com/get_league_teams.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

@@ -76,8 +76,8 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                     minWidth: MediaQuery.of(context).size.width / 1.2,
                     onPressed: () async {
                       var dbConnection = new ConnectDB();
-                      var tempNameList =
-                          await dbConnection.retrieveTeamPlayers(value);
+                      var tempNameList = await dbConnection.retrieveTeamPlayers(
+                          value, leagueSelected);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return TeamPlayersUI(
