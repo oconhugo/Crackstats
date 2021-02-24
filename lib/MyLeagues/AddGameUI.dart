@@ -145,16 +145,15 @@ class _AddGameUIState extends State<AddGameUI> {
           backgroundColor: PRIMARYCOLOR,
           title: Text(ADDGAME),
         ),
-        body: GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          //childAspectRatio: (itemWidth / itemHeight),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
+        body: SingleChildScrollView(child: Wrap(
+          spacing: MediaQuery.of(context).size.width / 8,
+          runSpacing: 8,
+          direction: Axis.horizontal,
           children: <Widget>[
             //Date
             Container(
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
               child: TextField(
                 controller: dateController,
                 decoration: InputDecoration(
@@ -164,6 +163,8 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //Time
             Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
               child: TextField(
                 controller: timeController,
                 decoration: InputDecoration(
@@ -173,7 +174,8 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //Local Team Dropdown
             Container(
-              height: 40,
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
               child: DropdownButton<String>(
                 isExpanded: true,
                 hint: Text(LOCALTEAM),
@@ -202,6 +204,8 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //Visitor Team Dropdown
             Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
               child: DropdownButton<String>(
                 isExpanded: true,
                 hint: Text(VISITORTEAM),
@@ -230,6 +234,8 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //Local Score
             Container(
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
@@ -241,6 +247,8 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //Visitor Score
             Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
@@ -251,15 +259,24 @@ class _AddGameUIState extends State<AddGameUI> {
               ),
             ),
             //Local scorer dropdown
-            Column(children: 
-              localScore>0?getLocalDropdownScorers(localScore):[noLocalGoals()]
+            Container(
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
+              child: Column(children: 
+                  localScore>0?getLocalDropdownScorers(localScore):[noLocalGoals()]
+                ),
+              
             ),
             //Visitor scorer Dropdown
-            Column(
-              children: 
-              visitorScore>0?getVisitorDropdownScorers(visitorScore):[noVisitorGoals()]
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              width: MediaQuery.of(context).size.width *(3.5/8),
+              child: Column(
+                children: 
+                visitorScore>0?getVisitorDropdownScorers(visitorScore):[noVisitorGoals()]
+              ),
             ),
           ],
-        ));
+        )));
   }
 }
