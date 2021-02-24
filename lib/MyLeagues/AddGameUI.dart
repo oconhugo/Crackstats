@@ -19,18 +19,123 @@ class _AddGameUIState extends State<AddGameUI> {
   List teamList;
   String playerSelected;
   List localPlayersList = [];
+  List localScorersList =[];
+  List visitorScorersList =[];
+  List visitorPlayersList = [];
   TextEditingController dateController = new TextEditingController();
   TextEditingController timeController = new TextEditingController();
-  TextEditingController localScoreController = new TextEditingController();
-  TextEditingController visitorScoreController = new TextEditingController();
+  var localScore = 0;
+  var visitorScore=0;
 
   _AddGameUIState(this.league, this.teamList);
 
-  getLocalTeamPlayers(value) async {
-    localPlayersList = await new ConnectDB().getTeamPlayers(value, league);
+  getLocalTeamPlayers(team) async {
+    localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     setState(() {
       print(localPlayersList);
     });
+  }
+
+  getVisitorTeamPlayers(team) async {
+    visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
+    setState(() {
+      print(localPlayersList);
+    });
+  }
+
+  Widget noLocalGoals(){
+    localScorersList=[];
+    return Text(NOLOCALGOALS);
+  }
+
+  Widget noVisitorGoals(){
+    visitorScorersList=[];
+    print(visitorScorersList);
+    return Text(NOVISITORGOALS);
+  }
+
+  List<Widget> getLocalDropdownScorers(numberOfGoals){
+    List<Widget> localScorers = List<Widget>();
+    localScorersList.length=numberOfGoals;
+
+    for(int i=0;i<numberOfGoals;i++)
+    {
+      localScorers.add(
+        Container(
+                padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  hint: Text(LOCALTEAM + " " + SCORERTEXT),
+                  value: localScorersList[i],
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 24,
+                  style: TextStyle(color: PRIMARYCOLOR),
+                  underline: Container(
+                    height: 2,
+                    color: PRIMARYCOLOR,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      localScorersList[i] = newValue;
+                    });
+                  },
+                  items: localPlayersList.map((list) {
+                    String playerName = list[0] + " " + list[1];
+                    return DropdownMenuItem<String>(
+                      value: playerName,
+                      child: Text(playerName),
+                    );
+                  }).toList(),
+                ),
+              ),
+      );
+    }
+    print(localScorersList);
+    return localScorers;
+  }
+
+  List<Widget> getVisitorDropdownScorers(numberOfGoals){
+    List<Widget> visitorScorers = List<Widget>();
+    visitorScorersList.length=numberOfGoals;
+
+    for(int i=0;i<numberOfGoals;i++)
+    {
+      visitorScorers.add(
+        Container(
+                padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  hint: Text(LOCALTEAM + " " + SCORERTEXT),
+                  value: visitorScorersList[i],
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 24,
+                  style: TextStyle(color: PRIMARYCOLOR),
+                  underline: Container(
+                    height: 2,
+                    color: PRIMARYCOLOR,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      visitorScorersList[i] = newValue;
+                    });
+                  },
+                  items: visitorPlayersList.map((list) {
+                    String playerName = list[0] + " " + list[1];
+                    return DropdownMenuItem<String>(
+                      value: playerName,
+                      child: Text(playerName),
+                    );
+                  }).toList(),
+                ),
+              ),
+      );
+    }
+    print(visitorScorersList);
+    return visitorScorers;
   }
 
   @override
@@ -112,6 +217,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 onChanged: (String newValue) {
                   setState(() {
                     visitorTeam = newValue;
+                    getVisitorTeamPlayers(visitorTeam);
                   });
                 },
                 items: teamList.map((list) {
@@ -125,56 +231,34 @@ class _AddGameUIState extends State<AddGameUI> {
             //Local Score
             Container(
               child: TextField(
-                controller: localScoreController,
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
+                onChanged: (value) {
+                  localScore=int.parse(value);
+                },
               ),
             ),
             //Visitor Score
             Container(
               child: TextField(
-                controller: visitorScoreController,
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
+                onChanged: (value) {
+                  visitorScore=int.parse(value);
+                },
               ),
             ),
             //Local scorer dropdown
-            Column(children: [
-              //TODO
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: DropdownButton<String>(
-                  isExpanded: true,
-                  hint: Text(LOCALTEAM + " " + SCORERTEXT),
-                  value: playerSelected,
-                  icon: Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 24,
-                  style: TextStyle(color: PRIMARYCOLOR),
-                  underline: Container(
-                    height: 2,
-                    color: PRIMARYCOLOR,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      playerSelected = newValue;
-                    });
-                  },
-                  items: localPlayersList.map((list) {
-                    String playerName = list[0] + " " + list[1];
-                    return DropdownMenuItem<String>(
-                      value: playerName,
-                      child: Text(playerName),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ]),
-            //Visitor Dropdown
-            Column(),
+            Column(children: 
+              localScore>0?getLocalDropdownScorers(localScore):[noLocalGoals()]
+            ),
+            //Visitor scorer Dropdown
+            Column(
+              children: 
+              visitorScore>0?getVisitorDropdownScorers(visitorScore):[noVisitorGoals()]
+            ),
           ],
         ));
   }

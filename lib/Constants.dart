@@ -121,6 +121,8 @@ const String LOCALTEAM = "Local Team";
 const String VISITORTEAM = "Visitor Team";
 const String SCORETEXT = "Score";
 const String SCORERTEXT = "Scorer";
+const String NOLOCALGOALS = "No Local Goals";
+const String NOVISITORGOALS = "No Visitor Goals";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
