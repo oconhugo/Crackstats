@@ -123,6 +123,19 @@ const String SCORETEXT = "Score";
 const String SCORERTEXT = "Scorer";
 const String NOLOCALGOALS = "No Local Goals";
 const String NOVISITORGOALS = "No Visitor Goals";
+const String YELLOWCARDSNUM = "Yellow cards number";
+const String NOLOCALYELLOWS = "No Local Yellow Cards";
+const String NOVISITORYELLOWS = "No Visitor Yellow Cards";
+const String REDCARDSNUM = "Red cards number";
+const String NOLOCALREDCARDS = "No Local Red Cards";
+const String NOVISITORREDCARDS = "No Visitor Red Cards";
+const String LOCALTEAMSCORERTXT = "Local Team Scorer";
+const String VISITORTEAMSCORERTXT = "Visitor Team Scorer";
+const String VISITORYELLOWSTXT = "Visitor Yellow cards";
+const String LOCALYELLOWSTXT = "Local Yellow cards";
+const String VISITORREDTXT = "Visitor Red cards";
+const String LOCALREDTXT = "Local Red cards";
+const String NOTEAMSELECTED = "No team has been selected yet";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
