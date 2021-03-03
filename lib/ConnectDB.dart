@@ -381,4 +381,28 @@ class ConnectDB {
       return null;
     }
   }
+
+   Future<String> sendMatch(localTeam,visitorTeam,date,venue,localScore,visitorScore,localYellows,visitorYellows,localReds,visitorReds,time,league,localApps,visitorApps) async {
+    final response = await http.post(
+      SENDMATCHURL,
+      body: {
+        "localTeam": localTeam,
+        "visitorTeam": visitorTeam,
+        "date": date,
+        "venue": venue,
+        "localScore": localScore,
+        "visitorScore":visitorScore,
+        "localYellows":localYellows,
+        "visitorYellows":visitorYellows,
+        "localReds":localReds,
+        "visitorReds":visitorReds,
+        "time":time,
+        "league":league,
+        "localApps":localApps,
+        "visitorApps":visitorApps
+      },
+    );
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
+  }
+
 }

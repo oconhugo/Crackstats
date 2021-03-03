@@ -136,6 +136,9 @@ const String LOCALYELLOWSTXT = "Local Yellow cards";
 const String VISITORREDTXT = "Visitor Red cards";
 const String LOCALREDTXT = "Local Red cards";
 const String NOTEAMSELECTED = "No team has been selected yet";
+const String SUBMIT = "Submit";
+const String PARTICIPATEDPLAYERS = "Select players that participated:";
+const String VENUE = "Venue";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -177,6 +180,7 @@ const String GETLEAGUEANNOUNCEMENTSURL =
 const String DISMISSANNOUNCEMENT =
     "http://hugoocon.com/dismiss_announcement.php";
 const String GETLEAGUETEAMSURL = "http://hugoocon.com/get_league_teams.php";
+const String SENDMATCHURL = "http://hugoocon.com/insert_new_match.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

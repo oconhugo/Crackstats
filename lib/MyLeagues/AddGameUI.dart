@@ -16,6 +16,7 @@ class _AddGameUIState extends State<AddGameUI> {
   String league;
   String localTeam;
   String visitorTeam;
+  String venue;
   List teamList;
   String playerSelected;
   List localPlayersList = [];
@@ -26,6 +27,8 @@ class _AddGameUIState extends State<AddGameUI> {
   List visitorYellowsList = [];
   List localRedsList = [];
   List visitorRedsList = [];
+  Map localAppearance = {};
+  Map visitorAppearance = {};
   String date;
   String time;
   var localScore = 0;
@@ -34,17 +37,20 @@ class _AddGameUIState extends State<AddGameUI> {
   var visitorYellowCards = 0;
   var localRedCards = 0;
   var visitorRedCards = 0;
+  bool testVal=false;
 
   _AddGameUIState(this.league, this.teamList);
 
   getLocalTeamPlayers(team) async {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     setState(() {});
+    localAppearance = Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
   }
 
   getVisitorTeamPlayers(team) async {
     visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     setState(() {});
+    visitorAppearance = Map.fromIterable(visitorPlayersList, key: (v) => v, value: (v) => false);
   }
 
   Widget showEmptyValue(list, value) {
@@ -129,6 +135,19 @@ class _AddGameUIState extends State<AddGameUI> {
                 ),
                 onChanged: (value) {
                   time = value;
+                },
+              ),
+            ),
+            //Time
+            Container(
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: MediaQuery.of(context).size.width * (1),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: VENUE,
+                ),
+                onChanged: (value) {
+                  venue = value;
                 },
               ),
             ),
@@ -322,7 +341,7 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //visitor red cards dropdown
             Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              padding: EdgeInsets.fromLTRB(0, 0, 5, 25),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: Column(
                   children: visitorRedCards > 0
@@ -330,17 +349,61 @@ class _AddGameUIState extends State<AddGameUI> {
                           visitorPlayersList, VISITORREDTXT)
                       : [showEmptyValue(visitorRedCards, NOVISITORREDCARDS)]),
             ),
+            //Text local players appearance
+            Center(
+              //width: MediaQuery.of(context).size.width /2,
+              //padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child:Text(PARTICIPATEDPLAYERS)),
             //Local checkbox
             Container(
-              padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Text(NOTEAMSELECTED),
+              child: Column(children: [
+                ...(localAppearance.keys).map((valkey) {
+                    String tempName = valkey[0] + " " + valkey[1];
+                    return CheckboxListTile(
+                    title: Text(tempName),
+                    value: localAppearance[valkey],
+                    onChanged: (bool value) {
+                      setState(() {
+                        localAppearance[valkey] = value;
+                        print(localAppearance);
+                      });
+                    },
+                  );
+                  }).toList(),
+              ],)
             ),
             //Visitor checkbox
             Container(
-              padding: EdgeInsets.fromLTRB(0, 30, 5, 0),
+              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Text(NOTEAMSELECTED),
+              child: Column(children: [
+                ...(visitorAppearance.keys).map((valkey) {
+                    String tempName = valkey[0] + " " + valkey[1];
+                    return CheckboxListTile(
+                    title: Text(tempName),
+                    value: visitorAppearance[valkey],
+                    onChanged: (bool value) {
+                      setState(() {
+                        visitorAppearance[valkey] = value;
+                        print(visitorAppearance);
+                      });
+                    },
+                  );
+                  }).toList(),
+              ],),
+            ),
+            Center(
+              child: RaisedButton(
+                child: Text(SUBMIT),
+                onPressed: 
+                  () async {
+                    var tempConnectDB = new ConnectDB();
+                    var senfInfoResult = await tempConnectDB.sendMatch(localTeam,visitorTeam,date,venue,localScore,visitorScore,localYellowsList,visitorYellowsList,localRedCards,visitorRedsList,time,league,localAppearance,visitorAppearance);
+                    //print(sendInfoResult);
+                  }
+                ),
             )
           ],
         )));
