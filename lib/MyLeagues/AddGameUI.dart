@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
+import 'dart:convert';
 
 class AddGameUI extends StatefulWidget {
   String tempLeague;
@@ -16,7 +17,7 @@ class _AddGameUIState extends State<AddGameUI> {
   String league;
   String localTeam;
   String visitorTeam;
-  String venue;
+  String venue = "";
   List teamList;
   String playerSelected;
   List localPlayersList = [];
@@ -27,10 +28,12 @@ class _AddGameUIState extends State<AddGameUI> {
   List visitorYellowsList = [];
   List localRedsList = [];
   List visitorRedsList = [];
+  List localAppsList = [];
+  List visitorAppsList = [];
   Map localAppearance = {};
   Map visitorAppearance = {};
-  String date;
-  String time;
+  String date = "";
+  String time = "";
   var localScore = 0;
   var visitorScore = 0;
   var localYellowCards = 0;
@@ -40,6 +43,25 @@ class _AddGameUIState extends State<AddGameUI> {
   bool testVal=false;
 
   _AddGameUIState(this.league, this.teamList);
+
+
+  getLocalAppsList() {
+    localAppearance.forEach((name,value){
+      if(value==true){
+        localAppsList.add(name);
+      }
+    }
+    ); 
+  }
+
+  getVisitorAppsList() {
+    visitorAppearance.forEach((name,value){
+      if(value==true){
+        visitorAppsList.add(name);
+      }
+    }
+    ); 
+  }
 
   getLocalTeamPlayers(team) async {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
@@ -399,9 +421,13 @@ class _AddGameUIState extends State<AddGameUI> {
                 child: Text(SUBMIT),
                 onPressed: 
                   () async {
+                    getLocalAppsList();
+                    getVisitorAppsList();
+                    var temp5= jsonEncode(localAppsList);
+                    var temp6 = jsonEncode(visitorAppsList);
                     var tempConnectDB = new ConnectDB();
-                    var senfInfoResult = await tempConnectDB.sendMatch(localTeam,visitorTeam,date,venue,localScore,visitorScore,localYellowsList,visitorYellowsList,localRedCards,visitorRedsList,time,league,localAppearance,visitorAppearance);
-                    //print(sendInfoResult);
+                    var sendInfoResult = await tempConnectDB.sendMatch(localTeam,visitorTeam,date,venue,jsonEncode(localScorersList),jsonEncode(visitorScorersList),jsonEncode(localYellowsList),jsonEncode(visitorYellowsList),jsonEncode(localRedsList),jsonEncode(visitorRedsList),time,league,jsonEncode(localAppsList),jsonEncode(visitorAppsList));
+                    print(sendInfoResult);
                   }
                 ),
             )

@@ -402,7 +402,12 @@ class ConnectDB {
         "visitorApps":visitorApps
       },
     );
-    return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
   }
 
 }
