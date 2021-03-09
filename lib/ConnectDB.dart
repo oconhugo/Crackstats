@@ -382,7 +382,21 @@ class ConnectDB {
     }
   }
 
-   Future<String> sendMatch(localTeam,visitorTeam,date,venue,localScore,visitorScore,localYellows,visitorYellows,localReds,visitorReds,time,league,localApps,visitorApps) async {
+  Future<String> sendMatch(
+      localTeam,
+      visitorTeam,
+      date,
+      venue,
+      localScore,
+      visitorScore,
+      localYellows,
+      visitorYellows,
+      localReds,
+      visitorReds,
+      time,
+      league,
+      localApps,
+      visitorApps) async {
     final response = await http.post(
       SENDMATCHURL,
       body: {
@@ -391,23 +405,21 @@ class ConnectDB {
         "date": date,
         "venue": venue,
         "localScore": localScore,
-        "visitorScore":visitorScore,
-        "localYellows":localYellows,
-        "visitorYellows":visitorYellows,
-        "localReds":localReds,
-        "visitorReds":visitorReds,
-        "time":time,
-        "league":league,
-        "localApps":localApps,
-        "visitorApps":visitorApps
+        "visitorScore": visitorScore,
+        "localYellows": localYellows,
+        "visitorYellows": visitorYellows,
+        "localReds": localReds,
+        "visitorReds": visitorReds,
+        "time": time,
+        "league": league,
+        "localApps": localApps,
+        "visitorApps": visitorApps
       },
     );
     try {
-      return Future.delayed(
-          Duration(milliseconds: 1), () => response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
     } catch (e) {
       return null;
     }
   }
-
 }

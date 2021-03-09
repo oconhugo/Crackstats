@@ -40,39 +40,38 @@ class _AddGameUIState extends State<AddGameUI> {
   var visitorYellowCards = 0;
   var localRedCards = 0;
   var visitorRedCards = 0;
-  bool testVal=false;
+  bool testVal = false;
 
   _AddGameUIState(this.league, this.teamList);
 
-
   getLocalAppsList() {
-    localAppearance.forEach((name,value){
-      if(value==true){
+    localAppearance.forEach((name, value) {
+      if (value == true) {
         localAppsList.add(name);
       }
-    }
-    ); 
+    });
   }
 
   getVisitorAppsList() {
-    visitorAppearance.forEach((name,value){
-      if(value==true){
+    visitorAppearance.forEach((name, value) {
+      if (value == true) {
         visitorAppsList.add(name);
       }
-    }
-    ); 
+    });
   }
 
   getLocalTeamPlayers(team) async {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     setState(() {});
-    localAppearance = Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
+    localAppearance =
+        Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
   }
 
   getVisitorTeamPlayers(team) async {
     visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     setState(() {});
-    visitorAppearance = Map.fromIterable(visitorPlayersList, key: (v) => v, value: (v) => false);
+    visitorAppearance = Map.fromIterable(visitorPlayersList,
+        key: (v) => v, value: (v) => false);
   }
 
   Widget showEmptyValue(list, value) {
@@ -142,6 +141,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: DATEWITHFORMAT,
                 ),
+                //keyboardType: TextInputType.number,
                 onChanged: (value) {
                   date = value;
                 },
@@ -160,7 +160,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 },
               ),
             ),
-            //Time
+            //Venue
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (1),
@@ -241,6 +241,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   localScore = int.parse(value);
                 },
@@ -254,6 +255,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   visitorScore = int.parse(value);
                 },
@@ -287,6 +289,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: YELLOWCARDSNUM,
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   localYellowCards = int.parse(value);
                 },
@@ -300,6 +303,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: YELLOWCARDSNUM,
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   visitorYellowCards = int.parse(value);
                 },
@@ -333,6 +337,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: REDCARDSNUM,
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   localRedCards = int.parse(value);
                 },
@@ -346,6 +351,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: REDCARDSNUM,
                 ),
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   visitorRedCards = int.parse(value);
                 },
@@ -373,63 +379,75 @@ class _AddGameUIState extends State<AddGameUI> {
             ),
             //Text local players appearance
             Center(
-              //width: MediaQuery.of(context).size.width /2,
-              //padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child:Text(PARTICIPATEDPLAYERS)),
+                //width: MediaQuery.of(context).size.width /2,
+                //padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Text(PARTICIPATEDPLAYERS)),
             //Local checkbox
             Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(children: [
-                ...(localAppearance.keys).map((valkey) {
-                    String tempName = valkey[0] + " " + valkey[1];
-                    return CheckboxListTile(
-                    title: Text(tempName),
-                    value: localAppearance[valkey],
-                    onChanged: (bool value) {
-                      setState(() {
-                        localAppearance[valkey] = value;
-                        print(localAppearance);
-                      });
-                    },
-                  );
-                  }).toList(),
-              ],)
-            ),
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
+                  children: [
+                    ...(localAppearance.keys).map((valkey) {
+                      String tempName = valkey[0] + " " + valkey[1];
+                      return CheckboxListTile(
+                        title: Text(tempName),
+                        value: localAppearance[valkey],
+                        onChanged: (bool value) {
+                          setState(() {
+                            localAppearance[valkey] = value;
+                            print(localAppearance);
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ],
+                )),
             //Visitor checkbox
             Container(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(children: [
-                ...(visitorAppearance.keys).map((valkey) {
+              child: Column(
+                children: [
+                  ...(visitorAppearance.keys).map((valkey) {
                     String tempName = valkey[0] + " " + valkey[1];
                     return CheckboxListTile(
-                    title: Text(tempName),
-                    value: visitorAppearance[valkey],
-                    onChanged: (bool value) {
-                      setState(() {
-                        visitorAppearance[valkey] = value;
-                        print(visitorAppearance);
-                      });
-                    },
-                  );
+                      title: Text(tempName),
+                      value: visitorAppearance[valkey],
+                      onChanged: (bool value) {
+                        setState(() {
+                          visitorAppearance[valkey] = value;
+                        });
+                      },
+                    );
                   }).toList(),
-              ],),
+                ],
+              ),
             ),
             Center(
               child: RaisedButton(
-                child: Text(SUBMIT),
-                onPressed: 
-                  () async {
+                  child: Text(SUBMIT),
+                  onPressed: () async {
                     getLocalAppsList();
                     getVisitorAppsList();
-                    var temp5= jsonEncode(localAppsList);
-                    var temp6 = jsonEncode(visitorAppsList);
                     var tempConnectDB = new ConnectDB();
-                    var sendInfoResult = await tempConnectDB.sendMatch(localTeam,visitorTeam,date,venue,jsonEncode(localScorersList),jsonEncode(visitorScorersList),jsonEncode(localYellowsList),jsonEncode(visitorYellowsList),jsonEncode(localRedsList),jsonEncode(visitorRedsList),time,league,jsonEncode(localAppsList),jsonEncode(visitorAppsList));
+                    var sendInfoResult = await tempConnectDB.sendMatch(
+                        localTeam,
+                        visitorTeam,
+                        date,
+                        venue,
+                        jsonEncode(localScorersList),
+                        jsonEncode(visitorScorersList),
+                        jsonEncode(localYellowsList),
+                        jsonEncode(visitorYellowsList),
+                        jsonEncode(localRedsList),
+                        jsonEncode(visitorRedsList),
+                        time,
+                        league,
+                        jsonEncode(localAppsList),
+                        jsonEncode(visitorAppsList));
                     print(sendInfoResult);
-                  }
-                ),
+                  }),
             )
           ],
         )));
