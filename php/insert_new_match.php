@@ -16,22 +16,74 @@ include "dbconfig.php";
 	$league = mysqli_real_escape_string($conn, $_POST['league']);
 	$localapps = mysqli_real_escape_string($conn, $_POST['localApps']);
 	$visitorapps = mysqli_real_escape_string($conn, $_POST['visitorApps']);
- 
+	
         $query = "INSERT INTO t_schedules (Local, Visitor, Date, Field_name, Local_Score, Visitor_Score, Local_Yellow_Card, Local_Red_Card, Visitor_Yellow_Cards, Visitor_Red_Cards, Time, League, Local_Participants, Visitor_Participants)
-  			  VALUES('$localteam', '$visitorteam', '$date', '$venue', '$temp', '$visitorscore', '$localyellows' ,'$localreds', '$visitoryellows', '$visitorreds' ,'$time', '$league', '$localapps', '$visitorapps')";
+  			  VALUES('$localteam', '$visitorteam', '$date', '$venue', '$localscore', '$visitorscore', '$localyellows' ,'$localreds', '$visitoryellows', '$visitorreds' ,'$time', '$league', '$localapps', '$visitorapps')";
+			  
+		$decoded_local_scorers = json_decode(stripslashes($localscore),true);
+        $decoded_visitor_scorers = json_decode(stripslashes($visitorscore),true);
+        $decoded_local_yellows = json_decode(stripslashes($localyellows),true);
+        $decoded_visitor_yellows = json_decode(stripslashes($visitoryellows),true);
+        $decoded_local_reds = json_decode(stripslashes($localreds),true);
+        $decoded_visitor_reds = json_decode(stripslashes($visitorreds),true);
+        $decoded_local_apps = json_decode(stripslashes($localapps),true);
+        $decoded_visitor_apps = json_decode(stripslashes($visitorapps),true);
 
     $results = mysqli_query($conn, $query);
     
 	if($results>0)
     {
+        //update local goals
+        foreach ($decoded_local_scorers as $value){
+            $query1 = "UPDATE t_players SET Goals = Goals + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update visitor goals
+        foreach ($decoded_visitor_scorers as $value){
+            $query1 = "UPDATE t_players SET Goals = Goals + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update local yellows
+        foreach ($decoded_local_yellows as $value){
+            $query1 = "UPDATE t_players SET Yellow_Cards = Yellow_Cards + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update visitor yellows
+        foreach ($decoded_visitor_yellows as $value){
+            $query1 = "UPDATE t_players SET Yellow_Cards = Yellow_Cards + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update local reds
+        foreach ($decoded_local_reds as $value){
+            $query1 = "UPDATE t_players SET Red_Cards = Red_Cards + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update visitor reds
+        foreach ($decoded_visitor_reds as $value){
+            $query1 = "UPDATE t_players SET Red_Cards = Red_Cards + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update local apps
+        foreach ($decoded_local_apps as $value){
+            $query1 = "UPDATE t_players SET Apps = Apps + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+
+        //update visitor apps
+        foreach ($decoded_visitor_apps as $value){
+            $query1 = "UPDATE t_players SET Apps = Apps + 1 WHERE ID = '$value'";
+            $res = mysqli_query($conn, $query1);
+        }
+        
         echo "Success";
     }
-
-    //update goals
-    //foreach ($localscore as $value){
-        //$query1 = "UPDATE t_players SET Goals = 5 
-        //WHERE First_Name = '$value[0]' and Last_name = '$value[1]' and League = '$league' and Team = '$localteam';
-        //$res = mysqli_query($conn, $query1);
-    //}
+	
+	
     
 ?>

@@ -3,8 +3,9 @@ include "dbconfig.php";
 // Retrieve all players from a team
   
 	$team = mysqli_real_escape_string($conn, $_POST['team']);
+        $league = mysqli_real_escape_string($conn, $_POST['league']);
  
-    $query = "SELECT DISTINCT First_name, Last_Name from t_players WHERE Team= '$team'";
+    $query = "SELECT DISTINCT First_name, Last_Name, ID from t_players WHERE Team= '$team' and League= '$league'";
 	
 	$results = mysqli_query($conn, $query);
 	$values = [];
