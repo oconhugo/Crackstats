@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
 import 'dart:convert';
+import 'package:collection/collection.dart';
 
 class AddGameUI extends StatefulWidget {
   String tempLeague;
@@ -30,8 +31,12 @@ class _AddGameUIState extends State<AddGameUI> {
   List visitorRedsList = [];
   List localAppsList = [];
   List visitorAppsList = [];
+  List localAppsIDS = [];
+  List visitorAppsIDS = [];
   Map localAppearance = {};
   Map visitorAppearance = {};
+  Map localPlayerKeys = {};
+  Map visitorPlayerKeys = {};
   String date = "";
   String time = "";
   var localScore = 0;
@@ -44,24 +49,43 @@ class _AddGameUIState extends State<AddGameUI> {
 
   _AddGameUIState(this.league, this.teamList);
 
+  Function eq = const ListEquality().equals;
+
+  Map<String,dynamic> toJson(list){
+    return{
+      "Scorers": list,
+    };
+  }
+
   getLocalAppsList() {
     localAppearance.forEach((name, value) {
       if (value == true) {
-        localAppsList.add(name);
+        List tempList = [name[0],name[1]];
+        var usdKey = localPlayerKeys.keys.firstWhere(
+                (k) => eq(localPlayerKeys[k],(tempList)), orElse: () => null);
+        localAppsList.add(usdKey);
       }
     });
+    print(localAppsList);
   }
 
   getVisitorAppsList() {
     visitorAppearance.forEach((name, value) {
       if (value == true) {
-        visitorAppsList.add(name);
+        List tempList = [name[0],name[1]];
+        var usdKey = visitorPlayerKeys.keys.firstWhere(
+                (k) => eq(visitorPlayerKeys[k],(tempList)), orElse: () => null);
+        visitorAppsList.add(usdKey);
       }
     });
+    print(visitorAppsList);
   }
 
   getLocalTeamPlayers(team) async {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
+    localPlayerKeys =
+        Map.fromIterable(localPlayersList, key: (v) => v[2], value: (v) => [v[0],v[1]]);
+        print(localPlayerKeys);
     setState(() {});
     localAppearance =
         Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
@@ -69,6 +93,8 @@ class _AddGameUIState extends State<AddGameUI> {
 
   getVisitorTeamPlayers(team) async {
     visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
+    visitorPlayerKeys =
+        Map.fromIterable(visitorPlayersList, key: (v) => v[2], value: (v) => [v[0],v[1]]);
     setState(() {});
     visitorAppearance = Map.fromIterable(visitorPlayersList,
         key: (v) => v, value: (v) => false);
@@ -107,9 +133,12 @@ class _AddGameUIState extends State<AddGameUI> {
               });
             },
             items: playersList.map((list) {
+              List tempList = [list[0],list[1]];
+              var usdKey = localPlayerKeys.keys.firstWhere(
+                (k) => eq(localPlayerKeys[k],(tempList)), orElse: () => null);
               String playerName = list[0] + " " + list[1];
               return DropdownMenuItem<String>(
-                value: playerName,
+                value: usdKey,
                 child: Text(playerName),
               );
             }).toList(),

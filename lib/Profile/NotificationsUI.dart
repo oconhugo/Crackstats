@@ -19,6 +19,8 @@ class _NotificationsUIState extends State<NotificationsUI> {
 
   _NotificationsUIState(this.userNotifications, this.infoMap);
 
+  
+
   Widget getNotificationType(String val) {
     int x = int.parse(val);
     if (x == 0) {
