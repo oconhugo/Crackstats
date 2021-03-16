@@ -74,6 +74,7 @@ class ConnectDB {
     }
   }
 
+  //get the user leagues
   Future retrieveLeagues() async {
     final response = await http.post(
       RETRIEVEUSERLEAGUES,
@@ -87,6 +88,7 @@ class ConnectDB {
     }
   }
 
+  //get all the registered leagues
   Future retrieveAllLeagues() async {
     final response = await http.post(
       RETRIEVEALLLEAGUES,
@@ -99,6 +101,7 @@ class ConnectDB {
     }
   }
 
+  //retrieve the user stats
   Future retrieveUserStats(league) async {
     final response = await http.post(
       RETRIEVEUSERSTATS,
@@ -112,6 +115,7 @@ class ConnectDB {
     }
   }
 
+  //retrieve all the teams from a league
   Future retrieveLeagueTeams(league) async {
     final response = await http.post(
       RETRIEVELEAGUETEAMS,
@@ -125,4 +129,297 @@ class ConnectDB {
     }
   }
 
+  //retrieve the teams where the player is registered
+  Future retrieveTeamPlayers(team, league) async {
+    final response = await http.post(
+      RETRIEVETEAMPLAYERS,
+      body: {"team": team, "league": league},
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  //retrieve the user stats
+  Future retrievePlayerStats(firstName, lastName, league, team) async {
+    final response = await http.post(
+      RETRIEVEPLAYERSTATS,
+      body: {
+        "first_name": firstName,
+        "last_name": lastName,
+        "league": league,
+        "team": team
+      },
+    );
+    try {
+      var user = json.decode(response.body);
+      return Future.delayed(Duration(milliseconds: 1), () => user);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  //send a request to add a team
+  Future sendAddTeamRequest(team, league, comment) async {
+    final response = await http.post(
+      SENDADDTEAMREQUEST,
+      body: {
+        "sender": userEmailGlobal,
+        "team": team,
+        "league": league,
+        "comment": comment
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  //send the request to add a player
+  Future sendAddPlayerRequest(team, league, comment) async {
+    final response = await http.post(
+      SENDADDPLAYERREQUEST,
+      body: {
+        "sender": userEmailGlobal,
+        "team": team,
+        "league": league,
+        "comment": comment
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  //get all user notifications
+  Future getUserNotifications() async {
+    final response = await http.post(
+      GETUSERNOTIFICATIONSURL,
+      body: {
+        "user": userEmailGlobal,
+      },
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future removeNotification(id) async {
+    final response = await http.post(
+      REMOVENOTIFICATION,
+      body: {
+        "id": id,
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future declineplayernotification(List notification) async {
+    final response = await http.post(
+      DECLINEPLAYERREQUEST,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league": notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future acceptplayernotification(List notification) async {
+    final response = await http.post(
+      ACCEPTPLAYERREQUEST,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league": notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future declineteamrequest(List notification) async {
+    final response = await http.post(
+      DECLINETEAMREQUESTURL,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league": notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future acceptteamrequest(List notification) async {
+    final response = await http.post(
+      ACCEPTTEAMREQUESTURL,
+      body: {
+        "id": notification[0],
+        "player_email": notification[2],
+        "team": notification[5],
+        "user_email": userEmailGlobal,
+        "league": notification[6],
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future getLeagueNotifications(league) async {
+    final response = await http.post(
+      MYLEAGUEANNOUNCEMENT,
+      body: {"league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future getUserAdminLeaguesList(usrEmail) async {
+    final response = await http.post(
+      GETMYADMINLEAGUES,
+      body: {"user": usrEmail},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String> insertNewAnnouncement(message, league) async {
+    //print(registerFields[DATEOFBIRTH]);
+    final response = await http.post(
+      INSERTANNOUNCEMENT,
+      body: {"message": message, "league": league},
+    );
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
+  }
+
+  Future getLeagueAnnouncements(league) async {
+    final response = await http.post(
+      GETLEAGUEANNOUNCEMENTSURL,
+      body: {"league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String> dismissAnnouncement(id) async {
+    final response = await http.post(
+      DISMISSANNOUNCEMENT,
+      body: {"id": id},
+    );
+    return Future.delayed(Duration(milliseconds: 1), () => response.body);
+  }
+
+  Future getLeagueTeams(league) async {
+    final response = await http.post(
+      GETLEAGUETEAMSURL,
+      body: {"league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future getTeamPlayers(team, league) async {
+    final response = await http.post(
+      RETRIEVETEAMPLAYERS,
+      body: {"team": team, "league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String> sendMatch(
+      localTeam,
+      visitorTeam,
+      date,
+      venue,
+      localScore,
+      visitorScore,
+      localYellows,
+      visitorYellows,
+      localReds,
+      visitorReds,
+      time,
+      league,
+      localApps,
+      visitorApps) async {
+    final response = await http.post(
+      SENDMATCHURL,
+      body: {
+        "localTeam": localTeam,
+        "visitorTeam": visitorTeam,
+        "date": date,
+        "venue": venue,
+        "localScore": localScore,
+        "visitorScore": visitorScore,
+        "localYellows": localYellows,
+        "visitorYellows": visitorYellows,
+        "localReds": localReds,
+        "visitorReds": visitorReds,
+        "time": time,
+        "league": league,
+        "localApps": localApps,
+        "visitorApps": visitorApps
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
 }

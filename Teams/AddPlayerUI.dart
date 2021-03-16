@@ -2,15 +2,22 @@ import 'package:crackstats/ConnectDB.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 
-class AddTeamUI extends StatefulWidget {
+class AddPlayerUI extends StatefulWidget {
+  final String tempLeague;
+  final String tempTeam;
+
+  AddPlayerUI(this.tempLeague, this.tempTeam);
+
   @override
-  _AddTeamUIState createState() => _AddTeamUIState();
+  _AddTeamUIState createState() => _AddTeamUIState(tempLeague, tempTeam);
 }
 
-class _AddTeamUIState extends State<AddTeamUI> {
-  String leagueSelected;
-  String teamName;
+class _AddTeamUIState extends State<AddPlayerUI> {
+  String teamSelected;
   String message;
+  String addText;
+  String league;
+  String team;
 
   Future<void> requestSentDialog() async {
     return showDialog<void>(
@@ -22,7 +29,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text(CONFIRMTEAMREQUESTMSG),
+                Text(CONFIRMPLAYERREQUESTMSG),
               ],
             ),
           ),
@@ -39,11 +46,13 @@ class _AddTeamUIState extends State<AddTeamUI> {
     );
   }
 
+  _AddTeamUIState(this.league, this.team);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ADDTEAMSTITLE),
+        title: Text(ADDPLAYERTITLE),
         backgroundColor: PRIMARYCOLOR,
       ),
       body: Center(
@@ -52,7 +61,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
           children: [
             Container(
               child: Text(
-                CREATETEAM,
+                ADDPLAYERTITLE,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 textAlign: TextAlign.center,
               ),
@@ -60,47 +69,16 @@ class _AddTeamUIState extends State<AddTeamUI> {
               padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
             ),
             Container(
-              width: MediaQuery.of(context).size.width / 1.5,
-              child: TextField(
-                onChanged: (String value) {
-                  teamName = value;
-                },
-                decoration: InputDecoration(
-                  hintText: TEAMNAME,
-                ),
+              child: Text(
+                ADDPLAYERTEXT + team + ADDPLAYERTEXT2 + league,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+              width: MediaQuery.of(context).size.width / 1.5,
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-              width: MediaQuery.of(context).size.width / 1.5,
-              child: DropdownButton<String>(
-                isExpanded: true,
-                hint: Text(LEAGUES),
-                value: leagueSelected,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 24,
-                style: TextStyle(color: PRIMARYCOLOR),
-                underline: Container(
-                  height: 2,
-                  color: PRIMARYCOLOR,
-                ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    leagueSelected = newValue;
-                  });
-                },
-                items: globalLeagueList.map((list) {
-                  return DropdownMenuItem<String>(
-                    value: list,
-                    child: Text(list),
-                  );
-                }).toList(),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 14),
               width: MediaQuery.of(context).size.width / 1.5,
               child: TextField(
                 keyboardType: TextInputType.multiline,
@@ -125,8 +103,8 @@ class _AddTeamUIState extends State<AddTeamUI> {
               child: Text(SENDREQUEST),
               onPressed: () async {
                 var conn = ConnectDB();
-                var response = await conn.sendAddTeamRequest(
-                    teamName, leagueSelected, message);
+                var response =
+                    await conn.sendAddPlayerRequest(team, league, message);
                 if (response != null || response.isEmpty()) {
                   requestSentDialog();
                 }

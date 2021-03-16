@@ -55,9 +55,12 @@ const String EDIT = "Edit";
 const String DELETE = "Delete";
 const String MENUTITLE = "Menu";
 const String NOTIFICATIONS = "Notifications";
+const String TEAMS = 'Teams';
 const String WELCOME = "Welcome ";
 const String LEAGUESTITLE = 'Leagues';
 const String TEAMSTITLE = 'Teams';
+const String ADDTEAMSTITLE = 'Add Team';
+const String ADDPLAYERTITLE = 'Add Player Request';
 const String PROFILETITLE = 'Profile';
 const String LOGOUTTITLE = 'Log out';
 const String PLAYERS = 'Players';
@@ -78,7 +81,66 @@ const String CREATETEAM = 'Create Team';
 const String TEAMNAME = 'Team Name';
 const String SENDREQUEST = 'Send Request';
 const String MESSAGETOADMIN = "Comment for league admin\n\n\n\n";
+const String MYLEAGUES = "My Leagues";
+const String CONFIRMTEAMREQUESTMSG =
+    'Your request has been sent to the league admin.';
+const String CONFIRMPLAYERREQUESTMSG =
+    'Your request has been sent to the team owner.';
+const String REQUESTSENT = 'Request Send';
+const String PLAYERSTATSTITLE = 'Player Stats';
+const String REDCARDS = 'Red Cards';
+const String YELLOWCARDS = 'Yellow Cards';
 const double TITLESIZE = 35;
+const String ADDPLAYERTEXT = "Press submit to request being added to team ";
+const String ADDPLAYERTEXT2 = " from league ";
+const String ANNOUNCEMENT = "Announcement";
+const String TEAMNOTIFICATION = "Team Notification";
+const String PLAYERNOTIFICATION = "Player Notification";
+const String ADDTEAMMESSAGE = " wants to add a new team";
+const String ADDPLAYERMESSAGE = " wants to join your team";
+const String LEAGUETITLE = "League: ";
+const String TEAMTITLE = "Team: ";
+const String MESSAGETITLE = "Message: ";
+const String NOTIFICATIONREMOVED = "Notification Removed";
+const String ACCEPT = "Accept";
+const String DECLINE = "Decline";
+const String DATE = "Date: ";
+const String MYLEAGUESTITLE = "My Leagues";
+const String ADDANNOUNCEMENT = "Add Announcement";
+const String SELECTLEAGUE = "Please Select a League";
+const String ENTERTEXT = "Enter any text";
+const String ENTERANNOUNCEMENT = "Enter the announcement";
+const String ADDTEXT = "Add";
+const String ADDNEWANNOUNCEMENT = "Add an announcement";
+const String ANNOUNCEMENTDISMISSED = "Announcement removed";
+const String ANNOUNCEMENTNOTDISMISSED = "Announcement not removed";
+const String ADDGAME = "Add New Game";
+const String TIMEWITHFORMAT = "Time: HH:MM";
+const String DATEWITHFORMAT = "Date: YYYY-MM-DD";
+const String LOCALTEAM = "Local Team";
+const String VISITORTEAM = "Visitor Team";
+const String SCORETEXT = "Score";
+const String SCORERTEXT = "Scorer";
+const String NOLOCALGOALS = "No Local Goals";
+const String NOVISITORGOALS = "No Visitor Goals";
+const String YELLOWCARDSNUM = "Yellow cards number";
+const String NOLOCALYELLOWS = "No Local Yellow Cards";
+const String NOVISITORYELLOWS = "No Visitor Yellow Cards";
+const String REDCARDSNUM = "Red cards number";
+const String NOLOCALREDCARDS = "No Local Red Cards";
+const String NOVISITORREDCARDS = "No Visitor Red Cards";
+const String LOCALTEAMSCORERTXT = "Local Team Scorer";
+const String VISITORTEAMSCORERTXT = "Visitor Team Scorer";
+const String VISITORYELLOWSTXT = "Visitor Yellow cards";
+const String LOCALYELLOWSTXT = "Local Yellow cards";
+const String VISITORREDTXT = "Visitor Red cards";
+const String LOCALREDTXT = "Local Red cards";
+const String NOTEAMSELECTED = "No team has been selected yet";
+const String SUBMIT = "Submit";
+const String PARTICIPATEDPLAYERS = "Select players that participated:";
+const String VENUE = "Venue";
+const String SELECTTEAMS = "Please select a local y visitor team";
+const String MATCHADDED = "Game Succesfully added";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -89,8 +151,38 @@ const String MODIFYCREDURL = "http://hugoocon.com/modify_user_info.php";
 const String RETRIEVEUSERLEAGUES =
     "http://hugoocon.com/retrieve_user_leagues.php";
 const String RETRIEVEUSERSTATS = "http://hugoocon.com/retrieve_user_stats.php";
-const String RETRIEVELEAGUETEAMS = "http://hugoocon.com/retrieve_league_teams.php";
+const String RETRIEVELEAGUETEAMS =
+    "http://hugoocon.com/retrieve_league_teams.php";
 const String RETRIEVEALLLEAGUES = "http://hugoocon.com/retrieve_leagues.php";
+const String RETRIEVETEAMPLAYERS =
+    "http://hugoocon.com/retrieve_team_players.php";
+const String RETRIEVEPLAYERSTATS =
+    "http://hugoocon.com/retrieve_player_stats.php";
+const SENDADDTEAMREQUEST = "http://hugoocon.com/send_team_request.php";
+const String SENDADDPLAYERREQUEST =
+    "http://hugoocon.com/send_player_request.php";
+const String GETUSERNOTIFICATIONSURL =
+    "http://hugoocon.com/get_user_notifications.php";
+const String REMOVENOTIFICATION =
+    "http://hugoocon.com/remove_notifications.php";
+const String DECLINEPLAYERREQUEST =
+    "http://hugoocon.com/decline_player_request.php";
+const String ACCEPTPLAYERREQUEST =
+    "http://hugoocon.com/accept_player_request.php";
+const String DECLINETEAMREQUESTURL =
+    "http://hugoocon.com/decline_team_request.php";
+const String ACCEPTTEAMREQUESTURL =
+    "http://hugoocon.com/accept_team_request.php";
+const String MYLEAGUEANNOUNCEMENT =
+    "http://hugoocon.com/get_user_leagues_notifications.php";
+const String GETMYADMINLEAGUES = "http://hugoocon.com/get_admin_leagues.php";
+const String INSERTANNOUNCEMENT = "http://hugoocon.com/insert_announcement.php";
+const String GETLEAGUEANNOUNCEMENTSURL =
+    "http://hugoocon.com/get_league_announcements.php";
+const String DISMISSANNOUNCEMENT =
+    "http://hugoocon.com/dismiss_announcement.php";
+const String GETLEAGUETEAMSURL = "http://hugoocon.com/get_league_teams.php";
+const String SENDMATCHURL = "http://hugoocon.com/insert_new_match.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
