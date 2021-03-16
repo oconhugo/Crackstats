@@ -15,10 +15,13 @@ class AddGameUI extends StatefulWidget {
 }
 
 class _AddGameUIState extends State<AddGameUI> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String league;
   String localTeam;
   String visitorTeam;
   String venue = "";
+  bool localContainsValue = false;
+  bool visitorContainsValue = false;
   List teamList;
   String playerSelected;
   List localPlayersList = [];
@@ -51,8 +54,8 @@ class _AddGameUIState extends State<AddGameUI> {
 
   Function eq = const ListEquality().equals;
 
-  Map<String,dynamic> toJson(list){
-    return{
+  Map<String, dynamic> toJson(list) {
+    return {
       "Scorers": list,
     };
   }
@@ -60,32 +63,31 @@ class _AddGameUIState extends State<AddGameUI> {
   getLocalAppsList() {
     localAppearance.forEach((name, value) {
       if (value == true) {
-        List tempList = [name[0],name[1]];
+        List tempList = [name[0], name[1]];
         var usdKey = localPlayerKeys.keys.firstWhere(
-                (k) => eq(localPlayerKeys[k],(tempList)), orElse: () => null);
+            (k) => eq(localPlayerKeys[k], (tempList)),
+            orElse: () => null);
         localAppsList.add(usdKey);
       }
     });
-    print(localAppsList);
   }
 
   getVisitorAppsList() {
     visitorAppearance.forEach((name, value) {
       if (value == true) {
-        List tempList = [name[0],name[1]];
+        List tempList = [name[0], name[1]];
         var usdKey = visitorPlayerKeys.keys.firstWhere(
-                (k) => eq(visitorPlayerKeys[k],(tempList)), orElse: () => null);
+            (k) => eq(visitorPlayerKeys[k], (tempList)),
+            orElse: () => null);
         visitorAppsList.add(usdKey);
       }
     });
-    print(visitorAppsList);
   }
 
   getLocalTeamPlayers(team) async {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
-    localPlayerKeys =
-        Map.fromIterable(localPlayersList, key: (v) => v[2], value: (v) => [v[0],v[1]]);
-        print(localPlayerKeys);
+    localPlayerKeys = Map.fromIterable(localPlayersList,
+        key: (v) => v[2], value: (v) => [v[0], v[1]]);
     setState(() {});
     localAppearance =
         Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
@@ -93,8 +95,8 @@ class _AddGameUIState extends State<AddGameUI> {
 
   getVisitorTeamPlayers(team) async {
     visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
-    visitorPlayerKeys =
-        Map.fromIterable(visitorPlayersList, key: (v) => v[2], value: (v) => [v[0],v[1]]);
+    visitorPlayerKeys = Map.fromIterable(visitorPlayersList,
+        key: (v) => v[2], value: (v) => [v[0], v[1]]);
     setState(() {});
     visitorAppearance = Map.fromIterable(visitorPlayersList,
         key: (v) => v, value: (v) => false);
@@ -133,9 +135,10 @@ class _AddGameUIState extends State<AddGameUI> {
               });
             },
             items: playersList.map((list) {
-              List tempList = [list[0],list[1]];
+              List tempList = [list[0], list[1]];
               var usdKey = localPlayerKeys.keys.firstWhere(
-                (k) => eq(localPlayerKeys[k],(tempList)), orElse: () => null);
+                  (k) => eq(localPlayerKeys[k], (tempList)),
+                  orElse: () => null);
               String playerName = list[0] + " " + list[1];
               return DropdownMenuItem<String>(
                 value: usdKey,
@@ -152,6 +155,7 @@ class _AddGameUIState extends State<AddGameUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: PRIMARYCOLOR,
           title: Text(ADDGAME),
@@ -220,6 +224,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 ),
                 onChanged: (String newValue) {
                   setState(() {
+                    localContainsValue = true;
                     localTeam = newValue;
                     getLocalTeamPlayers(localTeam);
                   });
@@ -250,6 +255,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 ),
                 onChanged: (String newValue) {
                   setState(() {
+                    visitorContainsValue = true;
                     visitorTeam = newValue;
                     getVisitorTeamPlayers(visitorTeam);
                   });
@@ -425,7 +431,6 @@ class _AddGameUIState extends State<AddGameUI> {
                         onChanged: (bool value) {
                           setState(() {
                             localAppearance[valkey] = value;
-                            print(localAppearance);
                           });
                         },
                       );
@@ -457,25 +462,47 @@ class _AddGameUIState extends State<AddGameUI> {
               child: RaisedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
-                    getLocalAppsList();
-                    getVisitorAppsList();
-                    var tempConnectDB = new ConnectDB();
-                    var sendInfoResult = await tempConnectDB.sendMatch(
-                        localTeam,
-                        visitorTeam,
-                        date,
-                        venue,
-                        jsonEncode(localScorersList),
-                        jsonEncode(visitorScorersList),
-                        jsonEncode(localYellowsList),
-                        jsonEncode(visitorYellowsList),
-                        jsonEncode(localRedsList),
-                        jsonEncode(visitorRedsList),
-                        time,
-                        league,
-                        jsonEncode(localAppsList),
-                        jsonEncode(visitorAppsList));
-                    print(sendInfoResult);
+                    if (localContainsValue && visitorContainsValue) {
+                      getLocalAppsList();
+                      getVisitorAppsList();
+                      var tempConnectDB = new ConnectDB();
+                      await tempConnectDB.sendMatch(
+                          localTeam,
+                          visitorTeam,
+                          date,
+                          venue,
+                          jsonEncode(localScorersList),
+                          jsonEncode(visitorScorersList),
+                          jsonEncode(localYellowsList),
+                          jsonEncode(visitorYellowsList),
+                          jsonEncode(localRedsList),
+                          jsonEncode(visitorRedsList),
+                          time,
+                          league,
+                          jsonEncode(localAppsList),
+                          jsonEncode(visitorAppsList));
+                      Navigator.of(context).pop();
+                      showDialog<void>(
+                        context: context,
+                        barrierDismissible: false, // user must tap button!
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(MATCHADDED),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(OK),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      final snackBar = SnackBar(content: Text(SELECTTEAMS));
+                      _scaffoldKey.currentState.showSnackBar(snackBar);
+                    }
                   }),
             )
           ],

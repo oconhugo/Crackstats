@@ -139,6 +139,8 @@ const String NOTEAMSELECTED = "No team has been selected yet";
 const String SUBMIT = "Submit";
 const String PARTICIPATEDPLAYERS = "Select players that participated:";
 const String VENUE = "Venue";
+const String SELECTTEAMS = "Please select a local y visitor team";
+const String MATCHADDED = "Game Succesfully added";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
