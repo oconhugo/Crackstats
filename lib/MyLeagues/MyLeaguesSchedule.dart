@@ -16,6 +16,10 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
   String leagueSelected;
   bool isEnable = false;
   List userAdminLeagues;
+  List gamesList = [];
+  List weekGames = [];
+  List<bool> isVisibleList = [];
+  var weekNum = []; 
   var teamList;
   _MyLeaguesScheduleState(this.userAdminLeagues);
 
@@ -26,15 +30,36 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
     ));
   }
 
+
+  getGamesfromDB(weekNumber) async {
+    var conndbGetWeeekGames = new ConnectDB();
+    weekGames = await conndbGetWeeekGames.getWeekGames(weekNumber,leagueSelected);
+    print(weekGames);
+  }
+
   getLeagueTeams() async {
     var conndbGetTeams = new ConnectDB();
     teamList = await conndbGetTeams.getLeagueTeams(leagueSelected);
     print(teamList);
   }
 
+  getLeagueWeeks(league) async {
+    var conndbGetWeeks = new ConnectDB();
+    weekNum = await conndbGetWeeks.getLeagueWeeks(league);
+    setState(() {
+      
+    });
+    isVisibleList.length = weekNum.length;
+    for(int i=0;i<isVisibleList.length;i++){
+      isVisibleList[i]=false;
+    }
+    print(weekNum);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(
+      children: [
       Center(
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -56,6 +81,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                 isEnable = true;
                 leagueSelected = newValue;
                 getLeagueTeams();
+                getLeagueWeeks(leagueSelected);
               });
             },
             items: userAdminLeagues.map((list) {
@@ -67,6 +93,25 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
           ),
         ),
       ),
+      Center(child: 
+        Column(children: [
+            ...(weekNum).map((valkey) {
+            String tempWeekNum = valkey[0];
+            var weeklistkey = (int.parse(valkey[0])) - 1;
+            return Container(
+              child: Column(children: [
+                RaisedButton(
+                  child: Text(WEEK + " " + tempWeekNum),
+                  onPressed: (){
+                    setState(() {
+                      isVisibleList[weeklistkey] = !(isVisibleList[weeklistkey]);
+                    });
+                  }),
+                  isVisibleList[weeklistkey]?getGamesfromDB(valkey[0]):Text(""), //Put a minus on the index
+              ],));
+          }).toList(),
+      ],),)
+      ,
       RaisedButton(
           child: Text(
             ADDGAME,

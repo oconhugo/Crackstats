@@ -382,9 +382,38 @@ class ConnectDB {
     }
   }
 
+  Future getLeagueWeeks(league) async {
+    final response = await http.post(
+      GETLEAGUEWEEKS,
+      body: {"league": league},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future getWeekGames(weekNum,league) async {
+    final response = await http.post(
+      GETWEEKGAMES,
+      body: {"week_num": weekNum,
+      "league": league,
+      },
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<String> sendMatch(
       localTeam,
       visitorTeam,
+      weekNumber,
       date,
       venue,
       localScore,
@@ -402,6 +431,7 @@ class ConnectDB {
       body: {
         "localTeam": localTeam,
         "visitorTeam": visitorTeam,
+        "Week_Num": weekNumber,
         "date": date,
         "venue": venue,
         "localScore": localScore,

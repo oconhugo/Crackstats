@@ -17,6 +17,7 @@ class AddGameUI extends StatefulWidget {
 class _AddGameUIState extends State<AddGameUI> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String league;
+  var weekNumber;
   String localTeam;
   String visitorTeam;
   String venue = "";
@@ -166,6 +167,20 @@ class _AddGameUIState extends State<AddGameUI> {
           runSpacing: 10,
           direction: Axis.horizontal,
           children: <Widget>[
+            //Week Number
+            Container(
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: MediaQuery.of(context).size.width * (1),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: WEEKNUMBER,
+                ),
+                //keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  weekNumber = value;
+                },
+              ),
+            ),
             //Date
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -469,6 +484,7 @@ class _AddGameUIState extends State<AddGameUI> {
                       await tempConnectDB.sendMatch(
                           localTeam,
                           visitorTeam,
+                          weekNumber,
                           date,
                           venue,
                           jsonEncode(localScorersList),

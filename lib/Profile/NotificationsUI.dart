@@ -50,7 +50,7 @@ class _NotificationsUIState extends State<NotificationsUI> {
               ))),
       ...(userNotifications).map((valkey) {
         return Card(
-            child: ListTile(
+          child: ListTile(
           title: getNotificationType(valkey[4]),
           subtitle: Text(valkey[2], style: TextStyle(fontSize: 24)),
           onTap: () {
