@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
+import '../LoadingSpinner.dart';
 import 'AddGameUI.dart';
 
 class MyLeaguesSchedule extends StatefulWidget {
@@ -19,8 +20,9 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
   List gamesList = [];
   List weekGames = [];
   List<bool> isVisibleList = [];
-  var weekNum = []; 
+  var weekNum = [];
   var teamList;
+
   _MyLeaguesScheduleState(this.userAdminLeagues);
 
   showSnackLeague() {
@@ -30,11 +32,11 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
     ));
   }
 
-
-  getGamesfromDB(weekNumber) async {
+  Future getGamesfromDB(weekNumber) async {
     var conndbGetWeeekGames = new ConnectDB();
-    weekGames = await conndbGetWeeekGames.getWeekGames(weekNumber,leagueSelected);
-    print(weekGames);
+    weekGames =
+        await conndbGetWeeekGames.getWeekGames(weekNumber, leagueSelected);
+    return weekGames;
   }
 
   getLeagueTeams() async {
@@ -46,20 +48,17 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
   getLeagueWeeks(league) async {
     var conndbGetWeeks = new ConnectDB();
     weekNum = await conndbGetWeeks.getLeagueWeeks(league);
-    setState(() {
-      
-    });
+    setState(() {});
     isVisibleList.length = weekNum.length;
-    for(int i=0;i<isVisibleList.length;i++){
-      isVisibleList[i]=false;
+    for (int i = 0; i < isVisibleList.length; i++) {
+      isVisibleList[i] = false;
     }
     print(weekNum);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return Column(children: [
       Center(
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -93,25 +92,51 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
           ),
         ),
       ),
-      Center(child: 
-        Column(children: [
+      Center(
+        child: Column(
+          children: [
             ...(weekNum).map((valkey) {
-            String tempWeekNum = valkey[0];
-            var weeklistkey = (int.parse(valkey[0])) - 1;
-            return Container(
-              child: Column(children: [
-                RaisedButton(
-                  child: Text(WEEK + " " + tempWeekNum),
-                  onPressed: (){
-                    setState(() {
-                      isVisibleList[weeklistkey] = !(isVisibleList[weeklistkey]);
-                    });
-                  }),
-                  isVisibleList[weeklistkey]?getGamesfromDB(valkey[0]):Text(""), //Put a minus on the index
-              ],));
-          }).toList(),
-      ],),)
-      ,
+              String tempWeekNum = valkey[0];
+              var weeklistkey = (int.parse(valkey[0])) - 1;
+              return Container(
+                  child: Column(
+                children: [
+                  RaisedButton(
+                      child: Text(WEEK + " " + tempWeekNum),
+                      onPressed: () {
+                        setState(() {
+                          isVisibleList[weeklistkey] =
+                              !(isVisibleList[weeklistkey]);
+                        });
+                      }),
+                  isVisibleList[weeklistkey]
+                      ? FutureBuilder(
+                          future: getGamesfromDB(valkey[0]),
+                          builder: (context, snapshot) {
+                            print(valkey[0]);
+                            print(snapshot.data);
+                            List<Widget> games = List<Widget>();
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              snapshot.data.forEach((value) {
+                                games.add(RaisedButton(
+                                    child: Column(
+                                      children: [Text(value[0])],
+                                    ),
+                                    onPressed: () => print(value[0])));
+                              });
+                              return games[0];
+                            } else {
+                              return LoadingSpinner();
+                            }
+                          })
+                      : Text(""),
+                ],
+              ));
+            }).toList(),
+          ],
+        ),
+      ),
       RaisedButton(
           child: Text(
             ADDGAME,
