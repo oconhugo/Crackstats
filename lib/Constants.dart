@@ -143,6 +143,7 @@ const String SELECTTEAMS = "Please select a local y visitor team";
 const String MATCHADDED = "Game Succesfully added";
 const String WEEKNUMBER = "Week Number";
 const String WEEK = "Week";
+const String VS  = "vs";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";

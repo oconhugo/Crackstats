@@ -49,7 +49,7 @@ class _AddGameUIState extends State<AddGameUI> {
   var visitorYellowCards = 0;
   var localRedCards = 0;
   var visitorRedCards = 0;
-  bool testVal = false;
+
 
   _AddGameUIState(this.league, this.teamList);
 
@@ -109,7 +109,7 @@ class _AddGameUIState extends State<AddGameUI> {
   }
 
   List<Widget> getDropdown(
-      number, playerList, List<dynamic> playersList, hint) {
+      number, playerList, List<dynamic> playersList, hint, isLocal) {
     List<Widget> localList = List<Widget>();
     playerList.length = number;
 
@@ -135,10 +135,21 @@ class _AddGameUIState extends State<AddGameUI> {
                 playerList[i] = newValue;
               });
             },
-            items: playersList.map((list) {
+            items: isLocal? playersList.map((list) {
               List tempList = [list[0], list[1]];
               var usdKey = localPlayerKeys.keys.firstWhere(
                   (k) => eq(localPlayerKeys[k], (tempList)),
+                  orElse: () => null);
+              String playerName = list[0] + " " + list[1];
+              return DropdownMenuItem<String>(
+                value: usdKey,
+                child: Text(playerName),
+              );
+            }).toList():
+            playersList.map((list) {
+              List tempList = [list[0], list[1]];
+              var usdKey = visitorPlayerKeys.keys.firstWhere(
+                  (k) => eq(visitorPlayerKeys[k], (tempList)),
                   orElse: () => null);
               String playerName = list[0] + " " + list[1];
               return DropdownMenuItem<String>(
@@ -318,7 +329,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: localScore > 0
                       ? getDropdown(localScore, localScorersList,
-                          localPlayersList, LOCALTEAMSCORERTXT)
+                          localPlayersList, LOCALTEAMSCORERTXT, true)
                       : [showEmptyValue(localScorersList, NOLOCALGOALS)]),
             ),
             //Visitor scorer Dropdown
@@ -328,7 +339,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: visitorScore > 0
                       ? getDropdown(visitorScore, visitorScorersList,
-                          visitorPlayersList, VISITORTEAMSCORERTXT)
+                          visitorPlayersList, VISITORTEAMSCORERTXT, false)
                       : [showEmptyValue(visitorScorersList, NOVISITORGOALS)]),
             ),
             //Local yellow cards
@@ -366,7 +377,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: localYellowCards > 0
                       ? getDropdown(localYellowCards, localYellowsList,
-                          localPlayersList, LOCALYELLOWSTXT)
+                          localPlayersList, LOCALYELLOWSTXT, true)
                       : [showEmptyValue(localYellowsList, NOLOCALYELLOWS)]),
             ),
             //visitor yellow cards dropdown
@@ -376,7 +387,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: visitorYellowCards > 0
                       ? getDropdown(visitorYellowCards, visitorYellowsList,
-                          visitorPlayersList, VISITORYELLOWSTXT)
+                          visitorPlayersList, VISITORYELLOWSTXT,false)
                       : [showEmptyValue(visitorYellowCards, NOVISITORYELLOWS)]),
             ),
             //Local red cards
@@ -414,7 +425,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: localRedCards > 0
                       ? getDropdown(localRedCards, localRedsList,
-                          localPlayersList, LOCALREDTXT)
+                          localPlayersList, LOCALREDTXT, true)
                       : [showEmptyValue(localRedsList, NOLOCALREDCARDS)]),
             ),
             //visitor red cards dropdown
@@ -424,7 +435,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: visitorRedCards > 0
                       ? getDropdown(visitorRedCards, visitorRedsList,
-                          visitorPlayersList, VISITORREDTXT)
+                          visitorPlayersList, VISITORREDTXT,false)
                       : [showEmptyValue(visitorRedCards, NOVISITORREDCARDS)]),
             ),
             //Text local players appearance

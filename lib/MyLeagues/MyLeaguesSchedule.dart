@@ -115,17 +115,20 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                           builder: (context, snapshot) {
                             print(valkey[0]);
                             print(snapshot.data);
-                            List<Widget> games = List<Widget>();
+                            List games = List();
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               snapshot.data.forEach((value) {
-                                games.add(RaisedButton(
-                                    child: Column(
-                                      children: [Text(value[0])],
-                                    ),
-                                    onPressed: () => print(value[0])));
+                                games.add(value);
                               });
-                              return games[0];
+                              return Column(children: [
+                                  ...(games).map((valkey) {
+                                  return RaisedButton(
+                                    child: Text(valkey[0] + " " + VS + " " + valkey[1]),
+                                    onPressed: null,
+                                  );
+                                })
+                              ],);
                             } else {
                               return LoadingSpinner();
                             }
