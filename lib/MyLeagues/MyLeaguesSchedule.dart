@@ -113,8 +113,6 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                       ? FutureBuilder(
                           future: getGamesfromDB(valkey[0]),
                           builder: (context, snapshot) {
-                            print(valkey[0]);
-                            print(snapshot.data);
                             List games = List();
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
@@ -124,8 +122,14 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                               return Column(children: [
                                   ...(games).map((valkey) {
                                   return RaisedButton(
-                                    child: Text(valkey[0] + " " + VS + " " + valkey[1]),
-                                    onPressed: null,
+                                    child: Text(valkey[1] + " " + VS + " " + valkey[2]),
+                                    onPressed: () {
+                                      Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddGameUI.prefilled(leagueSelected, teamList,valkey[0]),
+                                        ));
+                                    },
                                   );
                                 })
                               ],);

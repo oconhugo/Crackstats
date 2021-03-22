@@ -452,4 +452,18 @@ class ConnectDB {
       return null;
     }
   }
+
+   Future getMatchInfo(id) async {
+    final response = await http.post(
+      GETMATCHINFO,
+      body: {"id": id},
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
 }

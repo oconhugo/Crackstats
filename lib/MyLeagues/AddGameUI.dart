@@ -5,13 +5,16 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 
 class AddGameUI extends StatefulWidget {
-  String tempLeague;
-  List tempTeamList;
+  final String tempLeague;
+  final List tempTeamList;
+  var id;
 
   AddGameUI(this.tempLeague, this.tempTeamList);
 
+  AddGameUI.prefilled(this.tempLeague,this.tempTeamList,this.id);
+
   @override
-  _AddGameUIState createState() => _AddGameUIState(tempLeague, tempTeamList);
+  _AddGameUIState createState() => _AddGameUIState(tempLeague, tempTeamList,id);
 }
 
 class _AddGameUIState extends State<AddGameUI> {
@@ -49,9 +52,14 @@ class _AddGameUIState extends State<AddGameUI> {
   var visitorYellowCards = 0;
   var localRedCards = 0;
   var visitorRedCards = 0;
+  var id;
 
 
-  _AddGameUIState(this.league, this.teamList);
+  _AddGameUIState(this.league, this.teamList,this.id){
+    if(id!=null){
+      fillInfo();
+    }
+  }
 
   Function eq = const ListEquality().equals;
 
@@ -59,6 +67,26 @@ class _AddGameUIState extends State<AddGameUI> {
     return {
       "Scorers": list,
     };
+  }
+
+  fillInfo()async {
+    var dbGetMatchInfo = await ConnectDB().getMatchInfo(id);
+    print(localPlayerKeys);
+    weekNumber=dbGetMatchInfo[3];
+    date=dbGetMatchInfo[4];
+    time=dbGetMatchInfo[12];
+    venue=dbGetMatchInfo[5];
+    localScore = dbGetMatchInfo[6].length;
+    visitorScore = dbGetMatchInfo[7].length;
+    localYellowCards = dbGetMatchInfo[8].length;
+    visitorYellowCards = dbGetMatchInfo[10].length;
+    localRedCards = dbGetMatchInfo[9].length;
+    visitorRedCards = dbGetMatchInfo[11].length;
+    localTeam=dbGetMatchInfo[1];
+    visitorTeam=dbGetMatchInfo[2];
+    setState(() {
+      
+    });
   }
 
   getLocalAppsList() {
@@ -183,12 +211,14 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (1),
               child: TextField(
+                controller: TextEditingController()..text = weekNumber,
                 decoration: InputDecoration(
                   hintText: WEEKNUMBER,
                 ),
                 //keyboardType: TextInputType.number,
                 onChanged: (value) {
                   weekNumber = value;
+                  print(weekNumber);
                 },
               ),
             ),
@@ -197,6 +227,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (1),
               child: TextField(
+                controller: TextEditingController()..text = date,
                 decoration: InputDecoration(
                   hintText: DATEWITHFORMAT,
                 ),
@@ -211,6 +242,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (1),
               child: TextField(
+                controller: TextEditingController()..text = time,
                 decoration: InputDecoration(
                   hintText: TIMEWITHFORMAT,
                 ),
@@ -224,6 +256,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (1),
               child: TextField(
+                controller: TextEditingController()..text = venue,
                 decoration: InputDecoration(
                   hintText: VENUE,
                 ),
@@ -299,6 +332,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
+                controller: TextEditingController()..text = localScore.toString(),
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
@@ -313,6 +347,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
+                controller: TextEditingController()..text = visitorScore.toString(),
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
@@ -347,6 +382,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
+                controller: TextEditingController()..text = localYellowCards.toString(),
                 decoration: InputDecoration(
                   hintText: YELLOWCARDSNUM,
                 ),
@@ -361,6 +397,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
+                controller: TextEditingController()..text = visitorYellowCards.toString(),
                 decoration: InputDecoration(
                   hintText: YELLOWCARDSNUM,
                 ),
@@ -395,6 +432,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
+                controller: TextEditingController()..text = localRedCards.toString(),
                 decoration: InputDecoration(
                   hintText: REDCARDSNUM,
                 ),
@@ -409,6 +447,7 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
+                controller: TextEditingController()..text = visitorRedCards.toString(),
                 decoration: InputDecoration(
                   hintText: REDCARDSNUM,
                 ),
