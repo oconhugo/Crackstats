@@ -143,7 +143,7 @@ const String SELECTTEAMS = "Please select a local y visitor team";
 const String MATCHADDED = "Game Succesfully added";
 const String WEEKNUMBER = "Week Number";
 const String WEEK = "Week";
-const String VS  = "vs";
+const String VS = "vs";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -189,6 +189,7 @@ const String SENDMATCHURL = "http://hugoocon.com/insert_new_match.php";
 const String GETLEAGUEWEEKS = "http://hugoocon.com/get_league_weeks.php";
 const String GETWEEKGAMES = "http://hugoocon.com/get_week_games.php";
 const String GETMATCHINFO = "http://hugoocon.com/get_match_info.php";
+const String UPDATEMATCHURL = "http://hugoocon.com/update_new_match.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);

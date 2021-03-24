@@ -119,20 +119,30 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                               snapshot.data.forEach((value) {
                                 games.add(value);
                               });
-                              return Column(children: [
+                              return Column(
+                                children: [
                                   ...(games).map((valkey) {
-                                  return RaisedButton(
-                                    child: Text(valkey[1] + " " + VS + " " + valkey[2]),
-                                    onPressed: () {
-                                      Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AddGameUI.prefilled(leagueSelected, teamList,valkey[0]),
-                                        ));
-                                    },
-                                  );
-                                })
-                              ],);
+                                    return RaisedButton(
+                                      child: Text(valkey[1] +
+                                          " " +
+                                          VS +
+                                          " " +
+                                          valkey[2]),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddGameUI.prefilled(
+                                                      leagueSelected,
+                                                      teamList,
+                                                      valkey[0]),
+                                            ));
+                                      },
+                                    );
+                                  })
+                                ],
+                              );
                             } else {
                               return LoadingSpinner();
                             }

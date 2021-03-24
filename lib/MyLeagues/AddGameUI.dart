@@ -11,10 +11,11 @@ class AddGameUI extends StatefulWidget {
 
   AddGameUI(this.tempLeague, this.tempTeamList);
 
-  AddGameUI.prefilled(this.tempLeague,this.tempTeamList,this.id);
+  AddGameUI.prefilled(this.tempLeague, this.tempTeamList, this.id);
 
   @override
-  _AddGameUIState createState() => _AddGameUIState(tempLeague, tempTeamList,id);
+  _AddGameUIState createState() =>
+      _AddGameUIState(tempLeague, tempTeamList, id);
 }
 
 class _AddGameUIState extends State<AddGameUI> {
@@ -53,10 +54,10 @@ class _AddGameUIState extends State<AddGameUI> {
   var localRedCards = 0;
   var visitorRedCards = 0;
   var id;
+  bool isUpdating = false;
 
-
-  _AddGameUIState(this.league, this.teamList,this.id){
-    if(id!=null){
+  _AddGameUIState(this.league, this.teamList, this.id) {
+    if (id != null) {
       fillInfo();
     }
   }
@@ -69,24 +70,41 @@ class _AddGameUIState extends State<AddGameUI> {
     };
   }
 
-  fillInfo()async {
+  fillInfo() async {
     var dbGetMatchInfo = await ConnectDB().getMatchInfo(id);
-    print(localPlayerKeys);
-    weekNumber=dbGetMatchInfo[3];
-    date=dbGetMatchInfo[4];
-    time=dbGetMatchInfo[12];
-    venue=dbGetMatchInfo[5];
-    localScore = dbGetMatchInfo[6].length;
-    visitorScore = dbGetMatchInfo[7].length;
-    localYellowCards = dbGetMatchInfo[8].length;
-    visitorYellowCards = dbGetMatchInfo[10].length;
-    localRedCards = dbGetMatchInfo[9].length;
-    visitorRedCards = dbGetMatchInfo[11].length;
-    localTeam=dbGetMatchInfo[1];
-    visitorTeam=dbGetMatchInfo[2];
+    weekNumber = dbGetMatchInfo[3];
+    date = dbGetMatchInfo[4];
+    time = dbGetMatchInfo[12];
+    venue = dbGetMatchInfo[5];
+    localScore = json.decode(dbGetMatchInfo[6]).length;
+    List localScorers = json.decode(dbGetMatchInfo[6]);
+    visitorScore = json.decode(dbGetMatchInfo[7]).length;
+    List visitorScorers = json.decode(dbGetMatchInfo[6]);
+    localYellowCards = json.decode(dbGetMatchInfo[8]).length;
+    visitorYellowCards = json.decode(dbGetMatchInfo[10]).length;
+    localRedCards = json.decode(dbGetMatchInfo[9]).length;
+    visitorRedCards = json.decode(dbGetMatchInfo[11]).length;
+    localTeam = dbGetMatchInfo[1];
+    visitorTeam = dbGetMatchInfo[2];
+    print(dbGetMatchInfo);
     setState(() {
-      
+      isUpdating = true;
+      localContainsValue = true;
+      visitorContainsValue = true;
+      getLocalTeamPlayers(localTeam);
+      getVisitorTeamPlayers(visitorTeam);
+      modifyList(localPlayerKeys, localScorers, localScorersList);
+      modifyList(visitorPlayerKeys, visitorScorers, visitorScorersList);
     });
+  }
+
+  modifyList(keys, values, target) {
+    String temp;
+    values.forEach((key) {
+      temp = keys[key][0] + " " + keys[key][1];
+      target.add(temp);
+    });
+    print(target);
   }
 
   getLocalAppsList() {
@@ -163,28 +181,29 @@ class _AddGameUIState extends State<AddGameUI> {
                 playerList[i] = newValue;
               });
             },
-            items: isLocal? playersList.map((list) {
-              List tempList = [list[0], list[1]];
-              var usdKey = localPlayerKeys.keys.firstWhere(
-                  (k) => eq(localPlayerKeys[k], (tempList)),
-                  orElse: () => null);
-              String playerName = list[0] + " " + list[1];
-              return DropdownMenuItem<String>(
-                value: usdKey,
-                child: Text(playerName),
-              );
-            }).toList():
-            playersList.map((list) {
-              List tempList = [list[0], list[1]];
-              var usdKey = visitorPlayerKeys.keys.firstWhere(
-                  (k) => eq(visitorPlayerKeys[k], (tempList)),
-                  orElse: () => null);
-              String playerName = list[0] + " " + list[1];
-              return DropdownMenuItem<String>(
-                value: usdKey,
-                child: Text(playerName),
-              );
-            }).toList(),
+            items: isLocal
+                ? playersList.map((list) {
+                    List tempList = [list[0], list[1]];
+                    var usdKey = localPlayerKeys.keys.firstWhere(
+                        (k) => eq(localPlayerKeys[k], (tempList)),
+                        orElse: () => null);
+                    String playerName = list[0] + " " + list[1];
+                    return DropdownMenuItem<String>(
+                      value: usdKey,
+                      child: Text(playerName),
+                    );
+                  }).toList()
+                : playersList.map((list) {
+                    List tempList = [list[0], list[1]];
+                    var usdKey = visitorPlayerKeys.keys.firstWhere(
+                        (k) => eq(visitorPlayerKeys[k], (tempList)),
+                        orElse: () => null);
+                    String playerName = list[0] + " " + list[1];
+                    return DropdownMenuItem<String>(
+                      value: usdKey,
+                      child: Text(playerName),
+                    );
+                  }).toList(),
           ),
         ),
       );
@@ -215,7 +234,6 @@ class _AddGameUIState extends State<AddGameUI> {
                 decoration: InputDecoration(
                   hintText: WEEKNUMBER,
                 ),
-                //keyboardType: TextInputType.number,
                 onChanged: (value) {
                   weekNumber = value;
                   print(weekNumber);
@@ -332,7 +350,8 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
-                controller: TextEditingController()..text = localScore.toString(),
+                controller: TextEditingController()
+                  ..text = localScore.toString(),
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
@@ -347,7 +366,8 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
-                controller: TextEditingController()..text = visitorScore.toString(),
+                controller: TextEditingController()
+                  ..text = visitorScore.toString(),
                 decoration: InputDecoration(
                   hintText: SCORETEXT,
                 ),
@@ -382,7 +402,8 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
-                controller: TextEditingController()..text = localYellowCards.toString(),
+                controller: TextEditingController()
+                  ..text = localYellowCards.toString(),
                 decoration: InputDecoration(
                   hintText: YELLOWCARDSNUM,
                 ),
@@ -397,7 +418,8 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
-                controller: TextEditingController()..text = visitorYellowCards.toString(),
+                controller: TextEditingController()
+                  ..text = visitorYellowCards.toString(),
                 decoration: InputDecoration(
                   hintText: YELLOWCARDSNUM,
                 ),
@@ -424,7 +446,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: visitorYellowCards > 0
                       ? getDropdown(visitorYellowCards, visitorYellowsList,
-                          visitorPlayersList, VISITORYELLOWSTXT,false)
+                          visitorPlayersList, VISITORYELLOWSTXT, false)
                       : [showEmptyValue(visitorYellowCards, NOVISITORYELLOWS)]),
             ),
             //Local red cards
@@ -432,7 +454,8 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
-                controller: TextEditingController()..text = localRedCards.toString(),
+                controller: TextEditingController()
+                  ..text = localRedCards.toString(),
                 decoration: InputDecoration(
                   hintText: REDCARDSNUM,
                 ),
@@ -447,7 +470,8 @@ class _AddGameUIState extends State<AddGameUI> {
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               width: MediaQuery.of(context).size.width * (3.5 / 8),
               child: TextField(
-                controller: TextEditingController()..text = visitorRedCards.toString(),
+                controller: TextEditingController()
+                  ..text = visitorRedCards.toString(),
                 decoration: InputDecoration(
                   hintText: REDCARDSNUM,
                 ),
@@ -474,14 +498,11 @@ class _AddGameUIState extends State<AddGameUI> {
               child: Column(
                   children: visitorRedCards > 0
                       ? getDropdown(visitorRedCards, visitorRedsList,
-                          visitorPlayersList, VISITORREDTXT,false)
+                          visitorPlayersList, VISITORREDTXT, false)
                       : [showEmptyValue(visitorRedCards, NOVISITORREDCARDS)]),
             ),
             //Text local players appearance
-            Center(
-                //width: MediaQuery.of(context).size.width /2,
-                //padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Text(PARTICIPATEDPLAYERS)),
+            Center(child: Text(PARTICIPATEDPLAYERS)),
             //Local checkbox
             Container(
                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -531,22 +552,42 @@ class _AddGameUIState extends State<AddGameUI> {
                       getLocalAppsList();
                       getVisitorAppsList();
                       var tempConnectDB = new ConnectDB();
-                      await tempConnectDB.sendMatch(
-                          localTeam,
-                          visitorTeam,
-                          weekNumber,
-                          date,
-                          venue,
-                          jsonEncode(localScorersList),
-                          jsonEncode(visitorScorersList),
-                          jsonEncode(localYellowsList),
-                          jsonEncode(visitorYellowsList),
-                          jsonEncode(localRedsList),
-                          jsonEncode(visitorRedsList),
-                          time,
-                          league,
-                          jsonEncode(localAppsList),
-                          jsonEncode(visitorAppsList));
+                      if (isUpdating == false) {
+                        await tempConnectDB.sendMatch(
+                            localTeam,
+                            visitorTeam,
+                            weekNumber,
+                            date,
+                            venue,
+                            jsonEncode(localScorersList),
+                            jsonEncode(visitorScorersList),
+                            jsonEncode(localYellowsList),
+                            jsonEncode(visitorYellowsList),
+                            jsonEncode(localRedsList),
+                            jsonEncode(visitorRedsList),
+                            time,
+                            league,
+                            jsonEncode(localAppsList),
+                            jsonEncode(visitorAppsList));
+                      } else {
+                        await tempConnectDB.updateMatch(
+                            localTeam,
+                            visitorTeam,
+                            weekNumber,
+                            date,
+                            venue,
+                            jsonEncode(localScorersList),
+                            jsonEncode(visitorScorersList),
+                            jsonEncode(localYellowsList),
+                            jsonEncode(visitorYellowsList),
+                            jsonEncode(localRedsList),
+                            jsonEncode(visitorRedsList),
+                            time,
+                            league,
+                            jsonEncode(localAppsList),
+                            jsonEncode(visitorAppsList),
+                            id);
+                      }
                       Navigator.of(context).pop();
                       showDialog<void>(
                         context: context,

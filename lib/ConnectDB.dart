@@ -395,11 +395,12 @@ class ConnectDB {
     }
   }
 
-  Future getWeekGames(weekNum,league) async {
+  Future getWeekGames(weekNum, league) async {
     final response = await http.post(
       GETWEEKGAMES,
-      body: {"week_num": weekNum,
-      "league": league,
+      body: {
+        "week_num": weekNum,
+        "league": league,
       },
     );
     try {
@@ -453,7 +454,7 @@ class ConnectDB {
     }
   }
 
-   Future getMatchInfo(id) async {
+  Future getMatchInfo(id) async {
     final response = await http.post(
       GETMATCHINFO,
       body: {"id": id},
@@ -466,4 +467,48 @@ class ConnectDB {
     }
   }
 
+  Future<String> updateMatch(
+      localTeam,
+      visitorTeam,
+      weekNumber,
+      date,
+      venue,
+      localScore,
+      visitorScore,
+      localYellows,
+      visitorYellows,
+      localReds,
+      visitorReds,
+      time,
+      league,
+      localApps,
+      visitorApps,
+      id) async {
+    final response = await http.post(
+      UPDATEMATCHURL,
+      body: {
+        "localTeam": localTeam,
+        "visitorTeam": visitorTeam,
+        "Week_Num": weekNumber,
+        "date": date,
+        "venue": venue,
+        "localScore": localScore,
+        "visitorScore": visitorScore,
+        "localYellows": localYellows,
+        "visitorYellows": visitorYellows,
+        "localReds": localReds,
+        "visitorReds": visitorReds,
+        "time": time,
+        "league": league,
+        "localApps": localApps,
+        "visitorApps": visitorApps,
+        "id": id
+      },
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
 }
