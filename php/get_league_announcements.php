@@ -1,6 +1,6 @@
 <?php 
 include "dbconfig.php";
-// Retrieve the user leagues announcements
+// Retrieve the existing league announcements
   
     $league = mysqli_real_escape_string($conn, $_POST['league']);
  

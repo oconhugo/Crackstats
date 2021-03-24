@@ -1,6 +1,6 @@
 <?php 
 include "dbconfig.php";
-// Insert a new match into the db. Distributes the required info to the corresponding tables
+// update a match into the db. Distributes the required info to the corresponding tables
   
     $localteam = mysqli_real_escape_string($conn, $_POST['localTeam']);
     $visitorteam = mysqli_real_escape_string($conn, $_POST['visitorTeam']);
@@ -17,9 +17,10 @@ include "dbconfig.php";
 	$league = mysqli_real_escape_string($conn, $_POST['league']);
 	$localapps = mysqli_real_escape_string($conn, $_POST['localApps']);
 	$visitorapps = mysqli_real_escape_string($conn, $_POST['visitorApps']);
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
 	
-        $query = "INSERT INTO t_schedules (Local, Visitor, Week_Num, Date, Field_name, Local_Score, Visitor_Score, Local_Yellow_Card, Local_Red_Card, Visitor_Yellow_Cards, Visitor_Red_Cards, Time, League, Local_Participants, Visitor_Participants)
-  			  VALUES('$localteam', '$visitorteam', '$week', '$date', '$venue', '$localscore', '$visitorscore', '$localyellows' ,'$localreds', '$visitoryellows', '$visitorreds' ,'$time', '$league', '$localapps', '$visitorapps')";
+        $query = "UPDATE t_schedules SET Local = '$localteam', Visitor = '$visitorteam', Week_Num = '$week', Date = '$date', Field_name = '$venue', Local_Score = '$localscore', Visitor_Score = '$visitorscore', Local_Yellow_Card = '$localyellows', Local_Red_Card = '$localreds', Visitor_Yellow_Cards = '$visitoryellows', Visitor_Red_Cards = '$visitorreds', Time = '$time', League = '$league', Local_Participants = '$localapps', Visitor_Participants = '$visitorapps'
+  			  WHERE id = '$id'";
 			  
 		$decoded_local_scorers = json_decode(stripslashes($localscore),true);
         $decoded_visitor_scorers = json_decode(stripslashes($visitorscore),true);

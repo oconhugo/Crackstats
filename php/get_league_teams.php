@@ -4,7 +4,7 @@ include "dbconfig.php";
   
     $league = mysqli_real_escape_string($conn, $_POST['league']);
  
-    $query = "SELECT * from t_announcements WHERE League='$league'";
+    $query = "SELECT Name from t_teams WHERE League='$league'";
 	
 	$results = mysqli_query($conn, $query);
 	$values = [];

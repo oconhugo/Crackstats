@@ -2,9 +2,10 @@
 include "dbconfig.php";
 // Retrieve the user leagues announcements
   
-    $league = mysqli_real_escape_string($conn, $_POST['league']);
+    $week_num = mysqli_real_escape_string($conn, $_POST['week_num']);
+	$league = mysqli_real_escape_string($conn, $_POST['league']);
  
-    $query = "SELECT * from t_announcements WHERE League='$league'";
+    $query = "SELECT * from t_schedules WHERE League='$league' and Week_Num = $week_num";
 	
 	$results = mysqli_query($conn, $query);
 	$values = [];

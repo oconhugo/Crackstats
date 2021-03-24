@@ -1,10 +1,10 @@
 <?php 
 include "dbconfig.php";
-// Retrieve the user leagues announcements
+// Retrieve the league number of games played
   
     $league = mysqli_real_escape_string($conn, $_POST['league']);
  
-    $query = "SELECT * from t_announcements WHERE League='$league'";
+    $query = "SELECT DISTINCT Week_Num from t_schedules WHERE League='$league'";
 	
 	$results = mysqli_query($conn, $query);
 	$values = [];
