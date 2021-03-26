@@ -79,30 +79,28 @@ class _AddGameUIState extends State<AddGameUI> {
     localScore = json.decode(dbGetMatchInfo[6]).length;
     List localScorers = json.decode(dbGetMatchInfo[6]);
     visitorScore = json.decode(dbGetMatchInfo[7]).length;
-    List visitorScorers = json.decode(dbGetMatchInfo[6]);
+    List visitorScorers = json.decode(dbGetMatchInfo[7]);
     localYellowCards = json.decode(dbGetMatchInfo[8]).length;
     visitorYellowCards = json.decode(dbGetMatchInfo[10]).length;
     localRedCards = json.decode(dbGetMatchInfo[9]).length;
     visitorRedCards = json.decode(dbGetMatchInfo[11]).length;
     localTeam = dbGetMatchInfo[1];
     visitorTeam = dbGetMatchInfo[2];
+    await getLocalTeamPlayers(localTeam);
+    await modifyList(localPlayerKeys, localScorers, localScorersList);
+    await getVisitorTeamPlayers(visitorTeam);
+    await modifyList(visitorPlayerKeys, visitorScorers, visitorScorersList);
     print(dbGetMatchInfo);
     setState(() {
       isUpdating = true;
       localContainsValue = true;
       visitorContainsValue = true;
-      getLocalTeamPlayers(localTeam);
-      getVisitorTeamPlayers(visitorTeam);
-      modifyList(localPlayerKeys, localScorers, localScorersList);
-      modifyList(visitorPlayerKeys, visitorScorers, visitorScorersList);
     });
   }
 
-  modifyList(keys, values, target) {
-    String temp;
+  modifyList(keys, values, target) async {
     values.forEach((key) {
-      temp = keys[key][0] + " " + keys[key][1];
-      target.add(temp);
+      target.add(key);
     });
     print(target);
   }
