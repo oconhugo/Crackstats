@@ -81,16 +81,33 @@ class _AddGameUIState extends State<AddGameUI> {
     visitorScore = json.decode(dbGetMatchInfo[7]).length;
     List visitorScorers = json.decode(dbGetMatchInfo[7]);
     localYellowCards = json.decode(dbGetMatchInfo[8]).length;
+    List localYellows = json.decode(dbGetMatchInfo[8]);
     visitorYellowCards = json.decode(dbGetMatchInfo[10]).length;
+    List visitorYellows = json.decode(dbGetMatchInfo[10]);
     localRedCards = json.decode(dbGetMatchInfo[9]).length;
+    List localReds = json.decode(dbGetMatchInfo[9]);
     visitorRedCards = json.decode(dbGetMatchInfo[11]).length;
+    List visitorReds = json.decode(dbGetMatchInfo[11]);
     localTeam = dbGetMatchInfo[1];
     visitorTeam = dbGetMatchInfo[2];
-    await getLocalTeamPlayers(localTeam);
-    await modifyList(localPlayerKeys, localScorers, localScorersList);
-    await getVisitorTeamPlayers(visitorTeam);
-    await modifyList(visitorPlayerKeys, visitorScorers, visitorScorersList);
-    print(dbGetMatchInfo);
+    List localAppList = json.decode(dbGetMatchInfo[14]);
+    //List visitorAppList = json.decode(dbGetMatchInfo[15]);
+    await fillDropDowns(localScorers, visitorScorers, localYellows,
+        visitorYellows, localReds, visitorReds);
+    fillApps(localAppList, localAppearance);
+    //fillApps(visitorAppsList);
+  }
+
+  fillApps(appearanceList, app) {
+    app.forEach((key, value) {
+      appearanceList.forEach((key2) {
+        if (key[2] == key2) {
+          value = true;
+        }
+      });
+      print(appearanceList);
+    });
+
     setState(() {
       isUpdating = true;
       localContainsValue = true;
@@ -98,11 +115,23 @@ class _AddGameUIState extends State<AddGameUI> {
     });
   }
 
-  modifyList(keys, values, target) async {
+  fillDropDowns(localScorers, visitorScorers, localYellowCards,
+      visitorYellowCards, localRedCards, visitorRedCards) async {
+    await getLocalTeamPlayers(localTeam);
+    modifyList(localPlayerKeys, localScorers, localScorersList);
+    await getVisitorTeamPlayers(visitorTeam);
+    modifyList(visitorPlayerKeys, visitorScorers, visitorScorersList);
+    //fill cards dropdowns
+    modifyList(localPlayerKeys, localYellowCards, localYellowsList);
+    modifyList(visitorPlayerKeys, visitorYellowCards, visitorYellowsList);
+    modifyList(localPlayerKeys, localRedCards, localRedsList);
+    modifyList(visitorPlayerKeys, visitorRedCards, visitorRedsList);
+  }
+
+  modifyList(keys, values, target) {
     values.forEach((key) {
       target.add(key);
     });
-    print(target);
   }
 
   getLocalAppsList() {
@@ -133,7 +162,6 @@ class _AddGameUIState extends State<AddGameUI> {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     localPlayerKeys = Map.fromIterable(localPlayersList,
         key: (v) => v[2], value: (v) => [v[0], v[1]]);
-    setState(() {});
     localAppearance =
         Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
   }
@@ -142,7 +170,6 @@ class _AddGameUIState extends State<AddGameUI> {
     visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     visitorPlayerKeys = Map.fromIterable(visitorPlayersList,
         key: (v) => v[2], value: (v) => [v[0], v[1]]);
-    setState(() {});
     visitorAppearance = Map.fromIterable(visitorPlayersList,
         key: (v) => v, value: (v) => false);
   }
@@ -234,7 +261,6 @@ class _AddGameUIState extends State<AddGameUI> {
                 ),
                 onChanged: (value) {
                   weekNumber = value;
-                  print(weekNumber);
                 },
               ),
             ),

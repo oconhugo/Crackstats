@@ -53,7 +53,6 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
     for (int i = 0; i < isVisibleList.length; i++) {
       isVisibleList[i] = false;
     }
-    print(weekNum);
   }
 
   @override
