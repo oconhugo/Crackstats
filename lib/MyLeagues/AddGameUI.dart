@@ -55,6 +55,7 @@ class _AddGameUIState extends State<AddGameUI> {
   var visitorRedCards = 0;
   var id;
   bool isUpdating = false;
+  bool isnotComplete=true;
 
   _AddGameUIState(this.league, this.teamList, this.id) {
     if (id != null) {
@@ -91,21 +92,21 @@ class _AddGameUIState extends State<AddGameUI> {
     localTeam = dbGetMatchInfo[1];
     visitorTeam = dbGetMatchInfo[2];
     List localAppList = json.decode(dbGetMatchInfo[14]);
-    //List visitorAppList = json.decode(dbGetMatchInfo[15]);
+    List visitorAppList = json.decode(dbGetMatchInfo[15]);
     await fillDropDowns(localScorers, visitorScorers, localYellows,
         visitorYellows, localReds, visitorReds);
     fillApps(localAppList, localAppearance);
-    //fillApps(visitorAppsList);
+    fillApps(visitorAppList, visitorAppearance);
+    isnotComplete=false;      
   }
 
   fillApps(appearanceList, app) {
     app.forEach((key, value) {
       appearanceList.forEach((key2) {
         if (key[2] == key2) {
-          value = true;
+          app[key] = true;
         }
       });
-      print(appearanceList);
     });
 
     setState(() {
@@ -113,6 +114,7 @@ class _AddGameUIState extends State<AddGameUI> {
       localContainsValue = true;
       visitorContainsValue = true;
     });
+    print(localAppearance);
   }
 
   fillDropDowns(localScorers, visitorScorers, localYellowCards,
@@ -250,6 +252,16 @@ class _AddGameUIState extends State<AddGameUI> {
           runSpacing: 10,
           direction: Axis.horizontal,
           children: <Widget>[
+            Visibility(
+                maintainSize: isnotComplete,
+                maintainAnimation: isnotComplete,
+                maintainState: isnotComplete,
+                visible: isnotComplete,
+                child: Container(
+                    margin: EdgeInsets.only(top: 50, bottom: 30),
+                    child: LinearProgressIndicator()
+                )
+            ),
             //Week Number
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -327,7 +339,8 @@ class _AddGameUIState extends State<AddGameUI> {
                   setState(() {
                     localContainsValue = true;
                     localTeam = newValue;
-                    getLocalTeamPlayers(localTeam);
+                    getLocalTeamPlayers(localTeam);        
+  
                   });
                 },
                 items: teamList.map((list) {
