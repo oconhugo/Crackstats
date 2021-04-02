@@ -327,7 +327,6 @@ class ConnectDB {
   }
 
   Future<String> insertNewAnnouncement(message, league) async {
-    //print(registerFields[DATEOFBIRTH]);
     final response = await http.post(
       INSERTANNOUNCEMENT,
       body: {"message": message, "league": league},
