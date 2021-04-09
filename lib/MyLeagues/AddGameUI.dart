@@ -61,6 +61,9 @@ class _AddGameUIState extends State<AddGameUI> {
     if (id != null) {
       fillInfo();
     }
+    else{
+      isnotComplete=false;
+    }
   }
 
   Function eq = const ListEquality().equals;

@@ -410,6 +410,22 @@ class ConnectDB {
     }
   }
 
+  Future retrieveAllLeagueGames(league) async {
+    final response = await http.post(
+      GETALLLEAGUEGAMES,
+      body: {
+        "league": league,
+      },
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
+
   Future<String> sendMatch(
       localTeam,
       visitorTeam,

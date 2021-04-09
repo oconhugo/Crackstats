@@ -190,7 +190,7 @@ const String GETLEAGUEWEEKS = "http://hugoocon.com/get_league_weeks.php";
 const String GETWEEKGAMES = "http://hugoocon.com/get_week_games.php";
 const String GETMATCHINFO = "http://hugoocon.com/get_match_info.php";
 const String UPDATEMATCHURL = "http://hugoocon.com/update_new_match.php";
-
+const String GETALLLEAGUEGAMES = "http://hugoocon.com/get_all_league_games.php";
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
 const PENCILCOLOR = Colors.orangeAccent;
