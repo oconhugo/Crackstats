@@ -144,7 +144,7 @@ const String MATCHADDED = "Game Succesfully added";
 const String WEEKNUMBER = "Week Number";
 const String WEEK = "Week";
 const String VS = "vs";
-const String NEWMATCH = "Select if this is a new match";
+const String NEWMATCH = "Select if this game has been played";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";

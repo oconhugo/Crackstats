@@ -441,7 +441,7 @@ class ConnectDB {
       league,
       localApps,
       visitorApps,
-      newMatch) async {
+      gamePlayed) async {
     final response = await http.post(
       SENDMATCHURL,
       body: {
@@ -460,7 +460,7 @@ class ConnectDB {
         "league": league,
         "localApps": localApps,
         "visitorApps": visitorApps,
-        "newMatch": newMatch
+        "gamePlayed": gamePlayed
       },
     );
     try {
@@ -500,7 +500,15 @@ class ConnectDB {
       localApps,
       visitorApps,
       id,
-      newMatch) async {
+      newMatch,
+      prevLocalScore,
+      prevVisitorScore,
+      prevLocalYellowCards,
+      prevVisitorYellowCard,
+      prevLocalRedCards,
+      prevVisitorRedCards,
+      prevLocalApps,
+      prevVisitorApps) async {
     final response = await http.post(
       UPDATEMATCHURL,
       body: {
@@ -520,7 +528,15 @@ class ConnectDB {
         "localApps": localApps,
         "visitorApps": visitorApps,
         "id": id,
-        "newMatch": newMatch
+        "newMatch": newMatch,
+        "prevLocalScore" : prevLocalScore,
+        "prevVisitorScore" : prevVisitorScore,
+        "prevLocalYellowCards" : prevLocalYellowCards,
+        "prevVisitorYellowCard" : prevVisitorYellowCard,
+        "prevLocalRedCards" : prevLocalRedCards,
+        "prevVisitorRedCards" : prevVisitorRedCards,
+        "prevLocalApps" : prevLocalApps,
+        "prevVisitorApps" :  prevVisitorApps
       },
     );
     try {

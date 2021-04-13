@@ -41,10 +41,29 @@ class _AddGameUIState extends State<AddGameUI> {
   List visitorAppsList = [];
   List localAppsIDS = [];
   List visitorAppsIDS = [];
+
+  List prevLocalScore = [];
+  List prevVisitorScore= [];
+  List prevLocalYellowCards = [];
+  List prevVisitorYellowCard = [];
+  List prevLocalRedCards = [];
+  List prevVisitorRedCards = [];
+
+  List diffLocalScore = [];
+  List diffVisitorScore= [];
+  List diffLocalYellowCards = [];
+  List diffVisitorYellowCard = [];
+  List diffLocalRedCards = [];
+  List diffVisitorRedCards = [];
+
   Map localAppearance = {};
   Map visitorAppearance = {};
   Map localPlayerKeys = {};
   Map visitorPlayerKeys = {};
+
+  Map prevLocalApps = {};
+  Map prevVisitorApps = {};
+
   String date = "";
   String time = "";
   var localScore = 0;
@@ -56,7 +75,7 @@ class _AddGameUIState extends State<AddGameUI> {
   var id;
   bool isUpdating = false;
   bool isnotComplete = true;
-  bool isNewMatch = false;
+  bool isGamePlayed = false;
 
   _AddGameUIState(this.league, this.teamList, this.id) {
     if (id != null) {
@@ -97,19 +116,31 @@ class _AddGameUIState extends State<AddGameUI> {
     List localAppList = json.decode(dbGetMatchInfo[14]);
     List visitorAppList = json.decode(dbGetMatchInfo[15]);
     var newMatch = dbGetMatchInfo[16];
+
+    prevLocalScore = localScorers;
+    prevVisitorScore= visitorScorers;
+    prevLocalYellowCards = localYellows;
+    prevVisitorYellowCard = visitorYellows;
+    prevLocalRedCards = localReds;
+    prevVisitorRedCards = visitorReds;
+
     fillNewMatch(newMatch);
     await fillDropDowns(localScorers, visitorScorers, localYellows,
         visitorYellows, localReds, visitorReds);
     fillApps(localAppList, localAppearance);
     fillApps(visitorAppList, visitorAppearance);
+
+    prevLocalApps=localAppearance;
+    prevVisitorApps=prevVisitorApps;
+
     isnotComplete = false;
   }
 
   fillNewMatch(val) {
     if (val == '1') {
-      isNewMatch = true;
+      isGamePlayed = true;
     } else {
-      isNewMatch = false;
+      isGamePlayed = false;
     }
   }
 
@@ -329,17 +360,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 },
               ),
             ),
-            //checkbox
-            Container(
-                child: CheckboxListTile(
-              title: Text(NEWMATCH),
-              value: isNewMatch,
-              onChanged: (bool val) {
-                setState(() {
-                  isNewMatch = val;
-                });
-              },
-            )),
+            
             //Local Team Dropdown
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -601,15 +622,27 @@ class _AddGameUIState extends State<AddGameUI> {
                 ],
               ),
             ),
+            //checkbox
+            Container(
+                child: CheckboxListTile(
+              title: Text(NEWMATCH),
+              value: isGamePlayed,
+              onChanged: (bool val) {
+                setState(() {
+                  isGamePlayed = val;
+                });
+              },
+            )),
             Center(
               child: RaisedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
-                    var newMatch;
-                    if (isNewMatch) {
-                      newMatch = '1';
+
+                    var gamePlayed;
+                    if (isGamePlayed) {
+                      gamePlayed = '1';
                     } else {
-                      newMatch = '0';
+                      gamePlayed = '0';
                     }
                     if (localContainsValue && visitorContainsValue) {
                       getLocalAppsList();
@@ -632,7 +665,8 @@ class _AddGameUIState extends State<AddGameUI> {
                             league,
                             jsonEncode(localAppsList),
                             jsonEncode(visitorAppsList),
-                            newMatch);
+                            gamePlayed,
+                            );
                       } else {
                         await tempConnectDB.updateMatch(
                             localTeam,
@@ -651,7 +685,16 @@ class _AddGameUIState extends State<AddGameUI> {
                             jsonEncode(localAppsList),
                             jsonEncode(visitorAppsList),
                             id,
-                            newMatch);
+                            gamePlayed,
+                            prevLocalScore,
+                            prevVisitorScore,
+                            prevLocalYellowCards,
+                            prevVisitorYellowCard,
+                            prevLocalRedCards,
+                            prevVisitorRedCards,
+                            prevLocalApps,
+                            prevVisitorApps
+                            );
                       }
                       Navigator.of(context).pop();
                       showDialog<void>(
