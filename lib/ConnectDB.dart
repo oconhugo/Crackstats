@@ -425,7 +425,6 @@ class ConnectDB {
     }
   }
 
-
   Future<String> sendMatch(
       localTeam,
       visitorTeam,
@@ -441,7 +440,8 @@ class ConnectDB {
       time,
       league,
       localApps,
-      visitorApps) async {
+      visitorApps,
+      newMatch) async {
     final response = await http.post(
       SENDMATCHURL,
       body: {
@@ -459,7 +459,8 @@ class ConnectDB {
         "time": time,
         "league": league,
         "localApps": localApps,
-        "visitorApps": visitorApps
+        "visitorApps": visitorApps,
+        "newMatch": newMatch
       },
     );
     try {
@@ -498,7 +499,8 @@ class ConnectDB {
       league,
       localApps,
       visitorApps,
-      id) async {
+      id,
+      newMatch) async {
     final response = await http.post(
       UPDATEMATCHURL,
       body: {
@@ -517,7 +519,8 @@ class ConnectDB {
         "league": league,
         "localApps": localApps,
         "visitorApps": visitorApps,
-        "id": id
+        "id": id,
+        "newMatch": newMatch
       },
     );
     try {

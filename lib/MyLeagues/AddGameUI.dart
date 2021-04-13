@@ -55,14 +55,14 @@ class _AddGameUIState extends State<AddGameUI> {
   var visitorRedCards = 0;
   var id;
   bool isUpdating = false;
-  bool isnotComplete=true;
+  bool isnotComplete = true;
+  bool isNewMatch = false;
 
   _AddGameUIState(this.league, this.teamList, this.id) {
     if (id != null) {
       fillInfo();
-    }
-    else{
-      isnotComplete=false;
+    } else {
+      isnotComplete = false;
     }
   }
 
@@ -96,11 +96,21 @@ class _AddGameUIState extends State<AddGameUI> {
     visitorTeam = dbGetMatchInfo[2];
     List localAppList = json.decode(dbGetMatchInfo[14]);
     List visitorAppList = json.decode(dbGetMatchInfo[15]);
+    var newMatch = dbGetMatchInfo[16];
+    fillNewMatch(newMatch);
     await fillDropDowns(localScorers, visitorScorers, localYellows,
         visitorYellows, localReds, visitorReds);
     fillApps(localAppList, localAppearance);
     fillApps(visitorAppList, visitorAppearance);
-    isnotComplete=false;      
+    isnotComplete = false;
+  }
+
+  fillNewMatch(val) {
+    if (val == '1') {
+      isNewMatch = true;
+    } else {
+      isNewMatch = false;
+    }
   }
 
   fillApps(appearanceList, app) {
@@ -117,7 +127,6 @@ class _AddGameUIState extends State<AddGameUI> {
       localContainsValue = true;
       visitorContainsValue = true;
     });
-    print(localAppearance);
   }
 
   fillDropDowns(localScorers, visitorScorers, localYellowCards,
@@ -262,9 +271,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 visible: isnotComplete,
                 child: Container(
                     margin: EdgeInsets.only(top: 50, bottom: 30),
-                    child: LinearProgressIndicator()
-                )
-            ),
+                    child: LinearProgressIndicator())),
             //Week Number
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -322,6 +329,17 @@ class _AddGameUIState extends State<AddGameUI> {
                 },
               ),
             ),
+            //checkbox
+            Container(
+                child: CheckboxListTile(
+              title: Text(NEWMATCH),
+              value: isNewMatch,
+              onChanged: (bool val) {
+                setState(() {
+                  isNewMatch = val;
+                });
+              },
+            )),
             //Local Team Dropdown
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -342,8 +360,7 @@ class _AddGameUIState extends State<AddGameUI> {
                   setState(() {
                     localContainsValue = true;
                     localTeam = newValue;
-                    getLocalTeamPlayers(localTeam);        
-  
+                    getLocalTeamPlayers(localTeam);
                   });
                 },
                 items: teamList.map((list) {
@@ -588,6 +605,12 @@ class _AddGameUIState extends State<AddGameUI> {
               child: RaisedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
+                    var newMatch;
+                    if (isNewMatch) {
+                      newMatch = '1';
+                    } else {
+                      newMatch = '0';
+                    }
                     if (localContainsValue && visitorContainsValue) {
                       getLocalAppsList();
                       getVisitorAppsList();
@@ -608,7 +631,8 @@ class _AddGameUIState extends State<AddGameUI> {
                             time,
                             league,
                             jsonEncode(localAppsList),
-                            jsonEncode(visitorAppsList));
+                            jsonEncode(visitorAppsList),
+                            newMatch);
                       } else {
                         await tempConnectDB.updateMatch(
                             localTeam,
@@ -626,7 +650,8 @@ class _AddGameUIState extends State<AddGameUI> {
                             league,
                             jsonEncode(localAppsList),
                             jsonEncode(visitorAppsList),
-                            id);
+                            id,
+                            newMatch);
                       }
                       Navigator.of(context).pop();
                       showDialog<void>(
