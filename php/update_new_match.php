@@ -18,8 +18,17 @@ include "dbconfig.php";
 	$localapps = mysqli_real_escape_string($conn, $_POST['localApps']);
 	$visitorapps = mysqli_real_escape_string($conn, $_POST['visitorApps']);
     $id = mysqli_real_escape_string($conn, $_POST['id']);
+    $gamePlayed = mysqli_real_escape_string($conn, $_POST['newMatch']);
+	$prevLocalScore= mysqli_real_escape_string($conn, $_POST['prevLocalScore']);
+	$prevVisitorScore= mysqli_real_escape_string($conn, $_POST['prevVisitorScore']);
+	$prevLocalYellowCards= mysqli_real_escape_string($conn, $_POST['prevLocalYellowCards']);
+	$prevVisitorYellowCard= mysqli_real_escape_string($conn, $_POST['prevVisitorYellowCard']);
+	$prevLocalRedCards= mysqli_real_escape_string($conn, $_POST['prevLocalRedCards']);
+	$prevVisitorRedCards= mysqli_real_escape_string($conn, $_POST['prevVisitorRedCards']);
+	$prevLocalApps= mysqli_real_escape_string($conn, $_POST['prevLocalApps']);
+	$prevVisitorApps= mysqli_real_escape_string($conn, $_POST['prevVisitorApps']);
 	
-        $query = "UPDATE t_schedules SET Local = '$localteam', Visitor = '$visitorteam', Week_Num = '$week', Date = '$date', Field_name = '$venue', Local_Score = '$localscore', Visitor_Score = '$visitorscore', Local_Yellow_Card = '$localyellows', Local_Red_Card = '$localreds', Visitor_Yellow_Cards = '$visitoryellows', Visitor_Red_Cards = '$visitorreds', Time = '$time', League = '$league', Local_Participants = '$localapps', Visitor_Participants = '$visitorapps'
+        $query = "UPDATE t_schedules SET Local = '$localteam', Visitor = '$visitorteam', Week_Num = '$week', Date = '$date', Field_name = '$venue', Local_Score = '$localscore', Visitor_Score = '$visitorscore', Local_Yellow_Card = '$localyellows', Local_Red_Card = '$localreds', Visitor_Yellow_Cards = '$visitoryellows', Visitor_Red_Cards = '$visitorreds', Time = '$time', League = '$league', Local_Participants = '$localapps', Visitor_Participants = '$visitorapps', Game_Played = '$gamePlayed'
   			  WHERE id = '$id'";
 			  
 		$decoded_local_scorers = json_decode(stripslashes($localscore),true);
@@ -30,6 +39,15 @@ include "dbconfig.php";
         $decoded_visitor_reds = json_decode(stripslashes($visitorreds),true);
         $decoded_local_apps = json_decode(stripslashes($localapps),true);
         $decoded_visitor_apps = json_decode(stripslashes($visitorapps),true);
+
+        $decoded_prevlocal_scorers = json_decode(stripslashes($prevLocalscore),true);
+        $decoded_prevvisitor_scorers = json_decode(stripslashes($prevVisitorscore),true);
+        $decoded_prevlocal_yellows = json_decode(stripslashes($prevLocalyellows),true);
+        $decoded_prevvisitor_yellows = json_decode(stripslashes($prevVisitoryellows),true);
+        $decoded_prevlocal_reds = json_decode(stripslashes($prevLocalreds),true);
+        $decoded_prevvisitor_reds = json_decode(stripslashes($prevVisitorreds),true);
+        $decoded_prevlocal_apps = json_decode(stripslashes($prevLocalapps),true);
+        $decoded_prevvisitor_apps = json_decode(stripslashes($prevVisitorapps),true);
 
     $results = mysqli_query($conn, $query);
     

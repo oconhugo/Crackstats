@@ -17,9 +17,10 @@ include "dbconfig.php";
 	$league = mysqli_real_escape_string($conn, $_POST['league']);
 	$localapps = mysqli_real_escape_string($conn, $_POST['localApps']);
 	$visitorapps = mysqli_real_escape_string($conn, $_POST['visitorApps']);
+    $gamePlayed = mysqli_real_escape_string($conn, $_POST['gamePlayed']);
 	
-        $query = "INSERT INTO t_schedules (Local, Visitor, Week_Num, Date, Field_name, Local_Score, Visitor_Score, Local_Yellow_Card, Local_Red_Card, Visitor_Yellow_Cards, Visitor_Red_Cards, Time, League, Local_Participants, Visitor_Participants)
-  			  VALUES('$localteam', '$visitorteam', '$week', '$date', '$venue', '$localscore', '$visitorscore', '$localyellows' ,'$localreds', '$visitoryellows', '$visitorreds' ,'$time', '$league', '$localapps', '$visitorapps')";
+        $query = "INSERT INTO t_schedules (Local, Visitor, Week_Num, Date, Field_name, Local_Score, Visitor_Score, Local_Yellow_Card, Local_Red_Card, Visitor_Yellow_Cards, Visitor_Red_Cards, Time, League, Local_Participants, Visitor_Participants, Game_Played)
+  			  VALUES('$localteam', '$visitorteam', '$week', '$date', '$venue', '$localscore', '$visitorscore', '$localyellows' ,'$localreds', '$visitoryellows', '$visitorreds' ,'$time', '$league', '$localapps', '$visitorapps', '$newmatch')";
 			  
 		$decoded_local_scorers = json_decode(stripslashes($localscore),true);
         $decoded_visitor_scorers = json_decode(stripslashes($visitorscore),true);
@@ -34,6 +35,9 @@ include "dbconfig.php";
     
 	if($results>0)
     {
+		//checks if the game had been played
+		if($gamePlayed==1)
+		{	
         //update local goals
         foreach ($decoded_local_scorers as $value){
             $query1 = "UPDATE t_players SET Goals = Goals + 1 WHERE ID = '$value'";
@@ -113,10 +117,9 @@ include "dbconfig.php";
         $res = mysqli_query($conn, $qry);
         $qry1 = "UPDATE t_team_stats SET Num_Games = Num_Games + 1 WHERE Team = '$visitorteam' and League = '$league'";
         $res = mysqli_query($conn, $qry1);
+		
+		}
         
         echo "Success";
-    }
-	
-	
-    
+    }   
 ?>
