@@ -22,6 +22,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
   List<bool> isVisibleList = [];
   var weekNum = [];
   var teamList;
+  var maxWeek;
 
   _MyLeaguesScheduleState(this.userAdminLeagues);
 
@@ -128,6 +129,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                                           " " +
                                           valkey[2]),
                                       onPressed: () {
+                                        maxWeek = weekNum.length - 1;
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -135,7 +137,8 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                                                   AddGameUI.prefilled(
                                                       leagueSelected,
                                                       teamList,
-                                                      valkey[0]),
+                                                      valkey[0],
+                                                      maxWeek),
                                             ));
                                       },
                                     );
@@ -162,10 +165,12 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
           disabledColor: Colors.grey,
           onPressed: () {
             if (isEnable) {
+              maxWeek = weekNum.length - 1;
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddGameUI(leagueSelected, teamList),
+                    builder: (context) =>
+                        AddGameUI(leagueSelected, teamList, maxWeek),
                   ));
             } else {
               showSnackLeague();

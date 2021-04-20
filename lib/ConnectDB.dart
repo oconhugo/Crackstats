@@ -529,14 +529,14 @@ class ConnectDB {
         "visitorApps": visitorApps,
         "id": id,
         "newMatch": newMatch,
-        "prevLocalScore" : prevLocalScore,
-        "prevVisitorScore" : prevVisitorScore,
-        "prevLocalYellowCards" : prevLocalYellowCards,
-        "prevVisitorYellowCard" : prevVisitorYellowCard,
-        "prevLocalRedCards" : prevLocalRedCards,
-        "prevVisitorRedCards" : prevVisitorRedCards,
-        "prevLocalApps" : prevLocalApps,
-        "prevVisitorApps" :  prevVisitorApps
+        "prevLocalScore": prevLocalScore,
+        "prevVisitorScore": prevVisitorScore,
+        "prevLocalYellowCards": prevLocalYellowCards,
+        "prevVisitorYellowCard": prevVisitorYellowCard,
+        "prevLocalRedCards": prevLocalRedCards,
+        "prevVisitorRedCards": prevVisitorRedCards,
+        "prevLocalApps": prevLocalApps,
+        "prevVisitorApps": prevVisitorApps
       },
     );
     try {

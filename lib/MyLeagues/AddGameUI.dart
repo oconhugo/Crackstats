@@ -8,20 +8,22 @@ class AddGameUI extends StatefulWidget {
   final String tempLeague;
   final List tempTeamList;
   var id;
+  var maxWeek;
 
-  AddGameUI(this.tempLeague, this.tempTeamList);
+  AddGameUI(this.tempLeague, this.tempTeamList, this.maxWeek);
 
-  AddGameUI.prefilled(this.tempLeague, this.tempTeamList, this.id);
+  AddGameUI.prefilled(
+      this.tempLeague, this.tempTeamList, this.id, this.maxWeek);
 
   @override
   _AddGameUIState createState() =>
-      _AddGameUIState(tempLeague, tempTeamList, id);
+      _AddGameUIState(tempLeague, tempTeamList, id, maxWeek);
 }
 
 class _AddGameUIState extends State<AddGameUI> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String league;
-  var weekNumber;
+  var weekNumber = '1';
   String localTeam;
   String visitorTeam;
   String venue = "";
@@ -43,14 +45,14 @@ class _AddGameUIState extends State<AddGameUI> {
   List visitorAppsIDS = [];
 
   List prevLocalScore = [];
-  List prevVisitorScore= [];
+  List prevVisitorScore = [];
   List prevLocalYellowCards = [];
   List prevVisitorYellowCard = [];
   List prevLocalRedCards = [];
   List prevVisitorRedCards = [];
 
   List diffLocalScore = [];
-  List diffVisitorScore= [];
+  List diffVisitorScore = [];
   List diffLocalYellowCards = [];
   List diffVisitorYellowCard = [];
   List diffLocalRedCards = [];
@@ -61,8 +63,8 @@ class _AddGameUIState extends State<AddGameUI> {
   Map localPlayerKeys = {};
   Map visitorPlayerKeys = {};
 
-  Map prevLocalApps = {};
-  Map prevVisitorApps = {};
+  List prevLocalApps = [];
+  List prevVisitorApps = [];
 
   String date = "";
   String time = "";
@@ -76,8 +78,9 @@ class _AddGameUIState extends State<AddGameUI> {
   bool isUpdating = false;
   bool isnotComplete = true;
   bool isGamePlayed = false;
+  int maxWeek = 0;
 
-  _AddGameUIState(this.league, this.teamList, this.id) {
+  _AddGameUIState(this.league, this.teamList, this.id, this.maxWeek) {
     if (id != null) {
       fillInfo();
     } else {
@@ -118,7 +121,7 @@ class _AddGameUIState extends State<AddGameUI> {
     var newMatch = dbGetMatchInfo[16];
 
     prevLocalScore = localScorers;
-    prevVisitorScore= visitorScorers;
+    prevVisitorScore = visitorScorers;
     prevLocalYellowCards = localYellows;
     prevVisitorYellowCard = visitorYellows;
     prevLocalRedCards = localReds;
@@ -129,9 +132,8 @@ class _AddGameUIState extends State<AddGameUI> {
         visitorYellows, localReds, visitorReds);
     fillApps(localAppList, localAppearance);
     fillApps(visitorAppList, visitorAppearance);
-
-    prevLocalApps=localAppearance;
-    prevVisitorApps=prevVisitorApps;
+    prevLocalApps = localAppList;
+    prevVisitorApps = visitorAppList;
 
     isnotComplete = false;
   }
@@ -360,7 +362,7 @@ class _AddGameUIState extends State<AddGameUI> {
                 },
               ),
             ),
-            
+
             //Local Team Dropdown
             Container(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -637,86 +639,92 @@ class _AddGameUIState extends State<AddGameUI> {
               child: RaisedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
-
                     var gamePlayed;
+                    maxWeek = maxWeek + 1;
                     if (isGamePlayed) {
                       gamePlayed = '1';
                     } else {
                       gamePlayed = '0';
                     }
-                    if (localContainsValue && visitorContainsValue) {
-                      getLocalAppsList();
-                      getVisitorAppsList();
-                      var tempConnectDB = new ConnectDB();
-                      if (isUpdating == false) {
-                        await tempConnectDB.sendMatch(
-                            localTeam,
-                            visitorTeam,
-                            weekNumber,
-                            date,
-                            venue,
-                            jsonEncode(localScorersList),
-                            jsonEncode(visitorScorersList),
-                            jsonEncode(localYellowsList),
-                            jsonEncode(visitorYellowsList),
-                            jsonEncode(localRedsList),
-                            jsonEncode(visitorRedsList),
-                            time,
-                            league,
-                            jsonEncode(localAppsList),
-                            jsonEncode(visitorAppsList),
-                            gamePlayed,
-                            );
-                      } else {
-                        await tempConnectDB.updateMatch(
-                            localTeam,
-                            visitorTeam,
-                            weekNumber,
-                            date,
-                            venue,
-                            jsonEncode(localScorersList),
-                            jsonEncode(visitorScorersList),
-                            jsonEncode(localYellowsList),
-                            jsonEncode(visitorYellowsList),
-                            jsonEncode(localRedsList),
-                            jsonEncode(visitorRedsList),
-                            time,
-                            league,
-                            jsonEncode(localAppsList),
-                            jsonEncode(visitorAppsList),
-                            id,
-                            gamePlayed,
-                            prevLocalScore,
-                            prevVisitorScore,
-                            prevLocalYellowCards,
-                            prevVisitorYellowCard,
-                            prevLocalRedCards,
-                            prevVisitorRedCards,
-                            prevLocalApps,
-                            prevVisitorApps
-                            );
-                      }
-                      Navigator.of(context).pop();
-                      showDialog<void>(
-                        context: context,
-                        barrierDismissible: false, // user must tap button!
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(MATCHADDED),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(OK),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else {
-                      final snackBar = SnackBar(content: Text(SELECTTEAMS));
+                    if (int.parse(weekNumber) > maxWeek ||
+                        int.parse(weekNumber) == 0) {
+                      final snackBar = SnackBar(
+                          content: Text(SELECTVALIDWEEK + maxWeek.toString()));
                       _scaffoldKey.currentState.showSnackBar(snackBar);
+                    } else {
+                      if (localContainsValue && visitorContainsValue) {
+                        getLocalAppsList();
+                        getVisitorAppsList();
+                        var tempConnectDB = new ConnectDB();
+                        if (isUpdating == false) {
+                          await tempConnectDB.sendMatch(
+                            localTeam,
+                            visitorTeam,
+                            weekNumber,
+                            date,
+                            venue,
+                            jsonEncode(localScorersList),
+                            jsonEncode(visitorScorersList),
+                            jsonEncode(localYellowsList),
+                            jsonEncode(visitorYellowsList),
+                            jsonEncode(localRedsList),
+                            jsonEncode(visitorRedsList),
+                            time,
+                            league,
+                            jsonEncode(localAppsList),
+                            jsonEncode(visitorAppsList),
+                            gamePlayed,
+                          );
+                        } else {
+                          await tempConnectDB.updateMatch(
+                              localTeam,
+                              visitorTeam,
+                              weekNumber,
+                              date,
+                              venue,
+                              jsonEncode(localScorersList),
+                              jsonEncode(visitorScorersList),
+                              jsonEncode(localYellowsList),
+                              jsonEncode(visitorYellowsList),
+                              jsonEncode(localRedsList),
+                              jsonEncode(visitorRedsList),
+                              time,
+                              league,
+                              jsonEncode(localAppsList),
+                              jsonEncode(visitorAppsList),
+                              id,
+                              gamePlayed,
+                              jsonEncode(prevLocalScore),
+                              jsonEncode(prevVisitorScore),
+                              jsonEncode(prevLocalYellowCards),
+                              jsonEncode(prevVisitorYellowCard),
+                              jsonEncode(prevLocalRedCards),
+                              jsonEncode(prevVisitorRedCards),
+                              jsonEncode(prevLocalApps),
+                              jsonEncode(prevVisitorApps));
+                        }
+                        Navigator.of(context).pop();
+                        showDialog<void>(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(MATCHADDED),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text(OK),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        final snackBar = SnackBar(content: Text(SELECTTEAMS));
+                        _scaffoldKey.currentState.showSnackBar(snackBar);
+                      }
                     }
                   }),
             )

@@ -140,6 +140,8 @@ const String SUBMIT = "Submit";
 const String PARTICIPATEDPLAYERS = "Select players that participated:";
 const String VENUE = "Venue";
 const String SELECTTEAMS = "Please select a local y visitor team";
+const String SELECTVALIDWEEK =
+    "Please select a week not equal to zero, and less than or equal to ";
 const String MATCHADDED = "Game Succesfully added";
 const String WEEKNUMBER = "Week Number";
 const String WEEK = "Week";
