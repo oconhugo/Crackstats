@@ -50,6 +50,7 @@ class _AddGameUIState extends State<AddGameUI> {
   List prevVisitorYellowCard = [];
   List prevLocalRedCards = [];
   List prevVisitorRedCards = [];
+  var prevNewMatch;
 
   List diffLocalScore = [];
   List diffVisitorScore = [];
@@ -120,6 +121,7 @@ class _AddGameUIState extends State<AddGameUI> {
     List visitorAppList = json.decode(dbGetMatchInfo[15]);
     var newMatch = dbGetMatchInfo[16];
 
+    prevNewMatch = newMatch;
     prevLocalScore = localScorers;
     prevVisitorScore = visitorScorers;
     prevLocalYellowCards = localYellows;
@@ -222,7 +224,11 @@ class _AddGameUIState extends State<AddGameUI> {
   }
 
   Widget showEmptyValue(list, value) {
-    list = [];
+    print(list);
+    setState(() {
+      list.clear();
+    });
+    
     return Text(value);
   }
 
@@ -527,7 +533,7 @@ class _AddGameUIState extends State<AddGameUI> {
                   children: visitorYellowCards > 0
                       ? getDropdown(visitorYellowCards, visitorYellowsList,
                           visitorPlayersList, VISITORYELLOWSTXT, false)
-                      : [showEmptyValue(visitorYellowCards, NOVISITORYELLOWS)]),
+                      : [showEmptyValue(visitorYellowsList, NOVISITORYELLOWS)]),
             ),
             //Local red cards
             Container(
@@ -579,7 +585,7 @@ class _AddGameUIState extends State<AddGameUI> {
                   children: visitorRedCards > 0
                       ? getDropdown(visitorRedCards, visitorRedsList,
                           visitorPlayersList, VISITORREDTXT, false)
-                      : [showEmptyValue(visitorRedCards, NOVISITORREDCARDS)]),
+                      : [showEmptyValue(visitorRedsList, NOVISITORREDCARDS)]),
             ),
             //Text local players appearance
             Center(child: Text(PARTICIPATEDPLAYERS)),
@@ -639,6 +645,7 @@ class _AddGameUIState extends State<AddGameUI> {
               child: RaisedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
+                    print("AQUI MERO");
                     var gamePlayed;
                     maxWeek = maxWeek + 1;
                     if (isGamePlayed) {
@@ -652,6 +659,9 @@ class _AddGameUIState extends State<AddGameUI> {
                           content: Text(SELECTVALIDWEEK + maxWeek.toString()));
                       _scaffoldKey.currentState.showSnackBar(snackBar);
                     } else {
+                      print("HOLS");
+                      print(prevLocalScore);
+                      print(prevVisitorScore);
                       if (localContainsValue && visitorContainsValue) {
                         getLocalAppsList();
                         getVisitorAppsList();
@@ -701,7 +711,8 @@ class _AddGameUIState extends State<AddGameUI> {
                               jsonEncode(prevLocalRedCards),
                               jsonEncode(prevVisitorRedCards),
                               jsonEncode(prevLocalApps),
-                              jsonEncode(prevVisitorApps));
+                              jsonEncode(prevVisitorApps),
+                              prevNewMatch);
                         }
                         Navigator.of(context).pop();
                         showDialog<void>(

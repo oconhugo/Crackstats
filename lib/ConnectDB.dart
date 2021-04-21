@@ -508,7 +508,8 @@ class ConnectDB {
       prevLocalRedCards,
       prevVisitorRedCards,
       prevLocalApps,
-      prevVisitorApps) async {
+      prevVisitorApps,
+      prevNewMatch) async {
     final response = await http.post(
       UPDATEMATCHURL,
       body: {
@@ -536,7 +537,8 @@ class ConnectDB {
         "prevLocalRedCards": prevLocalRedCards,
         "prevVisitorRedCards": prevVisitorRedCards,
         "prevLocalApps": prevLocalApps,
-        "prevVisitorApps": prevVisitorApps
+        "prevVisitorApps": prevVisitorApps,
+        "prevMatchPlayed": prevNewMatch,
       },
     );
     try {
