@@ -44,21 +44,6 @@ class _AddGameUIState extends State<AddGameUI> {
   List localAppsIDS = [];
   List visitorAppsIDS = [];
 
-  List prevLocalScore = [];
-  List prevVisitorScore = [];
-  List prevLocalYellowCards = [];
-  List prevVisitorYellowCard = [];
-  List prevLocalRedCards = [];
-  List prevVisitorRedCards = [];
-  var prevNewMatch;
-
-  List diffLocalScore = [];
-  List diffVisitorScore = [];
-  List diffLocalYellowCards = [];
-  List diffVisitorYellowCard = [];
-  List diffLocalRedCards = [];
-  List diffVisitorRedCards = [];
-
   Map localAppearance = {};
   Map visitorAppearance = {};
   Map localPlayerKeys = {};
@@ -120,14 +105,6 @@ class _AddGameUIState extends State<AddGameUI> {
     List localAppList = json.decode(dbGetMatchInfo[14]);
     List visitorAppList = json.decode(dbGetMatchInfo[15]);
     var newMatch = dbGetMatchInfo[16];
-
-    prevNewMatch = newMatch;
-    prevLocalScore = List.from(localScorers);
-    prevVisitorScore = visitorScorers;
-    prevLocalYellowCards = localYellows;
-    prevVisitorYellowCard = visitorYellows;
-    prevLocalRedCards = localReds;
-    prevVisitorRedCards = visitorReds;
 
     fillNewMatch(newMatch);
     await fillDropDowns(localScorers, visitorScorers, localYellows,
@@ -699,16 +676,7 @@ class _AddGameUIState extends State<AddGameUI> {
                               jsonEncode(localAppsList),
                               jsonEncode(visitorAppsList),
                               id,
-                              gamePlayed,
-                              jsonEncode(prevLocalScore),
-                              jsonEncode(prevVisitorScore),
-                              jsonEncode(prevLocalYellowCards),
-                              jsonEncode(prevVisitorYellowCard),
-                              jsonEncode(prevLocalRedCards),
-                              jsonEncode(prevVisitorRedCards),
-                              jsonEncode(prevLocalApps),
-                              jsonEncode(prevVisitorApps),
-                              prevNewMatch);
+                              gamePlayed,);
                         }
                         Navigator.of(context).pop();
                         showDialog<void>(
