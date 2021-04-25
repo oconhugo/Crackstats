@@ -122,7 +122,7 @@ class _AddGameUIState extends State<AddGameUI> {
     var newMatch = dbGetMatchInfo[16];
 
     prevNewMatch = newMatch;
-    prevLocalScore = localScorers;
+    prevLocalScore = List.from(localScorers);
     prevVisitorScore = visitorScorers;
     prevLocalYellowCards = localYellows;
     prevVisitorYellowCard = visitorYellows;
@@ -228,7 +228,7 @@ class _AddGameUIState extends State<AddGameUI> {
     setState(() {
       list.clear();
     });
-    
+
     return Text(value);
   }
 
@@ -645,7 +645,6 @@ class _AddGameUIState extends State<AddGameUI> {
               child: RaisedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
-                    print("AQUI MERO");
                     var gamePlayed;
                     maxWeek = maxWeek + 1;
                     if (isGamePlayed) {
@@ -659,9 +658,6 @@ class _AddGameUIState extends State<AddGameUI> {
                           content: Text(SELECTVALIDWEEK + maxWeek.toString()));
                       _scaffoldKey.currentState.showSnackBar(snackBar);
                     } else {
-                      print("HOLS");
-                      print(prevLocalScore);
-                      print(prevVisitorScore);
                       if (localContainsValue && visitorContainsValue) {
                         getLocalAppsList();
                         getVisitorAppsList();
