@@ -58,7 +58,8 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return SingleChildScrollView(
+        child: Column(children: [
       Center(
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -176,6 +177,6 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
               showSnackLeague();
             }
           })
-    ]);
+    ]));
   }
 }

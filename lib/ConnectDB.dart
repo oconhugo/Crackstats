@@ -500,8 +500,7 @@ class ConnectDB {
       localApps,
       visitorApps,
       id,
-      newMatch
-      ) async {
+      newMatch) async {
     final response = await http.post(
       UPDATEMATCHURL,
       body: {

@@ -105,8 +105,10 @@ class _AddTeamUIState extends State<AddPlayerUI> {
                 var conn = ConnectDB();
                 var response =
                     await conn.sendAddPlayerRequest(team, league, message);
-                if (response != null || response.isEmpty()) {
+                if (response == SENTSUCCESSFULLY) {
                   requestSentDialog();
+                } else {
+                  print(response);
                 }
               },
             ),
