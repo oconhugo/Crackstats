@@ -19,41 +19,40 @@ include "dbconfig.php";
 	$visitorapps = mysqli_real_escape_string($conn, $_POST['visitorApps']);
     $id = mysqli_real_escape_string($conn, $_POST['id']);
     $gamePlayed = mysqli_real_escape_string($conn, $_POST['newMatch']);
-	$prevLocalScore= mysqli_real_escape_string($conn, $_POST['prevLocalScore']);
-	$prevVisitorScore= mysqli_real_escape_string($conn, $_POST['prevVisitorScore']);
-	$prevLocalYellowCards= mysqli_real_escape_string($conn, $_POST['prevLocalYellowCards']);
-	$prevVisitorYellowCard= mysqli_real_escape_string($conn, $_POST['prevVisitorYellowCard']);
-	$prevLocalRedCards= mysqli_real_escape_string($conn, $_POST['prevLocalRedCards']);
-	$prevVisitorRedCards= mysqli_real_escape_string($conn, $_POST['prevVisitorRedCards']);
-	$prevLocalApps= mysqli_real_escape_string($conn, $_POST['prevLocalApps']);
-	$prevVisitorApps= mysqli_real_escape_string($conn, $_POST['prevVisitorApps']);
-    $prevMatchPlayed = mysqli_real_escape_string($conn, $_POST['prevMatchPlayed']);
+
+
+	$tempPrevLocalScore= mysqli_fetch_array(mysqli_query($conn, "SELECT Local_Score FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevVisitorScore= mysqli_fetch_array(mysqli_query($conn, "SELECT Visitor_Score FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevLocalYellowCards= mysqli_fetch_array(mysqli_query($conn, "SELECT Local_Yellow_Card FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevVisitorYellowCard= mysqli_fetch_array(mysqli_query($conn, "SELECT Visitor_Yellow_Cards FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevLocalRedCards= mysqli_fetch_array(mysqli_query($conn, "SELECT Local_Red_Card FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevVisitorRedCards= mysqli_fetch_array(mysqli_query($conn, "SELECT Visitor_Red_Cards FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevLocalApps= mysqli_fetch_array(mysqli_query($conn, "SELECT Local_Participants FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+	$tempPrevVisitorApps= mysqli_fetch_array(mysqli_query($conn, "SELECT Visitor_Participants FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+    $tempPrevMatchPlayed = mysqli_fetch_array(mysqli_query($conn, "SELECT Game_Played FROM t_schedules WHERE id = '$id'"), MYSQLI_NUM);
+
+    $prevLocalScore = json_decode(stripslashes($tempPrevLocalScore[0]),true);
+    $prevVisitorScore= json_decode(stripslashes($tempPrevVisitorScore[0]),true);
+    $prevLocalYellowCards = json_decode(stripslashes($tempPrevLocalYellowCards[0]),true);
+    $prevVisitorYellowCards= json_decode(stripslashes($tempPrevVisitorYellowCard[0]),true);
+    $prevLocalRedCards = json_decode(stripslashes($tempPrevLocalRedCards[0]),true);
+    $prevVisitorRedCards= json_decode(stripslashes($tempPrevVisitorRedCards[0]),true);
+    $prevLocalApps = json_decode(stripslashes($tempPrevLocalApps[0]),true);
+    $prevVisitorApps= json_decode(stripslashes($tempPrevVisitorApps[0]),true);
+    $prevMatchPlayed= $tempPrevMatchPlayed[0];
 	
         $query = "UPDATE t_schedules SET Local = '$localteam', Visitor = '$visitorteam', Week_Num = '$week', Date = '$date', Field_name = '$venue', Local_Score = '$localscore', Visitor_Score = '$visitorscore', Local_Yellow_Card = '$localyellows', Local_Red_Card = '$localreds', Visitor_Yellow_Cards = '$visitoryellows', Visitor_Red_Cards = '$visitorreds', Time = '$time', League = '$league', Local_Participants = '$localapps', Visitor_Participants = '$visitorapps', Game_Played = '$gamePlayed'
   			  WHERE id = '$id'";
 			  
-		$decoded_local_scorers = json_decode(stripslashes($localscore),true);
-        $decoded_visitor_scorers = json_decode(stripslashes($visitorscore),true);
-        $decoded_local_yellows = json_decode(stripslashes($localyellows),true);
-        $decoded_visitor_yellows = json_decode(stripslashes($visitoryellows),true);
-        $decoded_local_reds = json_decode(stripslashes($localreds),true);
-        $decoded_visitor_reds = json_decode(stripslashes($visitorreds),true);
-        $decoded_local_apps = json_decode(stripslashes($localapps),true);
-        $decoded_visitor_apps = json_decode(stripslashes($visitorapps),true);
-        $decoded_prevlocal_scorers = json_decode(stripslashes($prevLocalscore),true);
-        $decoded_prevvisitor_scorers = json_decode(stripslashes($prevVisitorscore),true);
-        $decoded_prevlocal_yellows = json_decode(stripslashes($prevLocalyellows),true);
-        $decoded_prevvisitor_yellows = json_decode(stripslashes($prevVisitoryellows),true);
-        $decoded_prevlocal_reds = json_decode(stripslashes($prevLocalreds),true);
-        $decoded_prevvisitor_reds = json_decode(stripslashes($prevVisitorreds),true);
-        $decoded_prevlocal_apps = json_decode(stripslashes($prevLocalapps),true);
-        $decoded_prevvisitor_apps = json_decode(stripslashes($prevVisitorapps),true);
 
-        var_dump ($prevLocalScore);
-        var_dump ($decoded_prevlocal_scorers);
-       // var_dump(json_last_error_msg());
-        
-
+	$decoded_local_scorers = json_decode(stripslashes($localscore),true);
+    $decoded_visitor_scorers = json_decode(stripslashes($visitorscore),true);
+    $decoded_local_yellows = json_decode(stripslashes($localyellows),true);
+    $decoded_visitor_yellows = json_decode(stripslashes($visitoryellows),true);
+    $decoded_local_reds = json_decode(stripslashes($localreds),true);
+    $decoded_visitor_reds = json_decode(stripslashes($visitorreds),true);
+    $decoded_local_apps = json_decode(stripslashes($localapps),true);
+    $decoded_visitor_apps = json_decode(stripslashes($visitorapps),true);
 
     $results = mysqli_query($conn, $query);
     
@@ -147,7 +146,7 @@ if($prevMatchPlayed==0)
 else{
     //remove previous local score stat and add new one
     //remove previous
-    foreach ($decoded_prevlocal_scorers as $value){
+    foreach ($prevLocalScore as $value){
         $query1 = "UPDATE t_players SET Goals = Goals - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
         $query2 = "UPDATE t_team_stats SET GF = GF - 1 WHERE Team = '$localteam' and League = '$league'";
@@ -167,7 +166,7 @@ else{
 
     //remove  prev visitor score stat and add new one
     //remove previous
-    foreach ($decoded_prevvisitor_scorers as $value){
+    foreach ($prevVisitorScore as $value){
         $query1 = "UPDATE t_players SET Goals = Goals - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
         $query2 = "UPDATE t_team_stats SET GA = GA - 1 WHERE Team = '$localteam' and League = '$league'";
@@ -187,7 +186,7 @@ else{
 
     //remove previos local yellow cards and add new
     //remove previos
-    foreach ($decoded_prevlocal_yellows as $value){
+    foreach ($prevLocalYellowCards as $value){
         $query1 = "UPDATE t_players SET Yellow_Cards = Yellow_Cards - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
     }
@@ -199,7 +198,7 @@ else{
 
     //remove previos visitor yellow cards and add new
     //remove previos
-    foreach ($decoded_prevvisitor_yellows as $value){
+    foreach ($prevVisitorYellowCards as $value){
         $query1 = "UPDATE t_players SET Yellow_Cards = Yellow_Cards - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
     }
@@ -211,7 +210,7 @@ else{
 
     //remove local reds and add new
     //remove previous
-    foreach ($decoded_prevlocal_reds as $value){
+    foreach ($prevLocalRedCards as $value){
         $query1 = "UPDATE t_players SET Red_Cards = Red_Cards - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
     }
@@ -223,7 +222,7 @@ else{
 
     //remove visitor reds and add new
     //remove previous
-    foreach ($decoded_prevvisitor_reds as $value){
+    foreach ($prevVisitorRedCards as $value){
         $query1 = "UPDATE t_players SET Red_Cards = Red_Cards - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
     }
@@ -235,7 +234,7 @@ else{
 
     //remove local apps and add new
     //remove previous
-    foreach ($decoded_prevlocal_apps as $value){
+    foreach ($prevLocalApps as $value){
         $query1 = "UPDATE t_players SET Apps = Apps - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
     }
@@ -247,7 +246,7 @@ else{
 
     //remove visitor apps and add new
     //remove
-    foreach ($decoded_prevvisitor_apps as $value){
+    foreach ($prevVisitorApps as $value){
         $query1 = "UPDATE t_players SET Apps = Apps - 1 WHERE ID = '$value'";
         $res = mysqli_query($conn, $query1);
     }
@@ -259,12 +258,12 @@ else{
 
     //remove matches win/lose/tied previos and add new
     //remove
-    if(count($decoded_prevlocal_scorers) > count($decoded_prevvisitor_scorers)){
+    if(count($prevLocalScore) > count($prevVisitorScore)){
         $query = "UPDATE t_team_stats SET Games_Won = Games_Won - 1, Points = Points - 3 WHERE Team = '$localteam' and League = '$league'";
         $res = mysqli_query($conn, $query);
         $query1 = "UPDATE t_team_stats SET Games_Lost = Games_Lost - 1 WHERE Team = '$visitorteam' and League = '$league'";
         $res = mysqli_query($conn, $query1);
-    }else if (count($decoded_prevvisitor_scorers) > count($decoded_prevlocal_scorers)){
+    }else if (count($prevVisitorScore) > count($prevLocalScore)){
         $query = "UPDATE t_team_stats SET Games_Won = Games_Won - 1, Points = Points - 3 WHERE Team = '$visitorteam' and League = '$league'";
         $res = mysqli_query($conn, $query);
         $query1 = "UPDATE t_team_stats SET Games_Lost = Games_Lost - 1 WHERE Team = '$localteam' and League = '$league'";
