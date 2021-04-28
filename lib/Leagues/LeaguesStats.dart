@@ -16,9 +16,39 @@ class _LeaguesStatsState extends State<LeaguesStats> {
   bool isLeagueSelected = false;
   Map buttonSelected = {STANDING: false, GOALSCORERS: false, DISCIPLINE: false};
 
-  Widget createTable() {
+  bubbleSorting(statsArray,arrayNum){
+    //arrayNum = array index on which list is being sorted
+    int arrLength=statsArray.length;
+    for(int i=0;i<arrLength-1;i++){
+      for(int j=0;j<arrLength-i-1;j++){
+        if(int.parse(statsArray[j][arrayNum]) < int.parse(statsArray[j+1][arrayNum])){
+          var temp = statsArray[j];
+          statsArray[j]=statsArray[j+1];
+          statsArray[j+1]=temp;
+        }
+      }
+    }
+  }
+
+  Widget createStandings(gameStats) {
+    print(gameStats);
+    bubbleSorting(gameStats,6);
+    print(gameStats);
+    //Sort teams
     return Column(
-      children: [Text('')],
+      children: [Text("Stadings")],
+    );
+  }
+
+  Widget createScorerTable() {
+    return Column(
+      children: [Text("Scorers")],
+    );
+  }
+
+   Widget createDisciplineTable() {
+    return Column(
+      children: [Text("Scorers")],
     );
   }
 
@@ -82,12 +112,12 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                   buttonSelected[STANDING]
                                       ? FutureBuilder(
                                           future: ConnectDB()
-                                              .retrieveAllLeagueGames(
+                                              .retrieveTeamStats(
                                                   leagueSelected),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
-                                              return createTable();
+                                              return createStandings(snapshot.data);
                                             } else {
                                               return LoadingSpinner();
                                             }
@@ -108,9 +138,9 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
-                                              return Text("1");
+                                              return createScorerTable();
                                             } else {
-                                              return Text("");
+                                              return LoadingSpinner();
                                             }
                                           })
                                       : Text(''),
@@ -129,9 +159,9 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
-                                              return Text("1");
+                                              return createDisciplineTable();
                                             } else {
-                                              return Text("");
+                                              return LoadingSpinner();
                                             }
                                           })
                                       : Text(''),

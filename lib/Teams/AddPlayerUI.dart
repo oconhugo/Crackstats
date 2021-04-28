@@ -13,6 +13,7 @@ class AddPlayerUI extends StatefulWidget {
 }
 
 class _AddTeamUIState extends State<AddPlayerUI> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String teamSelected;
   String message;
   String addText;
@@ -51,6 +52,7 @@ class _AddTeamUIState extends State<AddPlayerUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(ADDPLAYERTITLE),
         backgroundColor: PRIMARYCOLOR,
@@ -102,13 +104,19 @@ class _AddTeamUIState extends State<AddPlayerUI> {
               textColor: WHITE,
               child: Text(SENDREQUEST),
               onPressed: () async {
+                if(message==null){
+                  message="";
+                }
                 var conn = ConnectDB();
                 var response =
                     await conn.sendAddPlayerRequest(team, league, message);
                 if (response == SENTSUCCESSFULLY) {
                   requestSentDialog();
+                  Navigator.of(context).pop();
                 } else {
-                  print(response);
+                  final snackBar = SnackBar(
+                      content: Text(response));
+                      _scaffoldKey.currentState.showSnackBar(snackBar);
                 }
               },
             ),

@@ -529,4 +529,20 @@ class ConnectDB {
       return null;
     }
   }
+
+  Future retrieveTeamStats(league) async {
+    final response = await http.post(
+      RETRIEVETEAMSTATSURL,
+      body: {
+        "league": league,
+      },
+    );
+    try {
+      return Future.delayed(
+          Duration(milliseconds: 1), () => json.decode(response.body));
+    } catch (e) {
+      return null;
+    }
+  }
+
 }
