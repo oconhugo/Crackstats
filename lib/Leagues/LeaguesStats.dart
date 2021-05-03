@@ -16,39 +16,93 @@ class _LeaguesStatsState extends State<LeaguesStats> {
   bool isLeagueSelected = false;
   Map buttonSelected = {STANDING: false, GOALSCORERS: false, DISCIPLINE: false};
 
-  bubbleSorting(statsArray,arrayNum){
+  bubbleSorting(statsArray, arrayNum) {
     //arrayNum = array index on which list is being sorted
-    int arrLength=statsArray.length;
-    for(int i=0;i<arrLength-1;i++){
-      for(int j=0;j<arrLength-i-1;j++){
-        if(int.parse(statsArray[j][arrayNum]) < int.parse(statsArray[j+1][arrayNum])){
+    int arrLength = statsArray.length;
+    for (int i = 0; i < arrLength - 1; i++) {
+      for (int j = 0; j < arrLength - i - 1; j++) {
+        if (int.parse(statsArray[j][arrayNum]) <
+            int.parse(statsArray[j + 1][arrayNum])) {
           var temp = statsArray[j];
-          statsArray[j]=statsArray[j+1];
-          statsArray[j+1]=temp;
+          statsArray[j] = statsArray[j + 1];
+          statsArray[j + 1] = temp;
         }
       }
     }
   }
 
   Widget createStandings(gameStats) {
-    print(gameStats);
-    bubbleSorting(gameStats,6);
-    print(gameStats);
-    //Sort teams
+    bubbleSorting(gameStats, 6);
+    int tablePosition = 0;
     return Column(
-      children: [Text("Stadings")],
+      children: [
+        ...(gameStats).map((gameStat) {
+          tablePosition = tablePosition + 1;
+          return Card(
+              child: ListTile(
+                  title: Text(tablePosition.toString() + " " + gameStat[1],
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: Row(
+                    children: [
+                      Text(GF + " " + gameStat[7] + "  "),
+                      Text(GA + " " + gameStat[8] + "  "),
+                      Text(GD +
+                          " " +
+                          (int.parse(gameStat[7]) - int.parse(gameStat[8]))
+                              .toString() +
+                          "  ")
+                    ],
+                  ),
+                  trailing: Text(gameStat[6],
+                      style: TextStyle(fontWeight: FontWeight.bold))));
+        })
+      ],
     );
   }
 
-  Widget createScorerTable() {
+  Widget createScorerTable(scorersNames) {
+    bubbleSorting(scorersNames, 2);
+    int tablePosition = 0;
     return Column(
-      children: [Text("Scorers")],
+      children: [
+        ...(scorersNames).map((scorer) {
+          tablePosition = tablePosition + 1;
+          if (tablePosition < 11) {
+            return Card(
+                child: ListTile(
+                    title: Text(
+                        tablePosition.toString() +
+                            " " +
+                            scorer[0] +
+                            " " +
+                            scorer[1],
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    trailing: Text(scorer[2],
+                        style: TextStyle(fontWeight: FontWeight.bold))));
+          }
+        })
+      ],
     );
   }
 
-   Widget createDisciplineTable() {
+  Widget createDisciplineTable(playersNames) {
+    bubbleSorting(playersNames, 2);
+    int tablePosition = 0;
     return Column(
-      children: [Text("Scorers")],
+      children: [
+        ...(playersNames).map((player) {
+          tablePosition = tablePosition + 1;
+          if (tablePosition < 11) {
+            return Card(
+                child: ListTile(
+                    title: Text(player[0] + " " + player[1],
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    trailing: Text(
+                        YELLOWRED + " " + player[2] + " (" + player[3] + ")",
+                        style: TextStyle(fontWeight: FontWeight.bold))));
+          }
+        })
+      ],
     );
   }
 
@@ -111,15 +165,15 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                   ),
                                   buttonSelected[STANDING]
                                       ? FutureBuilder(
-                                          future: ConnectDB()
-                                              .retrieveTeamStats(
-                                                  leagueSelected),
+                                          future: ConnectDB().retrieveTeamStats(
+                                              leagueSelected),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
-                                              return createStandings(snapshot.data);
+                                              return createStandings(
+                                                  snapshot.data);
                                             } else {
-                                              return LoadingSpinner();
+                                              return Text("");
                                             }
                                           })
                                       : Text(''),
@@ -134,13 +188,16 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                   ),
                                   buttonSelected[GOALSCORERS]
                                       ? FutureBuilder(
-                                          future: null,
+                                          future: ConnectDB()
+                                              .retrieveLeagueScorers(
+                                                  leagueSelected),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
-                                              return createScorerTable();
+                                              return createScorerTable(
+                                                  snapshot.data);
                                             } else {
-                                              return LoadingSpinner();
+                                              return Text("");
                                             }
                                           })
                                       : Text(''),
@@ -155,13 +212,16 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                   ),
                                   buttonSelected[DISCIPLINE]
                                       ? FutureBuilder(
-                                          future: null,
+                                          future: ConnectDB()
+                                              .retrievePlayerDisciplineStats(
+                                                  leagueSelected),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
-                                              return createDisciplineTable();
+                                              return createDisciplineTable(
+                                                  snapshot.data);
                                             } else {
-                                              return LoadingSpinner();
+                                              return Text("");
                                             }
                                           })
                                       : Text(''),

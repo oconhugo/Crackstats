@@ -148,6 +148,10 @@ const String WEEK = "Week";
 const String VS = "vs";
 const String NEWMATCH = "Select if this game has been played";
 const String SENTSUCCESSFULLY = "Request sent Succesfully";
+const String GF = "GF:";
+const String GA = "GA:";
+const String GD = "GD:";
+const String YELLOWRED = "Y(R):";
 
 //URLS
 const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
@@ -195,7 +199,12 @@ const String GETWEEKGAMES = "http://hugoocon.com/get_week_games.php";
 const String GETMATCHINFO = "http://hugoocon.com/get_match_info.php";
 const String UPDATEMATCHURL = "http://hugoocon.com/update_new_match.php";
 const String GETALLLEAGUEGAMES = "http://hugoocon.com/get_all_league_games.php";
-const String RETRIEVETEAMSTATSURL = "http://hugoocon.com/retrieve_team_stats.php";
+const String RETRIEVETEAMSTATSURL =
+    "http://hugoocon.com/retrieve_team_stats.php";
+const String RETRIEVELEAGUESCORERS =
+    "http://hugoocon.com/retrieve_league_scorers.php";
+const String RETRIEVEPLAYERDISCIPLINE =
+    "http://hugoocon.com/retrieve_player_discipline_stats.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
