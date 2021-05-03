@@ -4,12 +4,26 @@ import '../Constants.dart';
 import 'package:flutter/material.dart';
 import '../Register/RegisterUI.dart';
 import '../Profile/ProfileUI.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 class LogInButtonsWidget extends StatelessWidget {
   final TextEditingController emlController;
   final TextEditingController pwdController;
 
   LogInButtonsWidget(this.emlController, this.pwdController);
+
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
+
+  String encryptPassword(pwdString){
+    String temp =pwdString.substring(0,2) + SALT + pwdString.substring(3,pwdString.length);
+    pwdString = generateMd5(temp);
+    print(pwdString);
+    return pwdString;   
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +54,14 @@ class LogInButtonsWidget extends StatelessWidget {
               } else {
                 var conn = new ConnectDB();
                 var result =
-                    await conn.logInDb(emlController.text, pwdController.text);
-                globalUserType = result['usertype'];
+                    await conn.logInDb(emlController.text, encryptPassword(pwdController.text));
                 if (result == null) {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     duration: Duration(seconds: 1),
                     content: Text(USERDOESNTEXISTMESSAGE),
                   ));
                 } else {
+                  globalUserType = result['usertype'];
                   Navigator.push(
                       context,
                       MaterialPageRoute(

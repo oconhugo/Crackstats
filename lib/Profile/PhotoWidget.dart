@@ -20,11 +20,15 @@ class _PhotoWidgetState extends State<PhotoWidget> {
         overflow: TextOverflow.ellipsis,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: TITLESIZE),
       ),
-      Image.asset(
-      'assets/images/MU.png',
-      height: 150,
-      width: 150,
+      Icon(
+        Icons.account_circle_outlined,
+        size: MediaQuery.of(context).size.width / 3,
       ),
+      //Image.asset(
+      //'assets/images/MU.png',
+      //height: 150,
+     // width: 150,
+      //),
     ]);
   }
 }

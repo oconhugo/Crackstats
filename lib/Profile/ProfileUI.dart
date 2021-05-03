@@ -18,6 +18,7 @@ class ProfileUI extends StatefulWidget {
 class _ProfileUIState extends State<ProfileUI> {
   List<dynamic> userNotifications;
   Map informationMap;
+  bool dbCallFinished=false;
 
   _ProfileUIState(this.informationMap) {
     getNotifications();
@@ -35,6 +36,7 @@ class _ProfileUIState extends State<ProfileUI> {
         isNotifications = false;
       }
     });
+    dbCallFinished=true;
   }
 
   @override
@@ -55,7 +57,11 @@ class _ProfileUIState extends State<ProfileUI> {
                       : const Icon(Icons.notifications_none),
                   iconSize: kToolbarHeight - 15,
                   tooltip: NOTIFICATIONS,
-                  onPressed: () => Scaffold.of(context).openEndDrawer()),
+                  onPressed: () {
+                    if(dbCallFinished){
+                      Scaffold.of(context).openEndDrawer();
+                    }
+                  }),
             ),
           ],
         ),

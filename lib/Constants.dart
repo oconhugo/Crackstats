@@ -104,6 +104,7 @@ const String MESSAGETITLE = "Message: ";
 const String NOTIFICATIONREMOVED = "Notification Removed";
 const String ACCEPT = "Accept";
 const String DECLINE = "Decline";
+const String SALT = "%#MESS1=10#*";
 const String DATE = "Date: ";
 const String MYLEAGUESTITLE = "My Leagues";
 const String ADDANNOUNCEMENT = "Add Announcement";

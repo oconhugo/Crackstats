@@ -4,6 +4,8 @@ import '../Register/RegisterInTxtWidget.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 class RegisterBodyWidget extends StatefulWidget {
   @override
@@ -33,11 +35,21 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
     ),
   ];
 
+  String generateMd5(String input) {
+  return md5.convert(utf8.encode(input)).toString();
+  }
+
+  encryptPassword(registerInfoMap){
+    String temp = registerInfoMap[PASSWORD].substring(0,2) + SALT + registerInfoMap[PASSWORD].substring(3,registerInfoMap[PASSWORD].length);
+    registerInfoMap[PASSWORD] = generateMd5(temp);
+  }
+
   void regButton() async {
     var result;
     var regPop = new RegisterPopUp();
     var insert = new ConnectDB();
     if (areFieldsCorrect()) {
+      encryptPassword(registerFields);
       result = await insert.sendData(registerFields, inputGender);
     }
     if (!isDuplicate(result)) {
