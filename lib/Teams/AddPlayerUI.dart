@@ -99,13 +99,18 @@ class _AddTeamUIState extends State<AddPlayerUI> {
                 ),
               ),
             ),
-            RaisedButton(
-              color: PRIMARYCOLOR,
-              textColor: WHITE,
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return PRIMARYCOLOR; // Use the component's default.
+                  },
+                ),
+              ),
               child: Text(SENDREQUEST),
               onPressed: () async {
-                if(message==null){
-                  message="";
+                if (message == null) {
+                  message = "";
                 }
                 var conn = ConnectDB();
                 var response =
@@ -114,9 +119,8 @@ class _AddTeamUIState extends State<AddPlayerUI> {
                   requestSentDialog();
                   Navigator.of(context).pop();
                 } else {
-                  final snackBar = SnackBar(
-                      content: Text(response));
-                      _scaffoldKey.currentState.showSnackBar(snackBar);
+                  final snackBar = SnackBar(content: Text(response));
+                  _scaffoldKey.currentState.showSnackBar(snackBar);
                 }
               },
             ),

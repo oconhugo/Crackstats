@@ -102,7 +102,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
               return Container(
                   child: Column(
                 children: [
-                  RaisedButton(
+                  ElevatedButton(
                       child: Text(WEEK + " " + tempWeekNum),
                       onPressed: () {
                         setState(() {
@@ -123,7 +123,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                               return Column(
                                 children: [
                                   ...(games).map((valkey) {
-                                    return RaisedButton(
+                                    return ElevatedButton(
                                       child: Text(valkey[1] +
                                           " " +
                                           VS +
@@ -157,13 +157,17 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
           ],
         ),
       ),
-      RaisedButton(
+      ElevatedButton(
           child: Text(
             ADDGAME,
           ),
-          textColor: WHITE,
-          color: PRIMARYCOLOR,
-          disabledColor: Colors.grey,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                return PRIMARYCOLOR; // Use the component's default.
+              },
+            ),
+          ),
           onPressed: () {
             if (isEnable) {
               maxWeek = weekNum.length - 1;

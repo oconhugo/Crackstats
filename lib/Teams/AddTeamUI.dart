@@ -119,9 +119,14 @@ class _AddTeamUIState extends State<AddTeamUI> {
                 ),
               ),
             ),
-            RaisedButton(
-              color: PRIMARYCOLOR,
-              textColor: WHITE,
+            ElevatedButton(
+              style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  return PRIMARYCOLOR; // Use the component's default.
+                },
+              ),
+            ),
               child: Text(SENDREQUEST),
               onPressed: () async {
                 var conn = ConnectDB();

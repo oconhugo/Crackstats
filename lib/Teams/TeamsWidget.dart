@@ -70,21 +70,25 @@ class _TeamsWidgetState extends State<TeamsWidget> {
             child: Column(
               children: [
                 ...(teamsDropdownList).map((value) {
-                  return FlatButton(
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: PRIMARYCOLOR)),
-                    minWidth: MediaQuery.of(context).size.width / 1.2,
-                    onPressed: () async {
-                      var dbConnection = new ConnectDB();
-                      var tempNameList = await dbConnection.retrieveTeamPlayers(
-                          value, leagueSelected);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return TeamPlayersUI(
-                            value, tempNameList, leagueSelected);
-                      }));
-                    },
-                    child: Text(value),
+                  return Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          shape: const BeveledRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)))),
+                      onPressed: () async {
+                        var dbConnection = new ConnectDB();
+                        var tempNameList = await dbConnection
+                            .retrieveTeamPlayers(value, leagueSelected);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return TeamPlayersUI(
+                              value, tempNameList, leagueSelected);
+                        }));
+                      },
+                      child: Text(value),
+                    ),
                   );
                 }).toList(),
               ],

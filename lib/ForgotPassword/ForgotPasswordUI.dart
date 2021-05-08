@@ -38,9 +38,13 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
                   hintText: EMAIL,
                 ),
               )),
-          RaisedButton(
-            color: PRIMARYCOLOR,
-            textColor: WHITE,
+          ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                return PRIMARYCOLOR; // Use the component's default.
+              },
+            )),
             child: Text(SENDCODE),
             onPressed: () async {
               var mailInstance =

@@ -86,7 +86,7 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                                               ...(weeks).map((value) {
                                                 return Column(
                                                   children: [
-                                                    RaisedButton(
+                                                    ElevatedButton(
                                                         child: Text(WEEK +
                                                             " " +
                                                             value[0]),

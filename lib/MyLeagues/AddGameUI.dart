@@ -619,7 +619,7 @@ class _AddGameUIState extends State<AddGameUI> {
               },
             )),
             Center(
-              child: RaisedButton(
+              child: ElevatedButton(
                   child: Text(SUBMIT),
                   onPressed: () async {
                     var gamePlayed;
@@ -660,23 +660,24 @@ class _AddGameUIState extends State<AddGameUI> {
                           );
                         } else {
                           await tempConnectDB.updateMatch(
-                              localTeam,
-                              visitorTeam,
-                              weekNumber,
-                              date,
-                              venue,
-                              jsonEncode(localScorersList),
-                              jsonEncode(visitorScorersList),
-                              jsonEncode(localYellowsList),
-                              jsonEncode(visitorYellowsList),
-                              jsonEncode(localRedsList),
-                              jsonEncode(visitorRedsList),
-                              time,
-                              league,
-                              jsonEncode(localAppsList),
-                              jsonEncode(visitorAppsList),
-                              id,
-                              gamePlayed,);
+                            localTeam,
+                            visitorTeam,
+                            weekNumber,
+                            date,
+                            venue,
+                            jsonEncode(localScorersList),
+                            jsonEncode(visitorScorersList),
+                            jsonEncode(localYellowsList),
+                            jsonEncode(visitorYellowsList),
+                            jsonEncode(localRedsList),
+                            jsonEncode(visitorRedsList),
+                            time,
+                            league,
+                            jsonEncode(localAppsList),
+                            jsonEncode(visitorAppsList),
+                            id,
+                            gamePlayed,
+                          );
                         }
                         Navigator.of(context).pop();
                         showDialog<void>(

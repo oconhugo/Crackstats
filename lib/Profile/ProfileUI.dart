@@ -18,7 +18,7 @@ class ProfileUI extends StatefulWidget {
 class _ProfileUIState extends State<ProfileUI> {
   List<dynamic> userNotifications;
   Map informationMap;
-  bool dbCallFinished=false;
+  bool dbCallFinished = false;
 
   _ProfileUIState(this.informationMap) {
     getNotifications();
@@ -36,45 +36,50 @@ class _ProfileUIState extends State<ProfileUI> {
         isNotifications = false;
       }
     });
-    dbCallFinished=true;
+    dbCallFinished = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(PROFILETITLE),
-          backgroundColor: PRIMARYCOLOR,
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                  icon: (isNotifications)
-                      ? const Icon(
-                          Icons.notifications,
-                          color: YELLOW,
-                        )
-                      : const Icon(Icons.notifications_none),
-                  iconSize: kToolbarHeight - 15,
-                  tooltip: NOTIFICATIONS,
-                  onPressed: () {
-                    if(dbCallFinished){
-                      Scaffold.of(context).openEndDrawer();
-                    }
-                  }),
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(PROFILETITLE),
+            backgroundColor: PRIMARYCOLOR,
+            actions: [
+              Builder(
+                builder: (context) => IconButton(
+                    icon: (isNotifications)
+                        ? const Icon(
+                            Icons.notifications,
+                            color: YELLOW,
+                          )
+                        : const Icon(Icons.notifications_none),
+                    iconSize: kToolbarHeight - 15,
+                    tooltip: NOTIFICATIONS,
+                    onPressed: () {
+                      if (dbCallFinished) {
+                        Scaffold.of(context).openEndDrawer();
+                      }
+                    }),
+              ),
+            ],
+          ),
+          body: Center(
+              child: SingleChildScrollView(
+                  child: Table(
+            children: [
+              TableRow(children: [PhotoWidget(widget.infoMap['First_Name'])]),
+              TableRow(children: [ProfileInfoWidget(widget.infoMap)]),
+            ],
+          ))),
+          drawer: SideBarMenu(),
+          endDrawer: NotificationsUI(userNotifications, informationMap),
         ),
-        body: Center(
-            child: SingleChildScrollView(
-                child: Table(
-          children: [
-            TableRow(children: [PhotoWidget(widget.infoMap['First_Name'])]),
-            TableRow(children: [ProfileInfoWidget(widget.infoMap)]),
-          ],
-        ))),
-        drawer: SideBarMenu(),
-        endDrawer: NotificationsUI(userNotifications, informationMap),
       ),
     );
   }

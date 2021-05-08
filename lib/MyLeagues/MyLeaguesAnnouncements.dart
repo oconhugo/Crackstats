@@ -103,13 +103,17 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                             subtitle: Center(child: Text(item[3])))));
               },
             )),
-        RaisedButton(
+        ElevatedButton(
             child: Text(
               ADDANNOUNCEMENT,
             ),
-            textColor: WHITE,
-            color: PRIMARYCOLOR,
-            disabledColor: Colors.grey,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  return PRIMARYCOLOR; // Use the component's default.
+                },
+              ),
+            ),
             onPressed: () {
               if (isEnable) {
                 showDialog(

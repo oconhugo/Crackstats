@@ -36,11 +36,14 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
   ];
 
   String generateMd5(String input) {
-  return md5.convert(utf8.encode(input)).toString();
+    return md5.convert(utf8.encode(input)).toString();
   }
 
-  encryptPassword(registerInfoMap){
-    String temp = registerInfoMap[PASSWORD].substring(0,2) + SALT + registerInfoMap[PASSWORD].substring(3,registerInfoMap[PASSWORD].length);
+  encryptPassword(registerInfoMap) {
+    String temp = registerInfoMap[PASSWORD].substring(0, 2) +
+        SALT +
+        registerInfoMap[PASSWORD]
+            .substring(3, registerInfoMap[PASSWORD].length);
     registerInfoMap[PASSWORD] = generateMd5(temp);
   }
 
@@ -123,9 +126,14 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
                   });
                 },
                 items: dropDownItems)),
-        RaisedButton(
-          color: PRIMARYCOLOR,
-          textColor: WHITE,
+        ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                return PRIMARYCOLOR; // Use the component's default.
+              },
+            ),
+          ),
           child: Text(REGISTER),
           onPressed: () {
             regButton();

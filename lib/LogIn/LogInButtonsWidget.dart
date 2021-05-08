@@ -17,12 +17,13 @@ class LogInButtonsWidget extends StatelessWidget {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-
-  String encryptPassword(pwdString){
-    String temp =pwdString.substring(0,2) + SALT + pwdString.substring(3,pwdString.length);
+  String encryptPassword(pwdString) {
+    String temp = pwdString.substring(0, 2) +
+        SALT +
+        pwdString.substring(3, pwdString.length);
     pwdString = generateMd5(temp);
     print(pwdString);
-    return pwdString;   
+    return pwdString;
   }
 
   @override
@@ -30,9 +31,11 @@ class LogInButtonsWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(FORGOTPASSWORD),
-            textColor: BLUE,
+            style: TextButton.styleFrom(
+              primary: BLUE,
+            ),
             onPressed: () {
               Navigator.push(
                   context,
@@ -41,9 +44,14 @@ class LogInButtonsWidget extends StatelessWidget {
                   ));
             },
           ),
-          RaisedButton(
-            color: PRIMARYCOLOR,
-            textColor: WHITE,
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  return PRIMARYCOLOR; // Use the component's default.
+                },
+              ),
+            ),
             child: Text(SIGNIN),
             onPressed: () async {
               if (emlController.text.isEmpty || pwdController.text.isEmpty) {
@@ -53,8 +61,8 @@ class LogInButtonsWidget extends StatelessWidget {
                 ));
               } else {
                 var conn = new ConnectDB();
-                var result =
-                    await conn.logInDb(emlController.text, encryptPassword(pwdController.text));
+                var result = await conn.logInDb(
+                    emlController.text, encryptPassword(pwdController.text));
                 if (result == null) {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     duration: Duration(seconds: 1),
@@ -70,9 +78,14 @@ class LogInButtonsWidget extends StatelessWidget {
               }
             },
           ),
-          RaisedButton(
-            color: PRIMARYCOLOR,
-            textColor: WHITE,
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  return PRIMARYCOLOR; // Use the component's default.
+                },
+              ),
+            ),
             child: Text(REGISTER),
             onPressed: () {
               Navigator.push(

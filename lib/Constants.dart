@@ -220,6 +220,6 @@ const YELLOW = Colors.yellow;
 //global variables
 var userEmailGlobal = '';
 var userPasswordGlobal = '';
-var globalUserLeagueList = List();
-var globalLeagueList = List();
+var globalUserLeagueList = [];
+var globalLeagueList = [];
 var globalUserType;

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import '../LoadingSpinner.dart';
-import 'LeagueStatsButtons.dart';
 import '../ConnectDB.dart';
 import '../Constants.dart';
-import 'dart:convert';
 
 class LeaguesStats extends StatefulWidget {
   @override
@@ -154,7 +152,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                           ? Center(
                               child: Column(
                                 children: [
-                                  RaisedButton(
+                                  ElevatedButton(
                                     child: Text(STANDING),
                                     onPressed: () {
                                       setState(() {
@@ -177,7 +175,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                             }
                                           })
                                       : Text(''),
-                                  RaisedButton(
+                                  ElevatedButton(
                                     child: Text(GOALSCORERS),
                                     onPressed: () {
                                       setState(() {
@@ -201,7 +199,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                             }
                                           })
                                       : Text(''),
-                                  RaisedButton(
+                                  ElevatedButton(
                                     child: Text(DISCIPLINE),
                                     onPressed: () {
                                       setState(() {

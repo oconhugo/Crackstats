@@ -132,9 +132,14 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RaisedButton(
-                    color: PRIMARYCOLOR,
-                    textColor: WHITE,
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          return PRIMARYCOLOR; // Use the component's default.
+                        },
+                      ),
+                    ),
                     child: Text(SAVE),
                     onPressed: () async {
                       var conn = new ConnectDB();
@@ -145,9 +150,14 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                               builder: (context) => ProfileUI(result)));
                     },
                   ),
-                  RaisedButton(
-                    color: RED,
-                    textColor: WHITE,
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          return PRIMARYCOLOR; // Use the component's default.
+                        },
+                      ),
+                    ),
                     child: Text(CANCEL),
                     onPressed: () {
                       Navigator.push(
