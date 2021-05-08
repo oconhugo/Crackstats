@@ -44,11 +44,10 @@ class _PlayerStatsWidgetState extends State<PlayerStatsWidget> {
           ),
           padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
         ),
-        Image.asset(
-        'assets/images/MU.png',
-        height: 150,
-        width: 150,
-        ),
+        Icon(
+        Icons.account_circle_outlined,
+        size: MediaQuery.of(context).size.width / 3,
+       ),
         Container(
           width: MediaQuery.of(context).size.width / 1.2,
           child: Text(

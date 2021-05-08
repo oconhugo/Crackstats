@@ -49,12 +49,12 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
               valuesmap[keyvalue] = value;
               if (keyvalue == PASSWORD && (value.length < 6) && !snackOn) {
                 snackOn = true;
-                Scaffold.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: Duration(days: 1),
                   content: Text(PASSWORDREQUIREMENTS),
                 ));
               } else if (keyvalue == PASSWORD && (value.length >= 6)) {
-                Scaffold.of(context).removeCurrentSnackBar();
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
                 snackOn = false;
               }
             },

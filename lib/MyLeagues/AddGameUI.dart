@@ -9,7 +9,7 @@ class AddGameUI extends StatefulWidget {
   final List tempTeamList;
   var id;
   var maxWeek;
-
+  
   AddGameUI(this.tempLeague, this.tempTeamList, this.maxWeek);
 
   AddGameUI.prefilled(
@@ -21,7 +21,7 @@ class AddGameUI extends StatefulWidget {
 }
 
 class _AddGameUIState extends State<AddGameUI> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   String league;
   var weekNumber = '1';
   String localTeam;
@@ -211,7 +211,7 @@ class _AddGameUIState extends State<AddGameUI> {
 
   List<Widget> getDropdown(
       number, playerList, List<dynamic> playersList, hint, isLocal) {
-    List<Widget> localList = List<Widget>();
+    List<Widget> localList = [];
     playerList.length = number;
 
     for (int i = 0; i < number; i++) {
@@ -263,448 +263,451 @@ class _AddGameUIState extends State<AddGameUI> {
         ),
       );
     }
+
     return localList;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: PRIMARYCOLOR,
-          title: Text(ADDGAME),
-        ),
-        body: SingleChildScrollView(
-            child: Wrap(
-          spacing: MediaQuery.of(context).size.width / 8,
-          runSpacing: 10,
-          direction: Axis.horizontal,
-          children: <Widget>[
-            Visibility(
-                maintainSize: isnotComplete,
-                maintainAnimation: isnotComplete,
-                maintainState: isnotComplete,
-                visible: isnotComplete,
-                child: Container(
-                    margin: EdgeInsets.only(top: 50, bottom: 30),
-                    child: LinearProgressIndicator())),
-            //Week Number
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (1),
-              child: TextField(
-                controller: TextEditingController()..text = weekNumber,
-                decoration: InputDecoration(
-                  hintText: WEEKNUMBER,
+    return ScaffoldMessenger(
+          key: scaffoldMessengerKey,
+          child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: PRIMARYCOLOR,
+            title: Text(ADDGAME),
+          ),
+          body: SingleChildScrollView(
+              child: Wrap(
+            spacing: MediaQuery.of(context).size.width / 8,
+            runSpacing: 10,
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Visibility(
+                  maintainSize: isnotComplete,
+                  maintainAnimation: isnotComplete,
+                  maintainState: isnotComplete,
+                  visible: isnotComplete,
+                  child: Container(
+                      margin: EdgeInsets.only(top: 50, bottom: 30),
+                      child: LinearProgressIndicator())),
+              //Week Number
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (1),
+                child: TextField(
+                  controller: TextEditingController()..text = weekNumber,
+                  decoration: InputDecoration(
+                    hintText: WEEKNUMBER,
+                  ),
+                  onChanged: (value) {
+                    weekNumber = value;
+                  },
                 ),
-                onChanged: (value) {
-                  weekNumber = value;
-                },
               ),
-            ),
-            //Date
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (1),
-              child: TextField(
-                controller: TextEditingController()..text = date,
-                decoration: InputDecoration(
-                  hintText: DATEWITHFORMAT,
+              //Date
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (1),
+                child: TextField(
+                  controller: TextEditingController()..text = date,
+                  decoration: InputDecoration(
+                    hintText: DATEWITHFORMAT,
+                  ),
+                  //keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    date = value;
+                  },
                 ),
-                //keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  date = value;
-                },
               ),
-            ),
-            //Time
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (1),
-              child: TextField(
-                controller: TextEditingController()..text = time,
-                decoration: InputDecoration(
-                  hintText: TIMEWITHFORMAT,
+              //Time
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (1),
+                child: TextField(
+                  controller: TextEditingController()..text = time,
+                  decoration: InputDecoration(
+                    hintText: TIMEWITHFORMAT,
+                  ),
+                  onChanged: (value) {
+                    time = value;
+                  },
                 ),
-                onChanged: (value) {
-                  time = value;
-                },
               ),
-            ),
-            //Venue
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (1),
-              child: TextField(
-                controller: TextEditingController()..text = venue,
-                decoration: InputDecoration(
-                  hintText: VENUE,
+              //Venue
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (1),
+                child: TextField(
+                  controller: TextEditingController()..text = venue,
+                  decoration: InputDecoration(
+                    hintText: VENUE,
+                  ),
+                  onChanged: (value) {
+                    venue = value;
+                  },
                 ),
-                onChanged: (value) {
-                  venue = value;
-                },
               ),
-            ),
 
-            //Local Team Dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: DropdownButton<String>(
-                isExpanded: true,
-                hint: Text(LOCALTEAM),
-                value: localTeam,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 24,
-                style: TextStyle(color: PRIMARYCOLOR),
-                underline: Container(
-                  height: 2,
-                  color: PRIMARYCOLOR,
+              //Local Team Dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  hint: Text(LOCALTEAM),
+                  value: localTeam,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 24,
+                  style: TextStyle(color: PRIMARYCOLOR),
+                  underline: Container(
+                    height: 2,
+                    color: PRIMARYCOLOR,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      localContainsValue = true;
+                      localTeam = newValue;
+                      getLocalTeamPlayers(localTeam);
+                    });
+                  },
+                  items: teamList.map((list) {
+                    return DropdownMenuItem<String>(
+                      value: list[0],
+                      child: Text(list[0]),
+                    );
+                  }).toList(),
                 ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    localContainsValue = true;
-                    localTeam = newValue;
-                    getLocalTeamPlayers(localTeam);
-                  });
-                },
-                items: teamList.map((list) {
-                  return DropdownMenuItem<String>(
-                    value: list[0],
-                    child: Text(list[0]),
-                  );
-                }).toList(),
               ),
-            ),
-            //Visitor Team Dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: DropdownButton<String>(
-                isExpanded: true,
-                hint: Text(VISITORTEAM),
-                value: visitorTeam,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 24,
-                style: TextStyle(color: PRIMARYCOLOR),
-                underline: Container(
-                  height: 2,
-                  color: PRIMARYCOLOR,
+              //Visitor Team Dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  hint: Text(VISITORTEAM),
+                  value: visitorTeam,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 24,
+                  style: TextStyle(color: PRIMARYCOLOR),
+                  underline: Container(
+                    height: 2,
+                    color: PRIMARYCOLOR,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      visitorContainsValue = true;
+                      visitorTeam = newValue;
+                      getVisitorTeamPlayers(visitorTeam);
+                    });
+                  },
+                  items: teamList.map((list) {
+                    return DropdownMenuItem<String>(
+                      value: list[0],
+                      child: Text(list[0]),
+                    );
+                  }).toList(),
                 ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    visitorContainsValue = true;
-                    visitorTeam = newValue;
-                    getVisitorTeamPlayers(visitorTeam);
-                  });
-                },
-                items: teamList.map((list) {
-                  return DropdownMenuItem<String>(
-                    value: list[0],
-                    child: Text(list[0]),
-                  );
-                }).toList(),
               ),
-            ),
-            //Local Score
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: TextField(
-                controller: TextEditingController()
-                  ..text = localScore.toString(),
-                decoration: InputDecoration(
-                  hintText: SCORETEXT,
+              //Local Score
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: TextField(
+                  controller: TextEditingController()
+                    ..text = localScore.toString(),
+                  decoration: InputDecoration(
+                    hintText: SCORETEXT,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    localScore = int.parse(value);
+                  },
                 ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  localScore = int.parse(value);
-                },
               ),
-            ),
-            //Visitor Score
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: TextField(
-                controller: TextEditingController()
-                  ..text = visitorScore.toString(),
-                decoration: InputDecoration(
-                  hintText: SCORETEXT,
+              //Visitor Score
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: TextField(
+                  controller: TextEditingController()
+                    ..text = visitorScore.toString(),
+                  decoration: InputDecoration(
+                    hintText: SCORETEXT,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    visitorScore = int.parse(value);
+                  },
                 ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  visitorScore = int.parse(value);
-                },
               ),
-            ),
-            //Local scorer dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                  children: localScore > 0
-                      ? getDropdown(localScore, localScorersList,
-                          localPlayersList, LOCALTEAMSCORERTXT, true)
-                      : [showEmptyValue(localScorersList, NOLOCALGOALS)]),
-            ),
-            //Visitor scorer Dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                  children: visitorScore > 0
-                      ? getDropdown(visitorScore, visitorScorersList,
-                          visitorPlayersList, VISITORTEAMSCORERTXT, false)
-                      : [showEmptyValue(visitorScorersList, NOVISITORGOALS)]),
-            ),
-            //Local yellow cards
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: TextField(
-                controller: TextEditingController()
-                  ..text = localYellowCards.toString(),
-                decoration: InputDecoration(
-                  hintText: YELLOWCARDSNUM,
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  localYellowCards = int.parse(value);
-                },
-              ),
-            ),
-            //Visitor yellow cards
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: TextField(
-                controller: TextEditingController()
-                  ..text = visitorYellowCards.toString(),
-                decoration: InputDecoration(
-                  hintText: YELLOWCARDSNUM,
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  visitorYellowCards = int.parse(value);
-                },
-              ),
-            ),
-            //Local yellow cards dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                  children: localYellowCards > 0
-                      ? getDropdown(localYellowCards, localYellowsList,
-                          localPlayersList, LOCALYELLOWSTXT, true)
-                      : [showEmptyValue(localYellowsList, NOLOCALYELLOWS)]),
-            ),
-            //visitor yellow cards dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                  children: visitorYellowCards > 0
-                      ? getDropdown(visitorYellowCards, visitorYellowsList,
-                          visitorPlayersList, VISITORYELLOWSTXT, false)
-                      : [showEmptyValue(visitorYellowsList, NOVISITORYELLOWS)]),
-            ),
-            //Local red cards
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: TextField(
-                controller: TextEditingController()
-                  ..text = localRedCards.toString(),
-                decoration: InputDecoration(
-                  hintText: REDCARDSNUM,
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  localRedCards = int.parse(value);
-                },
-              ),
-            ),
-            //Visitor red cards
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: TextField(
-                controller: TextEditingController()
-                  ..text = visitorRedCards.toString(),
-                decoration: InputDecoration(
-                  hintText: REDCARDSNUM,
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  visitorRedCards = int.parse(value);
-                },
-              ),
-            ),
-            //Local red cards dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                  children: localRedCards > 0
-                      ? getDropdown(localRedCards, localRedsList,
-                          localPlayersList, LOCALREDTXT, true)
-                      : [showEmptyValue(localRedsList, NOLOCALREDCARDS)]),
-            ),
-            //visitor red cards dropdown
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 25),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                  children: visitorRedCards > 0
-                      ? getDropdown(visitorRedCards, visitorRedsList,
-                          visitorPlayersList, VISITORREDTXT, false)
-                      : [showEmptyValue(visitorRedsList, NOVISITORREDCARDS)]),
-            ),
-            //Text local players appearance
-            Center(child: Text(PARTICIPATEDPLAYERS)),
-            //Local checkbox
-            Container(
+              //Local scorer dropdown
+              Container(
                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                 width: MediaQuery.of(context).size.width * (3.5 / 8),
                 child: Column(
+                    children: localScore > 0
+                        ? getDropdown(localScore, localScorersList,
+                            localPlayersList, LOCALTEAMSCORERTXT, true)
+                        : [showEmptyValue(localScorersList, NOLOCALGOALS)]),
+              ),
+              //Visitor scorer Dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
+                    children: visitorScore > 0
+                        ? getDropdown(visitorScore, visitorScorersList,
+                            visitorPlayersList, VISITORTEAMSCORERTXT, false)
+                        : [showEmptyValue(visitorScorersList, NOVISITORGOALS)]),
+              ),
+              //Local yellow cards
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: TextField(
+                  controller: TextEditingController()
+                    ..text = localYellowCards.toString(),
+                  decoration: InputDecoration(
+                    hintText: YELLOWCARDSNUM,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    localYellowCards = int.parse(value);
+                  },
+                ),
+              ),
+              //Visitor yellow cards
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: TextField(
+                  controller: TextEditingController()
+                    ..text = visitorYellowCards.toString(),
+                  decoration: InputDecoration(
+                    hintText: YELLOWCARDSNUM,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    visitorYellowCards = int.parse(value);
+                  },
+                ),
+              ),
+              //Local yellow cards dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
+                    children: localYellowCards > 0
+                        ? getDropdown(localYellowCards, localYellowsList,
+                            localPlayersList, LOCALYELLOWSTXT, true)
+                        : [showEmptyValue(localYellowsList, NOLOCALYELLOWS)]),
+              ),
+              //visitor yellow cards dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
+                    children: visitorYellowCards > 0
+                        ? getDropdown(visitorYellowCards, visitorYellowsList,
+                            visitorPlayersList, VISITORYELLOWSTXT, false)
+                        : [showEmptyValue(visitorYellowsList, NOVISITORYELLOWS)]),
+              ),
+              //Local red cards
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: TextField(
+                  controller: TextEditingController()
+                    ..text = localRedCards.toString(),
+                  decoration: InputDecoration(
+                    hintText: REDCARDSNUM,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    localRedCards = int.parse(value);
+                  },
+                ),
+              ),
+              //Visitor red cards
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: TextField(
+                  controller: TextEditingController()
+                    ..text = visitorRedCards.toString(),
+                  decoration: InputDecoration(
+                    hintText: REDCARDSNUM,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    visitorRedCards = int.parse(value);
+                  },
+                ),
+              ),
+              //Local red cards dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
+                    children: localRedCards > 0
+                        ? getDropdown(localRedCards, localRedsList,
+                            localPlayersList, LOCALREDTXT, true)
+                        : [showEmptyValue(localRedsList, NOLOCALREDCARDS)]),
+              ),
+              //visitor red cards dropdown
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 25),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
+                    children: visitorRedCards > 0
+                        ? getDropdown(visitorRedCards, visitorRedsList,
+                            visitorPlayersList, VISITORREDTXT, false)
+                        : [showEmptyValue(visitorRedsList, NOVISITORREDCARDS)]),
+              ),
+              //Text local players appearance
+              Center(child: Text(PARTICIPATEDPLAYERS)),
+              //Local checkbox
+              Container(
+                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  width: MediaQuery.of(context).size.width * (3.5 / 8),
+                  child: Column(
+                    children: [
+                      ...(localAppearance.keys).map((valkey) {
+                        String tempName = valkey[0] + " " + valkey[1];
+                        return CheckboxListTile(
+                          title: Text(tempName),
+                          value: localAppearance[valkey],
+                          onChanged: (bool value) {
+                            setState(() {
+                              localAppearance[valkey] = value;
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ],
+                  )),
+              //Visitor checkbox
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                width: MediaQuery.of(context).size.width * (3.5 / 8),
+                child: Column(
                   children: [
-                    ...(localAppearance.keys).map((valkey) {
+                    ...(visitorAppearance.keys).map((valkey) {
                       String tempName = valkey[0] + " " + valkey[1];
                       return CheckboxListTile(
                         title: Text(tempName),
-                        value: localAppearance[valkey],
+                        value: visitorAppearance[valkey],
                         onChanged: (bool value) {
                           setState(() {
-                            localAppearance[valkey] = value;
+                            visitorAppearance[valkey] = value;
                           });
                         },
                       );
                     }).toList(),
                   ],
-                )),
-            //Visitor checkbox
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              width: MediaQuery.of(context).size.width * (3.5 / 8),
-              child: Column(
-                children: [
-                  ...(visitorAppearance.keys).map((valkey) {
-                    String tempName = valkey[0] + " " + valkey[1];
-                    return CheckboxListTile(
-                      title: Text(tempName),
-                      value: visitorAppearance[valkey],
-                      onChanged: (bool value) {
-                        setState(() {
-                          visitorAppearance[valkey] = value;
-                        });
-                      },
-                    );
-                  }).toList(),
-                ],
+                ),
               ),
-            ),
-            //checkbox
-            Container(
-                child: CheckboxListTile(
-              title: Text(NEWMATCH),
-              value: isGamePlayed,
-              onChanged: (bool val) {
-                setState(() {
-                  isGamePlayed = val;
-                });
-              },
-            )),
-            Center(
-              child: ElevatedButton(
-                  child: Text(SUBMIT),
-                  onPressed: () async {
-                    var gamePlayed;
-                    maxWeek = maxWeek + 1;
-                    if (isGamePlayed) {
-                      gamePlayed = '1';
-                    } else {
-                      gamePlayed = '0';
-                    }
-                    if (int.parse(weekNumber) > maxWeek ||
-                        int.parse(weekNumber) == 0) {
-                      final snackBar = SnackBar(
-                          content: Text(SELECTVALIDWEEK + maxWeek.toString()));
-                      _scaffoldKey.currentState.showSnackBar(snackBar);
-                    } else {
-                      if (localContainsValue && visitorContainsValue) {
-                        getLocalAppsList();
-                        getVisitorAppsList();
-                        var tempConnectDB = new ConnectDB();
-                        if (isUpdating == false) {
-                          await tempConnectDB.sendMatch(
-                            localTeam,
-                            visitorTeam,
-                            weekNumber,
-                            date,
-                            venue,
-                            jsonEncode(localScorersList),
-                            jsonEncode(visitorScorersList),
-                            jsonEncode(localYellowsList),
-                            jsonEncode(visitorYellowsList),
-                            jsonEncode(localRedsList),
-                            jsonEncode(visitorRedsList),
-                            time,
-                            league,
-                            jsonEncode(localAppsList),
-                            jsonEncode(visitorAppsList),
-                            gamePlayed,
+              //checkbox
+              Container(
+                  child: CheckboxListTile(
+                title: Text(NEWMATCH),
+                value: isGamePlayed,
+                onChanged: (bool val) {
+                  setState(() {
+                    isGamePlayed = val;
+                  });
+                },
+              )),
+              Center(
+                child: ElevatedButton(
+                    child: Text(SUBMIT),
+                    onPressed: () async {
+                      var gamePlayed;
+                      maxWeek = maxWeek + 1;
+                      if (isGamePlayed) {
+                        gamePlayed = '1';
+                      } else {
+                        gamePlayed = '0';
+                      }
+                      if (int.parse(weekNumber) > maxWeek ||
+                          int.parse(weekNumber) == 0) {
+                        final snackBar = SnackBar(
+                            content: Text(SELECTVALIDWEEK + maxWeek.toString()));
+                        scaffoldMessengerKey.currentState.showSnackBar(snackBar);
+                      } else {
+                        if (localContainsValue && visitorContainsValue) {
+                          getLocalAppsList();
+                          getVisitorAppsList();
+                          var tempConnectDB = new ConnectDB();
+                          if (isUpdating == false) {
+                            await tempConnectDB.sendMatch(
+                              localTeam,
+                              visitorTeam,
+                              weekNumber,
+                              date,
+                              venue,
+                              jsonEncode(localScorersList),
+                              jsonEncode(visitorScorersList),
+                              jsonEncode(localYellowsList),
+                              jsonEncode(visitorYellowsList),
+                              jsonEncode(localRedsList),
+                              jsonEncode(visitorRedsList),
+                              time,
+                              league,
+                              jsonEncode(localAppsList),
+                              jsonEncode(visitorAppsList),
+                              gamePlayed,
+                            );
+                          } else {
+                            await tempConnectDB.updateMatch(
+                              localTeam,
+                              visitorTeam,
+                              weekNumber,
+                              date,
+                              venue,
+                              jsonEncode(localScorersList),
+                              jsonEncode(visitorScorersList),
+                              jsonEncode(localYellowsList),
+                              jsonEncode(visitorYellowsList),
+                              jsonEncode(localRedsList),
+                              jsonEncode(visitorRedsList),
+                              time,
+                              league,
+                              jsonEncode(localAppsList),
+                              jsonEncode(visitorAppsList),
+                              id,
+                              gamePlayed,
+                            );
+                          }
+                          Navigator.of(context).pop();
+                          showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(MATCHADDED),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text(OK),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         } else {
-                          await tempConnectDB.updateMatch(
-                            localTeam,
-                            visitorTeam,
-                            weekNumber,
-                            date,
-                            venue,
-                            jsonEncode(localScorersList),
-                            jsonEncode(visitorScorersList),
-                            jsonEncode(localYellowsList),
-                            jsonEncode(visitorYellowsList),
-                            jsonEncode(localRedsList),
-                            jsonEncode(visitorRedsList),
-                            time,
-                            league,
-                            jsonEncode(localAppsList),
-                            jsonEncode(visitorAppsList),
-                            id,
-                            gamePlayed,
-                          );
+                          final snackBar = SnackBar(content: Text(SELECTTEAMS));
+                          scaffoldMessengerKey.currentState.showSnackBar(snackBar);
                         }
-                        Navigator.of(context).pop();
-                        showDialog<void>(
-                          context: context,
-                          barrierDismissible: false, // user must tap button!
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(MATCHADDED),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text(OK),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        final snackBar = SnackBar(content: Text(SELECTTEAMS));
-                        _scaffoldKey.currentState.showSnackBar(snackBar);
                       }
-                    }
-                  }),
-            )
-          ],
-        )));
+                    }),
+              )
+            ],
+          ))),
+    );
   }
 }

@@ -13,7 +13,7 @@ class AddPlayerUI extends StatefulWidget {
 }
 
 class _AddTeamUIState extends State<AddPlayerUI> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   String teamSelected;
   String message;
   String addText;
@@ -51,82 +51,84 @@ class _AddTeamUIState extends State<AddPlayerUI> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(ADDPLAYERTITLE),
-        backgroundColor: PRIMARYCOLOR,
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              child: Text(
-                ADDPLAYERTITLE,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-                textAlign: TextAlign.center,
-              ),
-              width: MediaQuery.of(context).size.width / 1.5,
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-            ),
-            Container(
-              child: Text(
-                ADDPLAYERTEXT + team + ADDPLAYERTEXT2 + league,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              width: MediaQuery.of(context).size.width / 1.5,
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-              width: MediaQuery.of(context).size.width / 1.5,
-              child: TextField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                onChanged: (String value) {
-                  message = value;
-                },
-                decoration: InputDecoration(
-                  hintText: MESSAGETOADMIN,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: RED, width: 1.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: PRIMARYCOLOR, width: 1.0),
-                  ),
-                ),
-              ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    return PRIMARYCOLOR; // Use the component's default.
-                  },
-                ),
-              ),
-              child: Text(SENDREQUEST),
-              onPressed: () async {
-                if (message == null) {
-                  message = "";
-                }
-                var conn = ConnectDB();
-                var response =
-                    await conn.sendAddPlayerRequest(team, league, message);
-                if (response == SENTSUCCESSFULLY) {
-                  requestSentDialog();
-                  Navigator.of(context).pop();
-                } else {
-                  final snackBar = SnackBar(content: Text(response));
-                  _scaffoldKey.currentState.showSnackBar(snackBar);
-                }
-              },
-            ),
-          ],
+    return ScaffoldMessenger(
+        key: scaffoldMessengerKey,
+        child: Scaffold(
+        appBar: AppBar(
+          title: Text(ADDPLAYERTITLE),
+          backgroundColor: PRIMARYCOLOR,
         ),
-      )),
+        body: Center(
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child: Text(
+                  ADDPLAYERTITLE,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                  textAlign: TextAlign.center,
+                ),
+                width: MediaQuery.of(context).size.width / 1.5,
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+              ),
+              Container(
+                child: Text(
+                  ADDPLAYERTEXT + team + ADDPLAYERTEXT2 + league,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                width: MediaQuery.of(context).size.width / 1.5,
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  onChanged: (String value) {
+                    message = value;
+                  },
+                  decoration: InputDecoration(
+                    hintText: MESSAGETOADMIN,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: RED, width: 1.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: PRIMARYCOLOR, width: 1.0),
+                    ),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return PRIMARYCOLOR; // Use the component's default.
+                    },
+                  ),
+                ),
+                child: Text(SENDREQUEST),
+                onPressed: () async {
+                  if (message == null) {
+                    message = "";
+                  }
+                  var conn = ConnectDB();
+                  var response =
+                      await conn.sendAddPlayerRequest(team, league, message);
+                  if (response == SENTSUCCESSFULLY) {
+                    requestSentDialog();
+                    Navigator.of(context).pop();
+                  } else {
+                    final snackBar = SnackBar(content: Text(response));
+                    scaffoldMessengerKey.currentState.showSnackBar(snackBar);
+                  }
+                },
+              ),
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

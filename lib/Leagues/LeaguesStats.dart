@@ -153,6 +153,13 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                               child: Column(
                                 children: [
                                   ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                          return PRIMARYCOLOR; // Use the component's default.
+                                        },
+                                      ),
+                                    ),
                                     child: Text(STANDING),
                                     onPressed: () {
                                       setState(() {
@@ -176,6 +183,13 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                           })
                                       : Text(''),
                                   ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                          return PRIMARYCOLOR; // Use the component's default.
+                                        },
+                                      ),
+                                    ),
                                     child: Text(GOALSCORERS),
                                     onPressed: () {
                                       setState(() {
@@ -200,6 +214,13 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                           })
                                       : Text(''),
                                   ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                          return PRIMARYCOLOR; // Use the component's default.
+                                        },
+                                      ),
+                                    ),
                                     child: Text(DISCIPLINE),
                                     onPressed: () {
                                       setState(() {

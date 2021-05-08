@@ -1,6 +1,7 @@
 import 'package:crackstats/ConnectDB.dart';
 import 'package:crackstats/Teams/PlayerStatsUI.dart';
 import 'package:flutter/material.dart';
+import '../Constants.dart';
 
 class TeamPlayerName extends StatefulWidget {
   final String tempTeamName;
@@ -39,8 +40,12 @@ class _TeamPlayerNameState extends State<TeamPlayerName> {
             width: MediaQuery.of(context).size.width / 1.13,
             child: TextButton(
               style: TextButton.styleFrom(
+                 side: BorderSide(
+                            width: 1,
+                            color: PRIMARYCOLOR,
+                          ),
                 shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
               onPressed: () async {
                 var dbStatsConnect = new ConnectDB();
@@ -53,7 +58,9 @@ class _TeamPlayerNameState extends State<TeamPlayerName> {
                           firstName + " " + lastName, teamName, dbPlayerStats),
                     ));
               },
-              child: Text(firstName + " " + lastName),
+              child: Text(firstName + " " + lastName,style: TextStyle(
+                        color: BLACK,
+                      )),
             ),
           ),
         )

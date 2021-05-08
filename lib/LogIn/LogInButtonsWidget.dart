@@ -55,7 +55,7 @@ class LogInButtonsWidget extends StatelessWidget {
             child: Text(SIGNIN),
             onPressed: () async {
               if (emlController.text.isEmpty || pwdController.text.isEmpty) {
-                Scaffold.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: Duration(seconds: 1),
                   content: Text(INCOMPLETEFIELDSMSG),
                 ));
@@ -64,7 +64,7 @@ class LogInButtonsWidget extends StatelessWidget {
                 var result = await conn.logInDb(
                     emlController.text, encryptPassword(pwdController.text));
                 if (result == null) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     duration: Duration(seconds: 1),
                     content: Text(USERDOESNTEXISTMESSAGE),
                   ));

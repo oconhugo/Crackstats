@@ -69,12 +69,12 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
 
   bool areFieldsCorrect() {
     if (registerFields[PASSWORD] != registerFields[REENTERPASSWORD]) {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(PASSWORDMATCHNOTICE),
       ));
       return false;
     } else if (registerFields[PASSWORD].length < 6) {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: Duration(seconds: 1),
         content: Text(PASSWORDREQUIREMENTS),
       ));
@@ -86,7 +86,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
         registerFields[PASSWORD].isEmpty ||
         registerFields[REENTERPASSWORD].isEmpty ||
         inputGender == null) {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: Duration(seconds: 1),
         content: Text(INCOMPLETEFIELDSMSG),
       ));

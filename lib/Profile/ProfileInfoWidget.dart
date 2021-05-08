@@ -73,7 +73,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
             return ProfileInTxtWidget(profileInfo, valkey);
           }).toList(),
           Container(
-              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
               width: MediaQuery.of(context).size.width / 2,
               child: DropdownButton<String>(
                 isExpanded: true,
@@ -101,7 +101,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 }).toList(),
               )),
           Container(
-              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -128,9 +128,9 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                 ],
               )),
           Container(
-              padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
@@ -154,7 +154,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          return PRIMARYCOLOR; // Use the component's default.
+                          return RED; // Use the component's default.
                         },
                       ),
                     ),

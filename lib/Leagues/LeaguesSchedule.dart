@@ -87,6 +87,13 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                                                 return Column(
                                                   children: [
                                                     ElevatedButton(
+                                                       style: ButtonStyle(
+                                                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                                            (Set<MaterialState> states) {
+                                                              return PRIMARYCOLOR; // Use the component's default.
+                                                            },
+                                                          ),
+                                                        ),
                                                         child: Text(WEEK +
                                                             " " +
                                                             value[0]),

@@ -27,7 +27,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
   _MyLeaguesScheduleState(this.userAdminLeagues);
 
   showSnackLeague() {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: Duration(seconds: 1),
       content: Text(SELECTLEAGUE),
     ));
@@ -103,6 +103,13 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                   child: Column(
                 children: [
                   ElevatedButton(
+                    style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        return PRIMARYCOLOR; // Use the component's default.
+                      },
+                    ),
+                  ),
                       child: Text(WEEK + " " + tempWeekNum),
                       onPressed: () {
                         setState(() {
@@ -114,7 +121,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                       ? FutureBuilder(
                           future: getGamesfromDB(valkey[0]),
                           builder: (context, snapshot) {
-                            List games = List();
+                            List games = [];
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               snapshot.data.forEach((value) {
@@ -124,6 +131,13 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
                                 children: [
                                   ...(games).map((valkey) {
                                     return ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                          (Set<MaterialState> states) {
+                                            return Colors.green[500]; // Use the component's default.
+                                          },
+                                        ),
+                                      ),
                                       child: Text(valkey[1] +
                                           " " +
                                           VS +

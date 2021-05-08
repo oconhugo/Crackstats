@@ -10,8 +10,8 @@ class TeamsWidget extends StatefulWidget {
 
 class _TeamsWidgetState extends State<TeamsWidget> {
   String leagueSelected;
-  List teamsDropdownList = List();
-  List<String> playerCompleteName = List();
+  List teamsDropdownList = [];
+  List<String> playerCompleteName = [];
 
   void getLeagueTeams() async {
     var connection = new ConnectDB();
@@ -74,9 +74,13 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                     width: MediaQuery.of(context).size.width / 1.2,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                          shape: const BeveledRectangleBorder(
+                         side: BorderSide(
+                            width: 1,
+                            color: PRIMARYCOLOR,
+                          ),
+                          shape: const BeveledRectangleBorder(                              
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5)))),
+                                  BorderRadius.all(Radius.circular(10)))),
                       onPressed: () async {
                         var dbConnection = new ConnectDB();
                         var tempNameList = await dbConnection
@@ -87,7 +91,9 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                               value, tempNameList, leagueSelected);
                         }));
                       },
-                      child: Text(value),
+                      child: Text(value,style: TextStyle(
+                        color: BLACK,
+                      ),),
                     ),
                   );
                 }).toList(),

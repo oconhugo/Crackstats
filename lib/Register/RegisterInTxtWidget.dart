@@ -30,13 +30,13 @@ class _RegisterInTxtWidgetState extends State<RegisterInTxtWidget> {
   void _onFocusChange(){
     if(_focus.hasFocus.toString()=='true' && ((valuesmap[PASSWORD] as String).length < 6 ) && !snackOn){
       snackOn=true;
-       Scaffold.of(context).showSnackBar(SnackBar(                   
+       ScaffoldMessenger.of(context).showSnackBar(SnackBar(                   
         duration: Duration(days: 1),
         content: Text(PASSWORDREQUIREMENTS),
         ));
     }
     else if(_focus.hasFocus.toString()=='false' && snackOn){        
-      Scaffold.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
       snackOn=false;
     }
   }
@@ -54,13 +54,13 @@ class _RegisterInTxtWidgetState extends State<RegisterInTxtWidget> {
                     valuesmap[keyvalue]=value;
                     if(keyvalue==PASSWORD && (value.length < 6 ) && !snackOn){
                        snackOn=true;
-                       Scaffold.of(context).showSnackBar(SnackBar(                   
+                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(                   
                        duration: Duration(days: 1),
                        content: Text(PASSWORDREQUIREMENTS),
                        ));
                     }
                     else if(keyvalue==PASSWORD && (value.length >= 6 )){                     
-                        Scaffold.of(context).removeCurrentSnackBar();
+                        ScaffoldMessenger.of(context).removeCurrentSnackBar();
                         snackOn=false;                     
                     }
                   },

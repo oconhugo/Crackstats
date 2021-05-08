@@ -31,7 +31,7 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
   }
 
   showSnackLeague() {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: Duration(seconds: 1),
       content: Text(SELECTLEAGUE),
     ));
@@ -90,10 +90,10 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                         leagueAnn.removeAt(index);
                       });
                       if (result == ANNOUNCEMENTDISMISSED) {
-                        Scaffold.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(ANNOUNCEMENTDISMISSED)));
                       } else {
-                        Scaffold.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(ANNOUNCEMENTNOTDISMISSED)));
                       }
                     },
