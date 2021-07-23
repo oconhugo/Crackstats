@@ -12,7 +12,7 @@ The mobile application provides a system to manage soccer leagues. Each player, 
 ## Technologies
 ### Languages
 -Dart<br/>
--Php<br/>
+-Php
 ###Frameworks
 -Flutter<br/>
 ### Libraries
