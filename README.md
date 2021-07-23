@@ -12,16 +12,15 @@ The mobile application provides a system to manage soccer leagues. Each player, 
 ## Technologies
 ### Languages
 -Dart<br/>
--Php
-###Frameworks
+-Php<br/>
+### Frameworks
 -Flutter<br/>
 ### Libraries
 -dart:convert <br/>
--PyInstaller 3.6<br/>
--XlsxWriter 1.2.8<br/>
--future 0.18.2<br/>
--openyxl 3.0.3<br/>
--threadsafe-tkinter 1.0.2<br/>
+-flutter/material.dart<br/>
+-crypto/crypto.dart<br/>
+-collection/collection.dart<br/>
+-http/http.dart<br/>
 
 ## Prerequisites
 The following software is needed to install and run the system:<br/>
