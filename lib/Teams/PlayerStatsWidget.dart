@@ -1,3 +1,4 @@
+//Widget to display icons and stats for selected player
 import 'package:flutter/material.dart';
 import 'GoalsIcon.dart';
 import 'AppsIcon.dart';

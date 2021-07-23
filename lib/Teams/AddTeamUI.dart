@@ -1,3 +1,4 @@
+//UI to create request to add a team into a league
 import 'package:crackstats/ConnectDB.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
@@ -12,6 +13,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
   String teamName;
   String message;
 
+//send request to add team into a league
   Future<void> requestSentDialog() async {
     return showDialog<void>(
       context: context,
@@ -39,6 +41,7 @@ class _AddTeamUIState extends State<AddTeamUI> {
     );
   }
 
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(

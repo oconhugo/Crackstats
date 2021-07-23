@@ -1,3 +1,4 @@
+//display teams from league selected and select one team to see players
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 import '../ConnectDB.dart';
@@ -13,6 +14,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
   List teamsDropdownList = [];
   List<String> playerCompleteName = [];
 
+//get teams from selected league from db
   void getLeagueTeams() async {
     var connection = new ConnectDB();
     var retrieveteamsconnection =
@@ -22,6 +24,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
     });
   }
 
+//UI
   @override
   Widget build(BuildContext context) {
     return Center(

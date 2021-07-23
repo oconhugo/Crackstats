@@ -1,3 +1,4 @@
+//red cards icon and stat on the players stat page
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 

@@ -1,3 +1,4 @@
+//goals icon and stat to display for selected player
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 

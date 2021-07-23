@@ -1,3 +1,4 @@
+//Show the schedule for selected league
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../LoadingSpinner.dart';
@@ -16,12 +17,13 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
   Map weeksSelected;
   bool isButtonMapCreated = false;
 
-  //
+  //keep track of the weeks that are selected to be shown on the UI
   setWeeksSelectedVal(weeks) {
     weeksSelected =
         Map.fromIterable(weeks, key: (v) => v[0], value: (v) => false);
   }
 
+  //UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,7 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: Column(children: [
                       FutureBuilder(
-                          future: ConnectDB().retrieveAllLeagues(),
+                          future: ConnectDB().retrieveAllLeagues(), //get leagues from db
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
@@ -72,7 +74,7 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                                 children: [
                                   FutureBuilder(
                                       future: ConnectDB()
-                                          .getLeagueWeeks(leagueSelected),
+                                          .getLeagueWeeks(leagueSelected), //get league weeks from db
                                       builder: (context, snapshot) {
                                         List weeks = snapshot.data;
                                         if (snapshot.connectionState ==
@@ -94,7 +96,7 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                                                                       Color>(
                                                             (Set<MaterialState>
                                                                 states) {
-                                                              return PRIMARYCOLOR; // Use the component's default.
+                                                              return PRIMARYCOLOR; 
                                                             },
                                                           ),
                                                         ),
@@ -130,46 +132,16 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                                                                     ...(weekDataList)
                                                                         .map(
                                                                             (value) {
-                                                                      String
-                                                                          localTeam =
-                                                                          value[
-                                                                              1];
-                                                                      String
-                                                                          visitorTeam =
-                                                                          value[
-                                                                              2];
-                                                                      print(json
-                                                                          .decode(
-                                                                              value[6]));
-                                                                      String localScore = json
-                                                                          .decode(
-                                                                              value[6])
-                                                                          .length
-                                                                          .toString();
-                                                                      String visitorScore = json
-                                                                          .decode(
-                                                                              value[7])
-                                                                          .length
-                                                                          .toString();
-                                                                      String
-                                                                          date =
-                                                                          value[
-                                                                              4];
-                                                                      String
-                                                                          time =
-                                                                          value[
-                                                                              12];
-                                                                      String
-                                                                          venue =
-                                                                          value[
-                                                                              5];
+                                                                      String localTeam =value[1];
+                                                                      String visitorTeam =value[2];                                                                     
+                                                                      String localScore = json.decode(value[6]).length.toString();
+                                                                      String visitorScore = json.decode(value[7]).length.toString();
+                                                                      String date = value[4];
+                                                                      String time = value[12];
+                                                                      String venue =value[5];
                                                                       return Card(
-                                                                        child:
-                                                                            ListTile(
-                                                                          title:
-                                                                              Center(child: Text(localTeam + " " + localScore + " " + VS + " " + visitorScore + " " + visitorTeam)),
-                                                                          subtitle:
-                                                                              Center(child: Text(date + " " + time + " " + venue)),
+                                                                        child: ListTile(title:Center(child: Text(localTeam + " " + localScore + " " + VS + " " + visitorScore + " " + visitorTeam)),
+                                                                          subtitle:Center(child: Text(date + " " + time + " " + venue)),
                                                                         ),
                                                                       );
                                                                     })

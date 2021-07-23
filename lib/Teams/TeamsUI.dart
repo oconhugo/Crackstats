@@ -1,3 +1,4 @@
+//UI to show teams widget and ADD team button
 import 'package:crackstats/Teams/AddTeamUI.dart';
 import 'package:flutter/material.dart';
 import '../SideMenu/SideBarMenu.dart';

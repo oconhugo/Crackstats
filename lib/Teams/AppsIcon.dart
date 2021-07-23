@@ -1,3 +1,4 @@
+//Appearances icon and stat to display on player selected page
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
+//show league announcements
 import 'package:flutter/material.dart';
-
 import '../ConnectDB.dart';
 import '../Constants.dart';
 
@@ -13,6 +13,7 @@ class _LeaguesAnnouncementsState extends State<LeaguesAnnouncements> {
   String leagueSelected;
   List leagues;
 
+//get announcements from db
   getLeagueAnnouncement() async {
     var connector = new ConnectDB();
     List<dynamic> x = await connector.getLeagueNotifications(leagueSelected);
@@ -21,6 +22,7 @@ class _LeaguesAnnouncementsState extends State<LeaguesAnnouncements> {
     });
   }
 
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(

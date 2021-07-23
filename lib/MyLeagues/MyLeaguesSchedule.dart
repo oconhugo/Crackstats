@@ -1,3 +1,4 @@
+//ui to show the schedule of league
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
@@ -26,6 +27,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
 
   _MyLeaguesScheduleState(this.userAdminLeagues);
 
+  //show snackbar when league is not selected
   showSnackLeague() {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: Duration(seconds: 1),
@@ -33,6 +35,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
     ));
   }
 
+  //get games from the selected league from the database
   Future getGamesfromDB(weekNumber) async {
     var conndbGetWeeekGames = new ConnectDB();
     weekGames =
@@ -40,12 +43,14 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
     return weekGames;
   }
 
+  //get teams from selected league from database
   getLeagueTeams() async {
     var conndbGetTeams = new ConnectDB();
     teamList = await conndbGetTeams.getLeagueTeams(leagueSelected);
     print(teamList);
   }
 
+  //get the week numbers from league from database
   getLeagueWeeks(league) async {
     var conndbGetWeeks = new ConnectDB();
     weekNum = await conndbGetWeeks.getLeagueWeeks(league);
@@ -56,6 +61,7 @@ class _MyLeaguesScheduleState extends State<MyLeaguesSchedule> {
     }
   }
 
+//UI
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

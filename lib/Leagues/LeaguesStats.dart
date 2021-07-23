@@ -1,3 +1,4 @@
+//UI for leaguse stats/tables
 import 'package:flutter/material.dart';
 import '../LoadingSpinner.dart';
 import '../ConnectDB.dart';
@@ -29,6 +30,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
     }
   }
 
+//create the league standings using the information from the database from selected league
   Widget createStandings(gameStats) {
     bubbleSorting(gameStats, 6);
     int tablePosition = 0;
@@ -58,6 +60,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
     );
   }
 
+//create scorers table using the information from the database from selected league
   Widget createScorerTable(scorersNames) {
     bubbleSorting(scorersNames, 2);
     int tablePosition = 0;
@@ -83,6 +86,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
     );
   }
 
+//create discipline table using the information from the database from selected league
   Widget createDisciplineTable(playersNames) {
     bubbleSorting(playersNames, 2);
     int tablePosition = 0;
@@ -104,6 +108,7 @@ class _LeaguesStatsState extends State<LeaguesStats> {
     );
   }
 
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(

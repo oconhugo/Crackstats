@@ -1,3 +1,4 @@
+//Creates the button for each player on the players widget
 import 'package:crackstats/ConnectDB.dart';
 import 'package:crackstats/Teams/PlayerStatsUI.dart';
 import 'package:flutter/material.dart';

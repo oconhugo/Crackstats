@@ -1,3 +1,4 @@
+//UI to add a game to a league
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
@@ -66,6 +67,8 @@ class _AddGameUIState extends State<AddGameUI> {
   bool isGamePlayed = false;
   int maxWeek = 0;
 
+//if ID is null, new game is going to be added
+//if ID is not null, game is going to be edited
   _AddGameUIState(this.league, this.teamList, this.id, this.maxWeek) {
     if (id != null) {
       fillInfo();
@@ -76,12 +79,14 @@ class _AddGameUIState extends State<AddGameUI> {
 
   Function eq = const ListEquality().equals;
 
+  //function used to Convert Map to Json 
   Map<String, dynamic> toJson(list) {
     return {
       "Scorers": list,
     };
   }
 
+  //if game already existed, fill game info into the UI
   fillInfo() async {
     var dbGetMatchInfo = await ConnectDB().getMatchInfo(id);
     weekNumber = dbGetMatchInfo[3];
@@ -117,6 +122,7 @@ class _AddGameUIState extends State<AddGameUI> {
     isnotComplete = false;
   }
 
+  //indicate if match is new or we are just editing existing match
   fillNewMatch(val) {
     if (val == '1') {
       isGamePlayed = true;
@@ -125,6 +131,7 @@ class _AddGameUIState extends State<AddGameUI> {
     }
   }
 
+  //create map, mapping all players to true/false according if they participated in the match
   fillApps(appearanceList, app) {
     app.forEach((key, value) {
       appearanceList.forEach((key2) {
@@ -141,6 +148,7 @@ class _AddGameUIState extends State<AddGameUI> {
     });
   }
 
+  //Fill the dropdown fields on the UI
   fillDropDowns(localScorers, visitorScorers, localYellowCards,
       visitorYellowCards, localRedCards, visitorRedCards) async {
     await getLocalTeamPlayers(localTeam);
@@ -154,12 +162,14 @@ class _AddGameUIState extends State<AddGameUI> {
     modifyList(visitorPlayerKeys, visitorRedCards, visitorRedsList);
   }
 
+  //get player name from player map into target list according to the id list on values argumemt
   modifyList(keys, values, target) {
     values.forEach((key) {
       target.add(key);
     });
   }
 
+  //get local players that participated in game into a list
   getLocalAppsList() {
     localAppearance.forEach((name, value) {
       if (value == true) {
@@ -172,6 +182,7 @@ class _AddGameUIState extends State<AddGameUI> {
     });
   }
 
+  //get visitor players that participated in game into a list
   getVisitorAppsList() {
     visitorAppearance.forEach((name, value) {
       if (value == true) {
@@ -184,6 +195,7 @@ class _AddGameUIState extends State<AddGameUI> {
     });
   }
 
+  //get all local team players into map with their id
   getLocalTeamPlayers(team) async {
     localPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     localPlayerKeys = Map.fromIterable(localPlayersList,
@@ -192,6 +204,7 @@ class _AddGameUIState extends State<AddGameUI> {
         Map.fromIterable(localPlayersList, key: (v) => v, value: (v) => false);
   }
 
+  //get visitor team players into map with their id
   getVisitorTeamPlayers(team) async {
     visitorPlayersList = await new ConnectDB().getTeamPlayers(team, league);
     visitorPlayerKeys = Map.fromIterable(visitorPlayersList,
@@ -200,6 +213,7 @@ class _AddGameUIState extends State<AddGameUI> {
         key: (v) => v, value: (v) => false);
   }
 
+  //function to clear list
   Widget showEmptyValue(list, value) {
     print(list);
     setState(() {
@@ -209,6 +223,7 @@ class _AddGameUIState extends State<AddGameUI> {
     return Text(value);
   }
 
+  //funtion to generate multiple dropdowns dynamically
   List<Widget> getDropdown(
       number, playerList, List<dynamic> playersList, hint, isLocal) {
     List<Widget> localList = [];

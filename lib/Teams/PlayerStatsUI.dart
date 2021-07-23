@@ -1,3 +1,5 @@
+
+//UI to display the stats widget for selected player
 import 'package:flutter/material.dart';
 import 'PlayerStatsWidget.dart';
 import '../Constants.dart';

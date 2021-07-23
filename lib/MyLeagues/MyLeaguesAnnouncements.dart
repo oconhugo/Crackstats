@@ -1,3 +1,4 @@
+//Show the announcmenets for a league and be able to edit/remove/add
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import '../ConnectDB.dart';
@@ -24,12 +25,14 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
 
   _MyLeaguesAnnouncementsState(this.userAdminLeagues);
 
+//get announcements from database
   getLeagueAnnouncements() async {
     var announcementsDB = new ConnectDB();
     leagueAnn = await announcementsDB.getLeagueAnnouncements(leagueSelected);
     setState(() {});
   }
 
+//show snackbar when league has not been selected
   showSnackLeague() {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: Duration(seconds: 1),
@@ -85,7 +88,7 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                     key: Key(item[2]),
                     onDismissed: (direction) async {
                       var result =
-                          await new ConnectDB().dismissAnnouncement(item[0]);
+                          await new ConnectDB().dismissAnnouncement(item[0]); //remove announcement
                       setState(() {
                         leagueAnn.removeAt(index);
                       });
@@ -154,7 +157,7 @@ class _MyLeaguesAnnouncementsState extends State<MyLeaguesAnnouncements> {
                               child: Text(ADDTEXT),
                               onTap: () async {
                                 if (_textEditing.isNotEmpty) {
-                                  await new ConnectDB().insertNewAnnouncement(
+                                  await new ConnectDB().insertNewAnnouncement( //insert new announcement
                                       _textEditing, leagueSelected);
                                   Navigator.of(context).pop();
                                   getLeagueAnnouncements();
