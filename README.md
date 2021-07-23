@@ -6,7 +6,8 @@ The mobile application provides a system to manage soccer leagues. Each player, 
 
 <br/><br/>
 <img src = "Images/csmain.PNG" width = "300" style = "margin-left:auto;margin-right:auto;" > 
-<img src = "Images/csdemo1.PNG" width = "300">
+<img src = "Images/csdemo1.PNG" width = "300" style="float:right">
+<br/><br/>
 
 ## Technologies
 ### Languages
