@@ -21,6 +21,8 @@ The mobile application provides a system to manage soccer leagues. Each player, 
 -crypto/crypto.dart<br/>
 -collection/collection.dart<br/>
 -http/http.dart<br/>
+-mailer/mailer.dart<br/>
+-mailer/smtp_server.dart<br/>
 
 ## Prerequisites
 The following software is needed to install and run the system:<br/>
