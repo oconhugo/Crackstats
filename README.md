@@ -1,8 +1,8 @@
-# Cashier-Chef Ordering System (CCOS)
-Repository for CCOS
+# CrackStats
+Repository for CrackStats
 
 ## Introduction
-The system provides a method of ordering in a restaurant, where the client goes to the cashier and he orders his food. The cashier selects the food ordered by the customer and when the cashier selects that the order was paid, the order is sent to the chef. The chef will have a PC displaying a queue of the orders. The chef will then be able to click/touch on any order number, see its content and selects it as complete, in which case, the order will disappear from the queue.
+The mobile application provides a system to manage soccer leagues. Each player, team owner or league owner needs to create a profile, which includes a password that is encrypted by the system. The profile will have stored the user information, stats, teams, leagues and administrative permissions. The system is self-sustainable, each player requests permission to be added to the team, which is accepted/rejected by the team owner and in the same manner, each time a team wants to be created, it requests permission to a league to be added to it. Leagues are created by application admins. All the information (stats, schedule, team, players, data, etc) is stored in a database. 
 
 Cashier:<br/><br/>
 <img src = "Images/Capture.PNG" width = "800" style = "margin-left:auto;margin-right:auto;" > <br/><br/>
