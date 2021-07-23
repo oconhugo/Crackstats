@@ -1,6 +1,6 @@
 <?php 
 include "dbconfig.php";
-// Retrieve the user leagues announcements
+// Retrieve the games from the provided week
   
     $week_num = mysqli_real_escape_string($conn, $_POST['week_num']);
 	$league = mysqli_real_escape_string($conn, $_POST['league']);
