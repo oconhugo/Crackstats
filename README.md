@@ -5,7 +5,7 @@ Repository for CrackStats
 The mobile application provides a system to manage soccer leagues. Each player, team owner or league owner needs to create a profile, which includes a password that is encrypted by the system. The profile will have stored the user information, stats, teams, leagues and administrative permissions. The system is self-sustainable, each player requests permission to be added to the team, which is accepted/rejected by the team owner and in the same manner, each time a team wants to be created, it requests permission to a league to be added to it. Leagues are created by application admins. All the information (stats, schedule, team, players, data, etc) is stored in a database. 
 
 Cashier:<br/><br/>
-<img src = "Images/Capture.PNG" width = "800" style = "margin-left:auto;margin-right:auto;" > <br/><br/>
+<img src = "Images/csmain.PNG" width = "800" style = "margin-left:auto;margin-right:auto;" > <br/><br/>
 Chef: <br/><br/>
 <img src = "Images/Capture1.PNG" width = "800">
 
