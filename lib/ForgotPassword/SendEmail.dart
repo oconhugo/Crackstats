@@ -1,3 +1,5 @@
+///Sends the email to the email provided by the user ///
+
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '../Constants.dart';

@@ -1,3 +1,4 @@
+/// Determines wich sidebar to use (normal sidebar or admin sidebar)///
 import '../Constants.dart';
 import 'package:flutter/material.dart';
 import 'SideBarWidgetAdmin.dart';

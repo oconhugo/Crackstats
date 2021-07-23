@@ -1,3 +1,5 @@
+///Tells if the email to reset password was sended successfully or not///
+
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 import '../LogIn/LogInUI.dart';

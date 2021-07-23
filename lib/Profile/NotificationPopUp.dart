@@ -8,6 +8,7 @@ class NotificationPopUp {
 
   NotificationPopUp(this.infoMap);
 
+  //Determines whats the notification type (Announcement, player request, team request)
   notificationType(notification, context) {
     if (notification[4] == "0") {
       return getAnnounNoti(notification, context);
@@ -18,6 +19,7 @@ class NotificationPopUp {
     }
   }
 
+  //Display the notification for announcements
   getAnnounNoti(notification, context) {
     return AlertDialog(
       title: Text(ANNOUNCEMENT,
@@ -62,6 +64,7 @@ class NotificationPopUp {
     );
   }
 
+  //Display the notification for player request
   getAddPlayerNoti(notification, context) {
     return AlertDialog(
       title: Text(ADDPLAYERTITLE,
@@ -119,6 +122,7 @@ class NotificationPopUp {
     );
   }
 
+  //Display the notification for team request
   getAddTeamNoti(notification, context) {
     return AlertDialog(
       title: Text(ADDTEAMSTITLE,
@@ -179,7 +183,7 @@ class NotificationPopUp {
   Future<void> showMyDialog(context, List<dynamic> notification) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return notificationType(notification, context);
       },

@@ -1,3 +1,5 @@
+///Sends a code to your email to reset the password. Verify if the email exists in the db///
+
 import 'package:flutter/material.dart';
 import '../Constants.dart';
 import 'SendEmail.dart';

@@ -217,7 +217,7 @@ const BLACK = Colors.black;
 const RED = Colors.red;
 const YELLOW = Colors.yellow;
 
-//global variables
+//GLOBAL VARIABLES
 var userEmailGlobal = '';
 var userPasswordGlobal = '';
 var globalUserLeagueList = [];

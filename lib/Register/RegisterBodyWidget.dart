@@ -35,18 +35,21 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
     ),
   ];
 
+  //Encode the password
   String generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }
 
+  //Encrypt the password with salt added
   encryptPassword(registerInfoMap) {
     String temp = registerInfoMap[PASSWORD].substring(0, 2) +
         SALT +
         registerInfoMap[PASSWORD]
-            .substring(3, registerInfoMap[PASSWORD].length);
+            .substring(2, registerInfoMap[PASSWORD].length);
     registerInfoMap[PASSWORD] = generateMd5(temp);
   }
 
+  //Verify user inputs
   void regButton() async {
     var result;
     var regPop = new RegisterPopUp();
@@ -62,11 +65,13 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
     }
   }
 
+  //Check for duplicates
   bool isDuplicate(response) {
     if (response == USERADDED) return false;
     return true;
   }
 
+  //Check fields standards
   bool areFieldsCorrect() {
     if (registerFields[PASSWORD] != registerFields[REENTERPASSWORD]) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -130,14 +135,13 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
-                return PRIMARYCOLOR; // Use the component's default.
+                return PRIMARYCOLOR;
               },
             ),
           ),
           child: Text(REGISTER),
           onPressed: () {
             regButton();
-            //Navigator.pop(context);
           },
         ),
       ],

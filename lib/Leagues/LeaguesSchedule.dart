@@ -16,10 +16,10 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
   Map weeksSelected;
   bool isButtonMapCreated = false;
 
+  //
   setWeeksSelectedVal(weeks) {
     weeksSelected =
         Map.fromIterable(weeks, key: (v) => v[0], value: (v) => false);
-    print(weeksSelected);
   }
 
   @override
@@ -87,9 +87,13 @@ class _LeaguesScheduleState extends State<LeaguesSchedule> {
                                                 return Column(
                                                   children: [
                                                     ElevatedButton(
-                                                       style: ButtonStyle(
-                                                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                                                            (Set<MaterialState> states) {
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .resolveWith<
+                                                                      Color>(
+                                                            (Set<MaterialState>
+                                                                states) {
                                                               return PRIMARYCOLOR; // Use the component's default.
                                                             },
                                                           ),

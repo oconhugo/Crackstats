@@ -1,3 +1,5 @@
+/// Pop up displaying if user was registered successfully ///
+
 import 'package:crackstats/Constants.dart';
 import 'package:flutter/material.dart';
 import '../LogIn/LogInUI.dart';

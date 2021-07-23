@@ -27,6 +27,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
     getAllLeagues();
   }
 
+  //Get the leagues wich the user belong
   void getUserLeagues() async {
     var connect = new ConnectDB();
     var x = await connect.retrieveLeagues();
@@ -35,6 +36,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
     });
   }
 
+  //Get all the leagues
   void getAllLeagues() async {
     var connect = new ConnectDB();
     var tempAllLeagues = await connect.retrieveAllLeagues();
@@ -43,6 +45,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
     });
   }
 
+  //Set the local variables
   _ProfileInfoWidgetState(this.userMap) {
     profileInfo = {
       FIRSTNAME: userMap['First_Name'],
@@ -53,6 +56,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
     };
   }
 
+  //Get the user stats
   void getUserStats() async {
     var conn = new ConnectDB();
     userStats = await conn.retrieveUserStats(leagueSelected);
@@ -136,7 +140,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          return PRIMARYCOLOR; // Use the component's default.
+                          return PRIMARYCOLOR;
                         },
                       ),
                     ),
@@ -154,7 +158,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          return RED; // Use the component's default.
+                          return RED;
                         },
                       ),
                     ),

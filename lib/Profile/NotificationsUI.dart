@@ -19,8 +19,7 @@ class _NotificationsUIState extends State<NotificationsUI> {
 
   _NotificationsUIState(this.userNotifications, this.infoMap);
 
-  
-
+  //Determines what the type of the notification (Announcement, player request, team requests)
   Widget getNotificationType(String val) {
     int x = int.parse(val);
     if (x == 0) {
@@ -50,7 +49,7 @@ class _NotificationsUIState extends State<NotificationsUI> {
               ))),
       ...(userNotifications).map((valkey) {
         return Card(
-          child: ListTile(
+            child: ListTile(
           title: getNotificationType(valkey[4]),
           subtitle: Text(valkey[2], style: TextStyle(fontSize: 24)),
           onTap: () {

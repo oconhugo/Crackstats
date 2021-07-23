@@ -1,3 +1,5 @@
+// Progress indicator. Indicates the information is loading
+
 import 'package:flutter/material.dart';
 import 'Constants.dart';
 

@@ -26,6 +26,7 @@ class _ProfileUIState extends State<ProfileUI> {
 
   bool isNotifications = false;
 
+  //Get the user notifications
   void getNotifications() async {
     var connector = new ConnectDB();
     userNotifications = await connector.getUserNotifications();
@@ -41,6 +42,7 @@ class _ProfileUIState extends State<ProfileUI> {
 
   @override
   Widget build(BuildContext context) {
+    //Prohibit the use of back arrow
     return WillPopScope(
       onWillPop: () async {
         return false;

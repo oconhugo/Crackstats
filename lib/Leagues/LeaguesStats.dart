@@ -14,8 +14,8 @@ class _LeaguesStatsState extends State<LeaguesStats> {
   bool isLeagueSelected = false;
   Map buttonSelected = {STANDING: false, GOALSCORERS: false, DISCIPLINE: false};
 
+  //Sort using bubblesort
   bubbleSorting(statsArray, arrayNum) {
-    //arrayNum = array index on which list is being sorted
     int arrLength = statsArray.length;
     for (int i = 0; i < arrLength - 1; i++) {
       for (int j = 0; j < arrLength - i - 1; j++) {
@@ -154,7 +154,8 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                 children: [
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                      backgroundColor: MaterialStateProperty
+                                          .resolveWith<Color>(
                                         (Set<MaterialState> states) {
                                           return PRIMARYCOLOR; // Use the component's default.
                                         },
@@ -184,7 +185,8 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                       : Text(''),
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                      backgroundColor: MaterialStateProperty
+                                          .resolveWith<Color>(
                                         (Set<MaterialState> states) {
                                           return PRIMARYCOLOR; // Use the component's default.
                                         },
@@ -215,7 +217,8 @@ class _LeaguesStatsState extends State<LeaguesStats> {
                                       : Text(''),
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                      backgroundColor: MaterialStateProperty
+                                          .resolveWith<Color>(
                                         (Set<MaterialState> states) {
                                           return PRIMARYCOLOR; // Use the component's default.
                                         },

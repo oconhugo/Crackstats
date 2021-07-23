@@ -18,6 +18,7 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
   bool isEnable = false;
   bool snackOn = false;
 
+  //Allows the user to edit the text field
   void enableField() {
     setState(() {
       if (isEnable)

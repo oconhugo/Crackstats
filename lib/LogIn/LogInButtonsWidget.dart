@@ -1,3 +1,5 @@
+/// Log in into the app ///
+
 import 'package:crackstats/ForgotPassword/ForgotPasswordUI.dart';
 import '../ConnectDB.dart';
 import '../Constants.dart';
@@ -17,6 +19,7 @@ class LogInButtonsWidget extends StatelessWidget {
     return md5.convert(utf8.encode(input)).toString();
   }
 
+  //Encrypt the password with the salt added
   String encryptPassword(pwdString) {
     String temp = pwdString.substring(0, 2) +
         SALT +

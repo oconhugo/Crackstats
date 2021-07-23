@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+/// Get the picture icon ///
 
+import 'package:flutter/material.dart';
 import '../Constants.dart';
 
 class PhotoWidget extends StatefulWidget {
@@ -24,11 +25,6 @@ class _PhotoWidgetState extends State<PhotoWidget> {
         Icons.account_circle_outlined,
         size: MediaQuery.of(context).size.width / 3,
       ),
-      //Image.asset(
-      //'assets/images/MU.png',
-      //height: 150,
-     // width: 150,
-      //),
     ]);
   }
 }

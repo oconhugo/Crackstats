@@ -1,3 +1,5 @@
+//Makes the calls to the PHP
+
 import 'package:http/http.dart' as http;
 import './Constants.dart';
 import 'dart:convert';
@@ -5,7 +7,6 @@ import 'dart:convert';
 class ConnectDB {
   //register a new user
   Future<String> sendData(registerFields, genderinput) async {
-    //print(registerFields[DATEOFBIRTH]);
     final response = await http.post(
       INSERTDATAURL,
       body: {
@@ -214,6 +215,7 @@ class ConnectDB {
     }
   }
 
+  //Remove the notification
   Future removeNotification(id) async {
     final response = await http.post(
       REMOVENOTIFICATION,
@@ -228,6 +230,7 @@ class ConnectDB {
     }
   }
 
+  //Declide the player request
   Future declineplayernotification(List notification) async {
     final response = await http.post(
       DECLINEPLAYERREQUEST,
@@ -246,6 +249,7 @@ class ConnectDB {
     }
   }
 
+  //Accept the player request
   Future acceptplayernotification(List notification) async {
     final response = await http.post(
       ACCEPTPLAYERREQUEST,
@@ -264,6 +268,7 @@ class ConnectDB {
     }
   }
 
+  //Decline the team request
   Future declineteamrequest(List notification) async {
     final response = await http.post(
       DECLINETEAMREQUESTURL,
@@ -282,6 +287,7 @@ class ConnectDB {
     }
   }
 
+  //Accept the team request
   Future acceptteamrequest(List notification) async {
     final response = await http.post(
       ACCEPTTEAMREQUESTURL,
@@ -300,6 +306,7 @@ class ConnectDB {
     }
   }
 
+  //Get all the league announcements
   Future getLeagueNotifications(league) async {
     final response = await http.post(
       MYLEAGUEANNOUNCEMENT,
@@ -313,6 +320,7 @@ class ConnectDB {
     }
   }
 
+  //Get the leagues administrators IDs
   Future getUserAdminLeaguesList(usrEmail) async {
     final response = await http.post(
       GETMYADMINLEAGUES,
@@ -326,6 +334,7 @@ class ConnectDB {
     }
   }
 
+  //Insert a new announcement
   Future<String> insertNewAnnouncement(message, league) async {
     final response = await http.post(
       INSERTANNOUNCEMENT,
@@ -334,6 +343,7 @@ class ConnectDB {
     return Future.delayed(Duration(milliseconds: 1), () => response.body);
   }
 
+  //Get the league announcements
   Future getLeagueAnnouncements(league) async {
     final response = await http.post(
       GETLEAGUEANNOUNCEMENTSURL,
@@ -347,6 +357,7 @@ class ConnectDB {
     }
   }
 
+  //Remove a announcement
   Future<String> dismissAnnouncement(id) async {
     final response = await http.post(
       DISMISSANNOUNCEMENT,
@@ -355,6 +366,7 @@ class ConnectDB {
     return Future.delayed(Duration(milliseconds: 1), () => response.body);
   }
 
+  //Get the teams in a league
   Future getLeagueTeams(league) async {
     final response = await http.post(
       GETLEAGUETEAMSURL,
@@ -368,6 +380,7 @@ class ConnectDB {
     }
   }
 
+  //Get the players from a team
   Future getTeamPlayers(team, league) async {
     final response = await http.post(
       RETRIEVETEAMPLAYERS,
@@ -381,6 +394,7 @@ class ConnectDB {
     }
   }
 
+  //Get the week number
   Future getLeagueWeeks(league) async {
     final response = await http.post(
       GETLEAGUEWEEKS,
@@ -394,6 +408,7 @@ class ConnectDB {
     }
   }
 
+  //Get the games from a week
   Future getWeekGames(weekNum, league) async {
     final response = await http.post(
       GETWEEKGAMES,
@@ -410,6 +425,7 @@ class ConnectDB {
     }
   }
 
+  //Get all league games
   Future retrieveAllLeagueGames(league) async {
     final response = await http.post(
       GETALLLEAGUEGAMES,
@@ -425,6 +441,7 @@ class ConnectDB {
     }
   }
 
+  //Send a new match
   Future<String> sendMatch(
       localTeam,
       visitorTeam,
@@ -470,6 +487,7 @@ class ConnectDB {
     }
   }
 
+  //Get the information from a match
   Future getMatchInfo(id) async {
     final response = await http.post(
       GETMATCHINFO,
@@ -483,6 +501,7 @@ class ConnectDB {
     }
   }
 
+  //Update the match information
   Future<String> updateMatch(
       localTeam,
       visitorTeam,
@@ -530,6 +549,7 @@ class ConnectDB {
     }
   }
 
+  //Get the stats from a team
   Future retrieveTeamStats(league) async {
     final response = await http.post(
       RETRIEVETEAMSTATSURL,
@@ -545,6 +565,7 @@ class ConnectDB {
     }
   }
 
+  //Get the league scorers
   Future retrieveLeagueScorers(league) async {
     final response = await http.post(
       RETRIEVELEAGUESCORERS,
@@ -560,6 +581,7 @@ class ConnectDB {
     }
   }
 
+  //Retrieve players dicipline stats
   Future retrievePlayerDisciplineStats(league) async {
     final response = await http.post(
       RETRIEVEPLAYERDISCIPLINE,
