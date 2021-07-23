@@ -6,14 +6,17 @@ The mobile application provides a system to manage soccer leagues. Each player, 
 
 <br/><br/>
 <img src = "Images/csmain.PNG" width = "300" style="float:left" > 
-<img src = "Images/csdemo1.PNG" width = "300" style="float:right">
+<img src = "Images/csdemo1.PNG" width = "300" style="position:static;right:20px">
 <br/><br/>
 
 ## Technologies
 ### Languages
--Python 3
+-Dart<br/>
+-Php<br/>
+###Frameworks
+-Flutter<br/>
 ### Libraries
--EasyTkinter 1.1.0<br/>
+-dart:convert <br/>
 -PyInstaller 3.6<br/>
 -XlsxWriter 1.2.8<br/>
 -future 0.18.2<br/>
