@@ -43,18 +43,23 @@ Update the stadistics, schedule, player information and team information. Get ri
 ### Features
 #### Player
 -Create a profile with his password encrypted for security<br/>
+-Reset his password<br/>
+-Update his profile information<br/>
+-User friendly to access his stats and team stats<br/>
+-Check his notifications from the team or league<br/>
+-Can request access to a league or team<br/>
 #### Team
--
+-Display all team members with his respective stats<br/>
+-Accept or decline player requests<br/>
 #### League
--
-#### Administrator
--
+-Update and display the league stats, schedule, and announcements<br/>
+-Accept or decline team request<br/>
 	
 ### Links
 Demo Link: 
 
 ## Usage
-This app is used for the management of a soccer league. Automatice the complexity of administrate a soccer league.
+This app is used for the management of a soccer league to automatice the complexity of administrate a soccer league.
 
 ## Support
 For any questions, do not hesistate to contact the authors.
