@@ -25,7 +25,7 @@ The mobile application provides a system to manage soccer leagues. Each player, 
 -mailer/smtp_server.dart<br/>
 
 ## Prerequisites
-OS: Jelly Bean, v16, 4.1.x or newer
+OS: Jelly Bean, v16, 4.1.x or newer<br/>
 Mobile hardware: ARM Android devices.
     
 ## Installation
