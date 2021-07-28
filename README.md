@@ -41,25 +41,14 @@ The app from the user side can store his perfomances from each game. Help the pl
 Update the stadistics, schedule, player information and team information. Get rid of the paper work and manually modify the league information. Crackstats also include a notifications section where the player can see league notifications and the league can see player requests which improve the communication between the league and players.
 
 ### Features
-#### Cashier
--Items can be selected from the menu by clicking on the buttons on its interface.<br/>
--Text boxes to choose total cost for certain special items.<br/>
--Select if the order is to go by clicking on a checkbox.<br/>
--See the total cost of the order on its interface. The button "Total" needs to be clicked before sending the order.<br/>
--Interface will reset automatically after sending the order to the chef.<br/>
--The order individual items and cost will be displayed when selected on the cashiers interface.<br/>
--The order can be cancelled at any time before sending it to the chef.<br/>
--Send a note to the chef along with the order.<br/>
--Scrollbars for the item list, when the list is to large. <br/>
--Buttons and special boxes are disabled when clicked on view total. <br/>
-#### Chef
--See a list of uncompleted orders.<br/>
--Ability to toggle thru the orders to see its content, by clicking on the order number.<br/>
--Select an order as completed, which would eliminate it from the list.<br/>
--Scrollbar created when the list of items is too big to see in the window. <br/>
-#### Others
--A inventory folder is created inside the project folder, if it is not already created.<br/>
--An excel file is generated per day, in which every order is stored, along with the total orders per day and total sales.<br/>
+#### Player
+-Create a profile with his password encrypted for security<br/>
+#### Team
+-
+#### League
+-
+#### Administrator
+-
 	
 ### Links
 Demo Link: 
