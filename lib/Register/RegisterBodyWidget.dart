@@ -45,7 +45,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
     String temp = registerInfoMap[PASSWORD].substring(0, 2) +
         SALT +
         registerInfoMap[PASSWORD]
-            .substring(2, registerInfoMap[PASSWORD].length);
+            .substring(3, registerInfoMap[PASSWORD].length);
     registerInfoMap[PASSWORD] = generateMd5(temp);
   }
 
