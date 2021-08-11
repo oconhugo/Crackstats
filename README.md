@@ -29,37 +29,37 @@ OS: Jelly Bean, v16, 4.1.x or newer<br/>
 Mobile hardware: ARM Android devices.
     
 ## Installation
-For installing the system just download the app from playstore
+For installing the system, just download the app from playstore
 
 ## Description
 ### Context
-We participate in a few soccer leagues from our respective citys and found a problem at the administration and management of them. Found that those amateurs soccer leagues do not have a application that will assit them to administrate their leagues. The local leagues use social media apps to administrate their leagues by updating their schedule, stats, and standings in there.
-Created this app to help those local leagues to administrate their tournament in a way where they can reduce significally the user input required. This app will help the league as well as the user, since the app was develop not only for the league but for the pllayers aswell.
-		
+We have participated and continue to do so in several soccer leagues, and found a problem at the administration and management of them. We Found that those amateurs soccer leagues could have a application to assist them on the administration and organization duties. Usually, local leagues use social media to administrate their leagues and update their schedule, stats, and standings, all data obtained and updated manually.
+We created this app to help those local leagues to administrate their tournament in a way where they can significally reduce the user input and effort required. This app will help the league as well as the user, as information, stats and updates will be available quicker, with a more user friendly UI.
+
 ### What can the project specifically do
-The app from the user side can store his perfomances from each game. Help the player to keep track of his personal stats as goal scored, matches played, and diciplinary stats.  Facilitate the way they register to the league and team by just sending a request to the owner of the team and league administrator. The app requires to create a password which is encrypted for security to access the player profile.
-Update the stadistics, schedule, player information and team information. Get rid of the paper work and manually modify the league information. Crackstats also include a notifications section where the player can see league notifications and the league can see player requests which improve the communication between the league and players.
+From the user side, this application can store his perfomances from each game, helping the player to keep track of his personal stats as goal scored, matches played, and diciplinary stats. It facilitates the way they register to the league and to a particular team by just sending a request to the owner of the team/league administrator. Also, announcements are easily transmitted. The app requires to create a password(encrypted for security) to access the player profile.
+For the administrators, this applications updates the stadistics, schedule, player information and team information. Get rid of the paper work and manual work. Crackstats also include a notifications section, where the administrators can easily pass information to everyone one a team/leangue.
 
 ### Features
 #### Player
--Create a profile with his password encrypted for security<br/>
--Reset his password<br/>
--Update his profile information<br/>
--User friendly to access his stats and team stats<br/>
--Check his notifications from the team or league<br/>
--Can request access to a league or team<br/>
+-Create a profile with encrypted password<br/>
+-Reset password<br/>
+-Update profile information<br/>
+-User friendly Interface to access player, team, and league stats and information<br/>
+-Easily receive announcements from their team or league<br/>
+-Easily request to join a team or add a team to a league<br/>
 #### Team
--Display all team members with his respective stats<br/>
--Accept or decline player requests<br/>
+-Display all team members with their respective stats<br/>
+-Accept or decline player requests to join team<br/>
 #### League
 -Update and display the league stats, schedule, and announcements<br/>
--Accept or decline team request<br/>
+-Accept or decline team request to join league<br/>
 	
 ### Links
 Demo Link: 
 
 ## Usage
-This app is used for the management of a soccer league to automatice the complexity of administrate a soccer league.
+This app is used for the automatization of soccer leagues management.
 
 ## Support
 For any questions, do not hesistate to contact the authors.
