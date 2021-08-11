@@ -155,57 +155,70 @@ const String GD = "GD:";
 const String YELLOWRED = "Y(R):";
 
 //URLS
-const String INSERTDATAURL = "http://hugoocon.com/insert_into_db.php";
-const String LOGINUSERCRED = "http://hugoocon.com/login_verify_user.php";
+const String INSERTDATAURL =
+    "http://hugoocon.com/CrackStats/insert_into_db.php";
+const String LOGINUSERCRED =
+    "http://hugoocon.com/CrackStats/login_verify_user.php";
 const String TEMPORALPASSWORDUPDATEURL =
-    "http://hugoocon.com/update_temp_password.php";
-const String MODIFYCREDURL = "http://hugoocon.com/modify_user_info.php";
+    "http://hugoocon.com/CrackStats/update_temp_password.php";
+const String MODIFYCREDURL =
+    "http://hugoocon.com/CrackStats/modify_user_info.php";
 const String RETRIEVEUSERLEAGUES =
-    "http://hugoocon.com/retrieve_user_leagues.php";
-const String RETRIEVEUSERSTATS = "http://hugoocon.com/retrieve_user_stats.php";
+    "http://hugoocon.com/CrackStats/retrieve_user_leagues.php";
+const String RETRIEVEUSERSTATS =
+    "http://hugoocon.com/CrackStats/retrieve_user_stats.php";
 const String RETRIEVELEAGUETEAMS =
-    "http://hugoocon.com/retrieve_league_teams.php";
-const String RETRIEVEALLLEAGUES = "http://hugoocon.com/retrieve_leagues.php";
+    "http://hugoocon.com/CrackStats/retrieve_league_teams.php";
+const String RETRIEVEALLLEAGUES =
+    "http://hugoocon.com/CrackStats/retrieve_leagues.php";
 const String RETRIEVETEAMPLAYERS =
-    "http://hugoocon.com/retrieve_team_players.php";
+    "http://hugoocon.com/CrackStats/retrieve_team_players.php";
 const String RETRIEVEPLAYERSTATS =
-    "http://hugoocon.com/retrieve_player_stats.php";
-const SENDADDTEAMREQUEST = "http://hugoocon.com/send_team_request.php";
+    "http://hugoocon.com/CrackStats/retrieve_player_stats.php";
+const SENDADDTEAMREQUEST =
+    "http://hugoocon.com/CrackStats/send_team_request.php";
 const String SENDADDPLAYERREQUEST =
-    "http://hugoocon.com/send_player_request.php";
+    "http://hugoocon.com/CrackStats/send_player_request.php";
 const String GETUSERNOTIFICATIONSURL =
-    "http://hugoocon.com/get_user_notifications.php";
+    "http://hugoocon.com/CrackStats/get_user_notifications.php";
 const String REMOVENOTIFICATION =
-    "http://hugoocon.com/remove_notifications.php";
+    "http://hugoocon.com/CrackStats/remove_notifications.php";
 const String DECLINEPLAYERREQUEST =
-    "http://hugoocon.com/decline_player_request.php";
+    "http://hugoocon.com/CrackStats/decline_player_request.php";
 const String ACCEPTPLAYERREQUEST =
-    "http://hugoocon.com/accept_player_request.php";
+    "http://hugoocon.com/CrackStats/accept_player_request.php";
 const String DECLINETEAMREQUESTURL =
-    "http://hugoocon.com/decline_team_request.php";
+    "http://hugoocon.com/CrackStats/decline_team_request.php";
 const String ACCEPTTEAMREQUESTURL =
-    "http://hugoocon.com/accept_team_request.php";
+    "http://hugoocon.com/CrackStats/accept_team_request.php";
 const String MYLEAGUEANNOUNCEMENT =
-    "http://hugoocon.com/get_user_leagues_notifications.php";
-const String GETMYADMINLEAGUES = "http://hugoocon.com/get_admin_leagues.php";
-const String INSERTANNOUNCEMENT = "http://hugoocon.com/insert_announcement.php";
+    "http://hugoocon.com/CrackStats/get_user_leagues_notifications.php";
+const String GETMYADMINLEAGUES =
+    "http://hugoocon.com/CrackStats/get_admin_leagues.php";
+const String INSERTANNOUNCEMENT =
+    "http://hugoocon.com/CrackStats/insert_announcement.php";
 const String GETLEAGUEANNOUNCEMENTSURL =
-    "http://hugoocon.com/get_league_announcements.php";
+    "http://hugoocon.com/CrackStats/get_league_announcements.php";
 const String DISMISSANNOUNCEMENT =
-    "http://hugoocon.com/dismiss_announcement.php";
-const String GETLEAGUETEAMSURL = "http://hugoocon.com/get_league_teams.php";
-const String SENDMATCHURL = "http://hugoocon.com/insert_new_match.php";
-const String GETLEAGUEWEEKS = "http://hugoocon.com/get_league_weeks.php";
-const String GETWEEKGAMES = "http://hugoocon.com/get_week_games.php";
-const String GETMATCHINFO = "http://hugoocon.com/get_match_info.php";
-const String UPDATEMATCHURL = "http://hugoocon.com/update_new_match.php";
-const String GETALLLEAGUEGAMES = "http://hugoocon.com/get_all_league_games.php";
+    "http://hugoocon.com/CrackStats/dismiss_announcement.php";
+const String GETLEAGUETEAMSURL =
+    "http://hugoocon.com/CrackStats/get_league_teams.php";
+const String SENDMATCHURL =
+    "http://hugoocon.com/CrackStats/insert_new_match.php";
+const String GETLEAGUEWEEKS =
+    "http://hugoocon.com/CrackStats/get_league_weeks.php";
+const String GETWEEKGAMES = "http://hugoocon.com/CrackStats/get_week_games.php";
+const String GETMATCHINFO = "http://hugoocon.com/CrackStats/get_match_info.php";
+const String UPDATEMATCHURL =
+    "http://hugoocon.com/CrackStats/update_new_match.php";
+const String GETALLLEAGUEGAMES =
+    "http://hugoocon.com/CrackStats/get_all_league_games.php";
 const String RETRIEVETEAMSTATSURL =
-    "http://hugoocon.com/retrieve_team_stats.php";
+    "http://hugoocon.com/CrackStats/retrieve_team_stats.php";
 const String RETRIEVELEAGUESCORERS =
-    "http://hugoocon.com/retrieve_league_scorers.php";
+    "http://hugoocon.com/CrackStats/retrieve_league_scorers.php";
 const String RETRIEVEPLAYERDISCIPLINE =
-    "http://hugoocon.com/retrieve_player_discipline_stats.php";
+    "http://hugoocon.com/CrackStats/retrieve_player_discipline_stats.php";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
