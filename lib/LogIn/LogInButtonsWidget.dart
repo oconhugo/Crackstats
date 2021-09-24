@@ -25,7 +25,6 @@ class LogInButtonsWidget extends StatelessWidget {
         SALT +
         pwdString.substring(3, pwdString.length);
     pwdString = generateMd5(temp);
-    print(pwdString);
     return pwdString;
   }
 
@@ -55,7 +54,7 @@ class LogInButtonsWidget extends StatelessWidget {
                 },
               ),
             ),
-            child: Text(SIGNIN),
+            child: Text(LOGIN),
             onPressed: () async {
               if (emlController.text.isEmpty || pwdController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -64,6 +63,8 @@ class LogInButtonsWidget extends StatelessWidget {
                 ));
               } else {
                 var conn = new ConnectDB();
+                
+                print("unencrypted password in login:" + pwdController.text);
                 var result = await conn.logInDb(
                     emlController.text, encryptPassword(pwdController.text));
                 if (result == null) {

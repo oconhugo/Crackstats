@@ -6,6 +6,9 @@ import 'SendEmail.dart';
 import 'ForgotPasswordPopUp.dart';
 import '../ConnectDB.dart';
 import 'package:random_string/random_string.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
 
 class ForgotPasswordUI extends StatefulWidget {
   @override
@@ -13,6 +16,17 @@ class ForgotPasswordUI extends StatefulWidget {
 }
 
 class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
+
+  String encryptPassword(passwordNoEncrypted) {
+    String temp = passwordNoEncrypted.substring(0, 2) + SALT + passwordNoEncrypted.substring(3, passwordNoEncrypted.length);
+    passwordNoEncrypted = generateMd5(temp);
+    return passwordNoEncrypted;
+  }
+
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
   TextEditingController emailfgtController = new TextEditingController();
   String pswCode = randomAlphaNumeric(20);
 
@@ -56,9 +70,9 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
                   new SendEmail(emailfgtController.text, pswCode);
               var chngOnDB = new ConnectDB();
               var isPswdChanged =
-                  await chngOnDB.tempPswUpdate(emailfgtController, pswCode);
-              var isSend = await mailInstance.sendmail();
-              if (isSend == 'true' && isPswdChanged == 'Password Changed') {
+                  await chngOnDB.tempPswUpdate(emailfgtController, encryptPassword(pswCode));
+              var isSend = await mailInstance.sendEmail();
+              if (isSend == "Congratulations! You've fired the recover_password event" && isPswdChanged == 'Password Changed') {
                 var pswpop = new ForgotPasswordPopUp(EMAILSENTMSG);
                 pswpop.showMyDialog(context, true);
               } else {

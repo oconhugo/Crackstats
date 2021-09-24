@@ -10,6 +10,7 @@ import 'package:crypto/crypto.dart';
 class RegisterBodyWidget extends StatefulWidget {
   @override
   _RegisterBodyWidgetState createState() => _RegisterBodyWidgetState();
+
 }
 
 class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
@@ -57,6 +58,8 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
     if (areFieldsCorrect()) {
       encryptPassword(registerFields);
       result = await insert.sendData(registerFields, inputGender);
+      print("hola");
+      print(result);
     }
     if (!isDuplicate(result)) {
       regPop.showMyDialog(context, true);

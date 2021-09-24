@@ -153,6 +153,7 @@ const String GF = "GF:";
 const String GA = "GA:";
 const String GD = "GD:";
 const String YELLOWRED = "Y(R):";
+const String LOGIN = "Log In";
 
 //URLS
 const String INSERTDATAURL =
@@ -219,6 +220,8 @@ const String RETRIEVELEAGUESCORERS =
     "http://hugoocon.com/CrackStats/retrieve_league_scorers.php";
 const String RETRIEVEPLAYERDISCIPLINE =
     "http://hugoocon.com/CrackStats/retrieve_player_discipline_stats.php";
+const String RECOVERPASSWORDURL = 
+   "https://maker.ifttt.com/trigger/recover_password/with/key/jMPo6HhNitNPaip-Fw0nQHZW7DX_-yZPoeHbevAyELG";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
