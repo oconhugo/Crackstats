@@ -3,6 +3,8 @@ import '../Constants.dart';
 import 'ProfileInTxtWidget.dart';
 import '../ConnectDB.dart';
 import 'ProfileUI.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
   final Map inputMap;
@@ -19,12 +21,25 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   var leagueSelected;
   String goals = "", apps = "", cards = "";
   List userStats;
+  String initialPassword = "";
 
   @override
   void initState() {
     super.initState();
     getUserLeagues();
     getAllLeagues();
+  }
+
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
+  String encryptPass(String pwd){
+    String temp = pwd.substring(0, 2) +
+        SALT +
+        pwd.substring(3, pwd.length);
+    pwd = generateMd5(temp);
+    return pwd;
   }
 
   //Get the leagues wich the user belong
@@ -47,6 +62,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
 
   //Set the local variables
   _ProfileInfoWidgetState(this.userMap) {
+    initialPassword = userMap['Password'];
     profileInfo = {
       FIRSTNAME: userMap['First_Name'],
       LASTNAME: userMap['Last_Name'],
@@ -147,7 +163,14 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     child: Text(SAVE),
                     onPressed: () async {
                       var conn = new ConnectDB();
-                      var result = await conn.updateCred(profileInfo);
+                      var result;
+                      if(initialPassword == profileInfo['Password']){
+                        result = await conn.updateCred(profileInfo);
+                      }
+                      else{
+                        profileInfo['Password'] = encryptPass(profileInfo['Password']);
+                        result = await conn.updateCred(profileInfo);
+                      }
                       Navigator.push(
                           context,
                           MaterialPageRoute(

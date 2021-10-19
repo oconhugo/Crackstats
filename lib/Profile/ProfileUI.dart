@@ -24,6 +24,8 @@ class _ProfileUIState extends State<ProfileUI> {
     getNotifications();
   }
 
+
+
   bool isNotifications = false;
 
   //Get the user notifications
