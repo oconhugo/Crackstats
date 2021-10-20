@@ -10,7 +10,6 @@ import 'package:crypto/crypto.dart';
 class RegisterBodyWidget extends StatefulWidget {
   @override
   _RegisterBodyWidgetState createState() => _RegisterBodyWidgetState();
-
 }
 
 class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {

@@ -65,11 +65,8 @@ class LogInButtonsWidget extends StatelessWidget {
                 var conn = new ConnectDB();
                 
                 print("unencrypted password in login:" + pwdController.text);
-                var encryptedPassword = encryptPassword(pwdController.text);
-                print("encrypted password on login: " + encryptedPassword);
                 var result = await conn.logInDb(
-                    emlController.text, encryptedPassword);
-                
+                    emlController.text, encryptPassword(pwdController.text));
                 if (result == null) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     duration: Duration(seconds: 1),

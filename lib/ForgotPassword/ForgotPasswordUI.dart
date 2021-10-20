@@ -69,10 +69,8 @@ class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
               var mailInstance =
                   new SendEmail(emailfgtController.text, pswCode);
               var chngOnDB = new ConnectDB();
-              print("Forgot Password Before Encription: " + pswCode);
               var isPswdChanged =
                   await chngOnDB.tempPswUpdate(emailfgtController, encryptPassword(pswCode));
-              print("Forgot Password After Encroption: " + encryptPassword(pswCode));
               var isSend = await mailInstance.sendEmail();
               if (isSend == "Congratulations! You've fired the recover_password event" && isPswdChanged == 'Password Changed') {
                 var pswpop = new ForgotPasswordPopUp(EMAILSENTMSG);
