@@ -67,9 +67,36 @@ class _AddGameUIState extends State<AddGameUI> {
   bool isGamePlayed = false;
   int maxWeek = 0;
 
+  DateTime selectedDate = DateTime.now();
+  String gameDate;
+
+
+  Widget displayDate() {
+    return Text("Date: " + "${selectedDate.toLocal()}".split(' ')[0]);
+  }
+
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2000, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        date = selectedDate.month.toString().padLeft(2,'0') +
+                        "-" +
+                        selectedDate.day.toString().padLeft(2,'0')+
+                        "-" +
+                        selectedDate.year.toString().padLeft(2,'0');
+                        
+      });
+  }
+
 //if ID is null, new game is going to be added
 //if ID is not null, game is going to be edited
   _AddGameUIState(this.league, this.teamList, this.id, this.maxWeek) {
+    maxWeek+=2;    
     if (id != null) {
       fillInfo();
     } else {
@@ -91,6 +118,10 @@ class _AddGameUIState extends State<AddGameUI> {
     var dbGetMatchInfo = await ConnectDB().getMatchInfo(id);
     weekNumber = dbGetMatchInfo[3];
     date = dbGetMatchInfo[4];
+    String dateNoFormat = date;
+    var dateArr = dateNoFormat.split('-');
+    String formattedDate = dateArr[2]+dateArr[0]+dateArr[1];
+    selectedDate = DateTime.parse(formattedDate);
     time = dbGetMatchInfo[12];
     venue = dbGetMatchInfo[5];
     localScore = json.decode(dbGetMatchInfo[6]).length;
@@ -320,7 +351,17 @@ class _AddGameUIState extends State<AddGameUI> {
                 ),
               ),
               //Date
-              Container(
+              Card(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(4.0)),
+              child: ListTile(
+                  title: displayDate(),
+                  onTap: () {
+                    selectDate(context);
+                    
+                  })),
+              /*Container(
                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                 width: MediaQuery.of(context).size.width * (1),
                 child: TextField(
@@ -333,7 +374,7 @@ class _AddGameUIState extends State<AddGameUI> {
                     date = value;
                   },
                 ),
-              ),
+              ),*/
               //Time
               Container(
                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -640,7 +681,7 @@ class _AddGameUIState extends State<AddGameUI> {
                     child: Text(SUBMIT),
                     onPressed: () async {
                       var gamePlayed;
-                      maxWeek = maxWeek + 1;
+                      //maxWeek = maxWeek + 1;
                       if (isGamePlayed) {
                         gamePlayed = '1';
                       } else {

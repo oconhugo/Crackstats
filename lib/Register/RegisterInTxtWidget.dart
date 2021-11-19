@@ -98,11 +98,11 @@ class _RegisterInTxtWidgetState extends State<RegisterInTxtWidget> {
                   title: displayDate(),
                   onTap: () {
                     selectDate(context);
-                    valuesmap[keyvalue] = selectedDate.month.toString() +
-                        "/" +
-                        selectedDate.day.toString() +
-                        "/" +
-                        selectedDate.year.toString();
+                    valuesmap[keyvalue] = selectedDate.month.toString().padLeft(2,'0') +
+                        "-" +
+                        selectedDate.day.toString().padLeft(2,'0') +
+                        "-" +
+                        selectedDate.year.toString().padLeft(2,'0');
                   })),
     );
   }

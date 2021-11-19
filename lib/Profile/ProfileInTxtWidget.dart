@@ -18,6 +18,26 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
   bool isEnable = false;
   bool snackOn = false;
 
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1921, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        valuesmap[DATEOFBIRTH] = selectedDate.month.toString().padLeft(2,'0') +
+                        "-" +
+                        selectedDate.day.toString().padLeft(2,'0')+
+                        "-" +
+                        selectedDate.year.toString().padLeft(2,'0');
+                        
+      });
+  }
+
   //Allows the user to edit the text field
   void enableField() {
     setState(() {
@@ -28,7 +48,13 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
     });
   }
 
-  _ProfileInTxtWidgetState(this.valuesmap, this.keyvalue);
+  _ProfileInTxtWidgetState(this.valuesmap, this.keyvalue){
+    String dateNoFormat = valuesmap[DATEOFBIRTH];
+    var dateArr = dateNoFormat.split('-');
+    String formattedDate = dateArr[2]+dateArr[0]+dateArr[1];
+    
+    selectedDate = DateTime.parse(formattedDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +70,7 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
       ),
       Container(
           width: MediaQuery.of(context).size.width / 2,
-          child: TextField(
+          child: (keyvalue != DATEOFBIRTH)? TextField(
             obscureText: (keyvalue == PASSWORD) ? true : false,
             onChanged: (String value) {
               valuesmap[keyvalue] = value;
@@ -64,10 +90,14 @@ class _ProfileInTxtWidgetState extends State<ProfileInTxtWidget> {
               hintText:
                   (keyvalue == PASSWORD) ? PASSWORDHIDER : valuesmap[keyvalue],
             ),
-          )),
+          ) : Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("${selectedDate.toLocal()}".split(' ')[0]),
+            ])),
       (keyvalue != EMAIL)
           ? TextButton(
-              onPressed: enableField,
+              onPressed: (keyvalue != DATEOFBIRTH) ? enableField : () => _selectDate(context),
               child: Icon(
                 Icons.create_rounded,
                 color: PENCILCOLOR,

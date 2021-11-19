@@ -34,8 +34,10 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  String encryptPass(String pwd) {
-    String temp = pwd.substring(0, 2) + SALT + pwd.substring(3, pwd.length);
+  String encryptPass(String pwd){
+    String temp = pwd.substring(0, 2) +
+        SALT +
+        pwd.substring(3, pwd.length);
     pwd = generateMd5(temp);
     return pwd;
   }
@@ -162,11 +164,11 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     onPressed: () async {
                       var conn = new ConnectDB();
                       var result;
-                      if (initialPassword == profileInfo['Password']) {
+                      if(initialPassword == profileInfo['Password']){
                         result = await conn.updateCred(profileInfo);
-                      } else {
-                        profileInfo['Password'] =
-                            encryptPass(profileInfo['Password']);
+                      }
+                      else{
+                        profileInfo['Password'] = encryptPass(profileInfo['Password']);
                         result = await conn.updateCred(profileInfo);
                       }
                       Navigator.push(
