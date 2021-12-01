@@ -549,6 +549,19 @@ class ConnectDB {
     }
   }
 
+  //Update the match information
+  Future<String> deleteMatch(id) async {
+    final response = await http.post(
+      DELETEMATCHURL,
+      body: {"id": id},
+    );
+    try {
+      return Future.delayed(Duration(milliseconds: 1), () => response.body);
+    } catch (e) {
+      return null;
+    }
+  }
+
   //Get the stats from a team
   Future retrieveTeamStats(league) async {
     final response = await http.post(

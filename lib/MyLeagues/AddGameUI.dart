@@ -10,7 +10,7 @@ class AddGameUI extends StatefulWidget {
   final List tempTeamList;
   var id;
   var maxWeek;
-  
+
   AddGameUI(this.tempLeague, this.tempTeamList, this.maxWeek);
 
   AddGameUI.prefilled(
@@ -22,7 +22,8 @@ class AddGameUI extends StatefulWidget {
 }
 
 class _AddGameUIState extends State<AddGameUI> {
-  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
   String league;
   var weekNumber = '1';
   String localTeam;
@@ -70,7 +71,6 @@ class _AddGameUIState extends State<AddGameUI> {
   DateTime selectedDate = DateTime.now();
   String gameDate;
 
-
   Widget displayDate() {
     return Text("Date: " + "${selectedDate.toLocal()}".split(' ')[0]);
   }
@@ -84,19 +84,18 @@ class _AddGameUIState extends State<AddGameUI> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        date = selectedDate.month.toString().padLeft(2,'0') +
-                        "-" +
-                        selectedDate.day.toString().padLeft(2,'0')+
-                        "-" +
-                        selectedDate.year.toString().padLeft(2,'0');
-                        
+        date = selectedDate.month.toString().padLeft(2, '0') +
+            "-" +
+            selectedDate.day.toString().padLeft(2, '0') +
+            "-" +
+            selectedDate.year.toString().padLeft(2, '0');
       });
   }
 
 //if ID is null, new game is going to be added
 //if ID is not null, game is going to be edited
   _AddGameUIState(this.league, this.teamList, this.id, this.maxWeek) {
-    maxWeek+=2;    
+    maxWeek += 2;
     if (id != null) {
       fillInfo();
     } else {
@@ -106,7 +105,7 @@ class _AddGameUIState extends State<AddGameUI> {
 
   Function eq = const ListEquality().equals;
 
-  //function used to Convert Map to Json 
+  //function used to Convert Map to Json
   Map<String, dynamic> toJson(list) {
     return {
       "Scorers": list,
@@ -120,7 +119,7 @@ class _AddGameUIState extends State<AddGameUI> {
     date = dbGetMatchInfo[4];
     String dateNoFormat = date;
     var dateArr = dateNoFormat.split('-');
-    String formattedDate = dateArr[2]+dateArr[0]+dateArr[1];
+    String formattedDate = dateArr[2] + dateArr[0] + dateArr[1];
     selectedDate = DateTime.parse(formattedDate);
     time = dbGetMatchInfo[12];
     venue = dbGetMatchInfo[5];
@@ -316,8 +315,8 @@ class _AddGameUIState extends State<AddGameUI> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
-          key: scaffoldMessengerKey,
-          child: Scaffold(
+      key: scaffoldMessengerKey,
+      child: Scaffold(
           appBar: AppBar(
             backgroundColor: PRIMARYCOLOR,
             title: Text(ADDGAME),
@@ -352,15 +351,14 @@ class _AddGameUIState extends State<AddGameUI> {
               ),
               //Date
               Card(
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(4.0)),
-              child: ListTile(
-                  title: displayDate(),
-                  onTap: () {
-                    selectDate(context);
-                    
-                  })),
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(4.0)),
+                  child: ListTile(
+                      title: displayDate(),
+                      onTap: () {
+                        selectDate(context);
+                      })),
               /*Container(
                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                 width: MediaQuery.of(context).size.width * (1),
@@ -568,7 +566,9 @@ class _AddGameUIState extends State<AddGameUI> {
                     children: visitorYellowCards > 0
                         ? getDropdown(visitorYellowCards, visitorYellowsList,
                             visitorPlayersList, VISITORYELLOWSTXT, false)
-                        : [showEmptyValue(visitorYellowsList, NOVISITORYELLOWS)]),
+                        : [
+                            showEmptyValue(visitorYellowsList, NOVISITORYELLOWS)
+                          ]),
               ),
               //Local red cards
               Container(
@@ -677,90 +677,144 @@ class _AddGameUIState extends State<AddGameUI> {
                 },
               )),
               Center(
-                child: ElevatedButton(
-                    child: Text(SUBMIT),
-                    onPressed: () async {
-                      var gamePlayed;
-                      //maxWeek = maxWeek + 1;
-                      if (isGamePlayed) {
-                        gamePlayed = '1';
-                      } else {
-                        gamePlayed = '0';
-                      }
-                      if (int.parse(weekNumber) > maxWeek ||
-                          int.parse(weekNumber) == 0) {
-                        final snackBar = SnackBar(
-                            content: Text(SELECTVALIDWEEK + maxWeek.toString()));
-                        scaffoldMessengerKey.currentState.showSnackBar(snackBar);
-                      } else {
-                        if (localContainsValue && visitorContainsValue) {
-                          getLocalAppsList();
-                          getVisitorAppsList();
-                          var tempConnectDB = new ConnectDB();
-                          if (isUpdating == false) {
-                            await tempConnectDB.sendMatch(
-                              localTeam,
-                              visitorTeam,
-                              weekNumber,
-                              date,
-                              venue,
-                              jsonEncode(localScorersList),
-                              jsonEncode(visitorScorersList),
-                              jsonEncode(localYellowsList),
-                              jsonEncode(visitorYellowsList),
-                              jsonEncode(localRedsList),
-                              jsonEncode(visitorRedsList),
-                              time,
-                              league,
-                              jsonEncode(localAppsList),
-                              jsonEncode(visitorAppsList),
-                              gamePlayed,
-                            );
-                          } else {
-                            await tempConnectDB.updateMatch(
-                              localTeam,
-                              visitorTeam,
-                              weekNumber,
-                              date,
-                              venue,
-                              jsonEncode(localScorersList),
-                              jsonEncode(visitorScorersList),
-                              jsonEncode(localYellowsList),
-                              jsonEncode(visitorYellowsList),
-                              jsonEncode(localRedsList),
-                              jsonEncode(visitorRedsList),
-                              time,
-                              league,
-                              jsonEncode(localAppsList),
-                              jsonEncode(visitorAppsList),
-                              id,
-                              gamePlayed,
-                            );
-                          }
-                          Navigator.of(context).pop();
-                          showDialog<void>(
-                            context: context,
-                            barrierDismissible: false, // user must tap button!
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text(MATCHADDED),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text(OK),
-                                    onPressed: () {
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Center(
+                            child: ElevatedButton(
+                                child: Text(SUBMIT),
+                                onPressed: () async {
+                                  var gamePlayed;
+                                  //maxWeek = maxWeek + 1;
+                                  if (isGamePlayed) {
+                                    gamePlayed = '1';
+                                  } else {
+                                    gamePlayed = '0';
+                                  }
+                                  if (int.parse(weekNumber) > maxWeek ||
+                                      int.parse(weekNumber) == 0) {
+                                    final snackBar = SnackBar(
+                                        content: Text(SELECTVALIDWEEK +
+                                            maxWeek.toString()));
+                                    scaffoldMessengerKey.currentState
+                                        .showSnackBar(snackBar);
+                                  } else {
+                                    if (localContainsValue &&
+                                        visitorContainsValue) {
+                                      getLocalAppsList();
+                                      getVisitorAppsList();
+                                      var tempConnectDB = new ConnectDB();
+                                      if (isUpdating == false) {
+                                        await tempConnectDB.sendMatch(
+                                          localTeam,
+                                          visitorTeam,
+                                          weekNumber,
+                                          date,
+                                          venue,
+                                          jsonEncode(localScorersList),
+                                          jsonEncode(visitorScorersList),
+                                          jsonEncode(localYellowsList),
+                                          jsonEncode(visitorYellowsList),
+                                          jsonEncode(localRedsList),
+                                          jsonEncode(visitorRedsList),
+                                          time,
+                                          league,
+                                          jsonEncode(localAppsList),
+                                          jsonEncode(visitorAppsList),
+                                          gamePlayed,
+                                        );
+                                      } else {
+                                        await tempConnectDB.updateMatch(
+                                          localTeam,
+                                          visitorTeam,
+                                          weekNumber,
+                                          date,
+                                          venue,
+                                          jsonEncode(localScorersList),
+                                          jsonEncode(visitorScorersList),
+                                          jsonEncode(localYellowsList),
+                                          jsonEncode(visitorYellowsList),
+                                          jsonEncode(localRedsList),
+                                          jsonEncode(visitorRedsList),
+                                          time,
+                                          league,
+                                          jsonEncode(localAppsList),
+                                          jsonEncode(visitorAppsList),
+                                          id,
+                                          gamePlayed,
+                                        );
+                                      }
                                       Navigator.of(context).pop();
+                                      showDialog<void>(
+                                        context: context,
+                                        barrierDismissible:
+                                            false, // user must tap button!
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text(MATCHADDED),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: Text(OK),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      final snackBar =
+                                          SnackBar(content: Text(SELECTTEAMS));
+                                      scaffoldMessengerKey.currentState
+                                          .showSnackBar(snackBar);
+                                    }
+                                  }
+                                }))),
+                    Expanded(
+                        child: Center(
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                                      return RED;
                                     },
                                   ),
-                                ],
-                              );
-                            },
-                          );
-                        } else {
-                          final snackBar = SnackBar(content: Text(SELECTTEAMS));
-                          scaffoldMessengerKey.currentState.showSnackBar(snackBar);
-                        }
-                      }
-                    }),
+                                ),
+                                onPressed: () async {
+                                  if (int.parse(weekNumber) < maxWeek - 1) {
+                                    final snackBar = SnackBar(
+                                        content: Text(SELECTVALIDWEEKTODELETE));
+                                    scaffoldMessengerKey.currentState
+                                        .showSnackBar(snackBar);
+                                  } else {
+                                    var tempConnectDB = new ConnectDB();
+                                    await tempConnectDB.deleteMatch(id);
+                                    Navigator.of(context).pop();
+                                    showDialog<void>(
+                                      context: context,
+                                      barrierDismissible:
+                                          false, // user must tap button!
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(MATCHDELETED),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text(OK),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
+                                child: Text(DELETE))))
+                  ],
+                ),
               )
             ],
           ))),

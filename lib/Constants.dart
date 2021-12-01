@@ -143,7 +143,10 @@ const String VENUE = "Venue";
 const String SELECTTEAMS = "Please select a local y visitor team";
 const String SELECTVALIDWEEK =
     "Please select a week not equal to zero, and less than or equal to ";
+const String SELECTVALIDWEEKTODELETE =
+    "You can only delete the last week games.";
 const String MATCHADDED = "Game Succesfully added";
+const String MATCHDELETED = "Game Succesfully deleted";
 const String WEEKNUMBER = "Week Number";
 const String WEEK = "Week";
 const String VS = "vs";
@@ -212,6 +215,7 @@ const String GETWEEKGAMES = "http://hugoocon.com/CrackStats/get_week_games.php";
 const String GETMATCHINFO = "http://hugoocon.com/CrackStats/get_match_info.php";
 const String UPDATEMATCHURL =
     "http://hugoocon.com/CrackStats/update_new_match.php";
+const String DELETEMATCHURL = "http://hugoocon.com/CrackStats/delete_match.php";
 const String GETALLLEAGUEGAMES =
     "http://hugoocon.com/CrackStats/get_all_league_games.php";
 const String RETRIEVETEAMSTATSURL =
@@ -220,8 +224,8 @@ const String RETRIEVELEAGUESCORERS =
     "http://hugoocon.com/CrackStats/retrieve_league_scorers.php";
 const String RETRIEVEPLAYERDISCIPLINE =
     "http://hugoocon.com/CrackStats/retrieve_player_discipline_stats.php";
-const String RECOVERPASSWORDURL = 
-   "https://maker.ifttt.com/trigger/recover_password/with/key/jMPo6HhNitNPaip-Fw0nQHZW7DX_-yZPoeHbevAyELG";
+const String RECOVERPASSWORDURL =
+    "https://maker.ifttt.com/trigger/recover_password/with/key/jMPo6HhNitNPaip-Fw0nQHZW7DX_-yZPoeHbevAyELG";
 
 //COLORS
 const PRIMARYCOLOR = Color(0xFF008000);
